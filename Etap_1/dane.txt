@@ -1,0 +1,48 @@
+Wybrany temat: Narzędzia odwzorowania obiektowo - relacyjnego: Hibernate
+
+Skład zespołu:
+-Kamil Pazera (xvjdpl@wp.pl)
+-Piotr Nowacki (p.nowacki13@gmail.com)
+
+Podział prac:
+-Kamil Pazera:
+	* Baza danych
+	* Część akcji
+	* Repozytoria encji
+-Piotr Nowacki:
+	* Interfejs uzytkownika
+	* Część akcji
+
+Tematy prac inżynierskich:
+-Kamil Pazera: "Algorytm proceduralnego generowania postaci ludzkich dla silnika Unity."
+-Piotr Nowacki: "System do monitorowania i krekcji stanu uprawy doniczkowej w oparciu o ESP 8266."
+
+Część praktyczna:
+Aplikacja webowa wykożystująca Hibernate do operacji na bazie danych
+
+Spis technologii:
+-Java EE: Napisanie logiki aplikacji
+-Tomcat: Serwer aplikacji
+-JSP: Interfejs użytkownika
+-Hibernate: Odwzorowanie obiektowo - relacyjne, komunikacja z bazą danych
+-Maven: Zapewnienie odpowiednich bibliotek
+-MySQL: Baza danych
+
+Lista funkcjonalności aplikacji:
+-CRUD dla encji w bazie danych
+-Kontrola dostępu do funkcjonalności aplikacji
+
+Część teorytyczna projektu:
+-Mechanizm działania odwzorowania obiektowo - relacyjnego
+-Metody sterowania
+-Sposoby (mapowanie) dziedziczenia:
+	*Table per class hierarchy
+	*Table per concrete class
+	*Table per subclass
+-Asocjacje:
+	*Jednokierunkowe
+	*Dwukierunkowe
+	*One to one
+	*One to many
+	*Many to one
+	*Many to many	
