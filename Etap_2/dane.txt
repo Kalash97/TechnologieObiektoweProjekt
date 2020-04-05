@@ -1,0 +1,15 @@
+W tym etapie opracowaliśmy część teorytyczną projektu. Opisaliśmy co to jest ORM, wymieniliśmy niektóre narzędzia
+odwzorowania obiektowo - relacyjnego, metody sterowania w Hibernate, sposoby na odwzorowanie dziedziczenia oraz
+poszczególne asocjacje.
+
+W nastepnym etapie zaczniemy realizowac część praktyczną.
+
+Statystyki:
+
+Część teorytyczna:
+Liczba plików sprawozdania: 1 plik odt.
+Rozmiar pliku: 175 KB
+Liczba stron sprawozdania: 31
+Liczba słów: 2078
+Liczba znaków: 19557
+Liczba zdjęć: 18
