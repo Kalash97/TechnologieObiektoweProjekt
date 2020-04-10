@@ -9,7 +9,7 @@ import javax.persistence.OneToMany;
 import lombok.Getter;
 
 @Entity
-public class Battalion extends Unit{
+public class Battalion extends Unit implements Persistable{
 
 	@Getter
 	@OneToMany(mappedBy = "battalion")

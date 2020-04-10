@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-public class Company extends Unit{
+public class Company extends Unit implements Persistable{
 
 	@Getter
 	@Setter

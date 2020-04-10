@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-public class Weapon {
+public class Weapon implements Persistable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

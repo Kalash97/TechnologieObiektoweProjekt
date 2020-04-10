@@ -18,7 +18,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-public class Soldier {
+public class Soldier implements Persistable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

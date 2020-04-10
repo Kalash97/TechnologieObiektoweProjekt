@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-public class Platoon extends Unit{
+public class Platoon extends Unit implements Persistable{
 
 	@Getter
 	@Setter

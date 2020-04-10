@@ -13,7 +13,7 @@ import lombok.Setter;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Unit {
+public abstract class Unit implements Persistable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
