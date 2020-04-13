@@ -14,7 +14,11 @@ public class BattalionRepo {
 		return (Battalion) hpm.create(battalion);
 	}
 	
-	public void deleteBattalion(long id) {
-		hpm.delete(id, Battalion.class);
+	public void deleteBattalion(Battalion battalion) {
+		hpm.delete(battalion);
+	}
+	
+	public Battalion findById(long id) {
+		return (Battalion) hpm.findById(id, Battalion.class);
 	}
 }

@@ -14,7 +14,11 @@ public class SoldierRepo {
 		return (Soldier) hpm.create(soldier);
 	}
 	
-	public void deleteSoldier(long id) {
-		hpm.delete(id, Soldier.class);
+	public void deleteSoldier(Soldier soldier) {
+		hpm.delete(soldier);
+	}
+	
+	public Soldier findById(long id) {
+		return (Soldier) hpm.findById(id, Soldier.class);
 	}
 }

@@ -1,36 +1,35 @@
 package com.Actions;
 
-import java.util.Scanner;
-
+import com.Entities.Soldier;
 import com.Repos.SoldierRepo;
+import com.View.View;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class DeleteSoldierAction implements Action{
 
+	private View view;
 	private SoldierRepo repo;
 	
 	@Override
 	public void launch() {
-		Scanner scanner = new Scanner(System.in);
 		
-		System.out.println("Podaj id ¿o³nierza do usuniêcia.(s³owo <<cancel>> zawraca)");
+		view.print("Podaj id ¿o³nierza do usuniêcia.(s³owo <<cancel>> zawraca)");
 		
-		String line = scanner.nextLine();
-		if(line.compareTo("cancel")==0) {
-			scanner.close();
-			System.exit(1);
+		String line = view.read();
+		if(line.equals("cancel")) {
+			return;
 		}
 		
-		scanner.close();
-		long id = Long.parseLong(line);
-		repo.deleteSoldier(id);
+		Soldier s = repo.findById(Long.parseLong(line));
+		
+		repo.deleteSoldier(s);
 	}
 
 	@Override
 	public String getName() {
-		return "DeleteSoldierAction";
+		return "DeleteSoldier";
 	}
 
 }

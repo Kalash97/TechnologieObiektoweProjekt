@@ -14,7 +14,11 @@ public class WeaponRepo {
 		return (Weapon) hpm.create(weapon);
 	}
 	
-	public void deleteWeapon(long id) {
-		hpm.delete(id, Weapon.class);
+	public void deleteWeapon(Weapon weapon) {
+		hpm.delete(weapon);
+	}
+	
+	public Weapon findById(long id) {
+		return (Weapon) hpm.findById(id, Weapon.class);
 	}
 }

@@ -15,18 +15,30 @@ public class HibernatePersistanceManager {
 		return persistable;
 	}
 	
-	public void delete(long id, Class<?> type) {
+	public void delete(Persistable persistable) {
 		EntityManager em = HibernateConnection.getManager();
 		em.getTransaction().begin();
-		Persistable persistable = (Persistable) em.find(type, id);
-		em.remove(persistable);
+		em.remove(em.contains(persistable)?persistable:em.merge(persistable));
 		em.getTransaction().commit();
 		em.close();
 	}
 	
-//	public Persistable findById(long id) {
+	//TMP
+//	public void delete(long id, Class<?> type) {
 //		EntityManager em = HibernateConnection.getManager();
 //		em.getTransaction().begin();
-//		em.fi
+//		Persistable persistable = (Persistable) em.find(type, id);
+//		em.remove(persistable);
+//		em.getTransaction().commit();
+//		em.close();
 //	}
+	
+	public Persistable findById(long id, Class<?> type) {
+		EntityManager em = HibernateConnection.getManager();
+		em.getTransaction().begin();
+		Persistable persistable = (Persistable) em.find(type, id);
+		em.getTransaction().commit();
+		em.close();
+		return persistable;
+	}
 }

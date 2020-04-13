@@ -1,33 +1,34 @@
 package com.Actions;
 
-import java.util.Scanner;
-
+import com.Entities.Platoon;
 import com.Repos.PlatoonRepo;
+import com.View.View;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class DeletePlatoonAction implements Action{
 
+	private View view;
 	private PlatoonRepo repo;
 	
 	@Override
 	public void launch() {
-		Scanner scanner = new Scanner(System.in);
 		System.out.println("Podaj id plutonu do usuniêcia.(s³owo <<cancel>> zawraca)");
-		String line = scanner.nextLine();		
-		if (line.compareTo("cancel") == 0) {
-			scanner.close();
-			System.exit(1);
+		
+		String line = view.read();
+		if (line.equals("cancel")) {
+			return;
 		}
-		scanner.close();
-		long id = Long.parseLong(line);
-		repo.deletePlatoon(id);
+		
+		Platoon p =repo.findById(Long.parseLong(line));
+		
+		repo.deletePlatoon(p);
 	}
 
 	@Override
 	public String getName() {
-		return "DeletePlatoonAction";
+		return "DeletePlatoon";
 	}
 
 }

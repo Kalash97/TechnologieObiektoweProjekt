@@ -1,42 +1,36 @@
 package com.Actions;
 
-import java.util.Scanner;
-
 import com.Entities.Team;
 import com.Repos.TeamRepo;
+import com.Utils.ValidUtil;
+import com.View.View;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class CreateTeamAction implements Action {
 
+	private View view;
 	private TeamRepo repo;
 
 	@Override
 	public void launch() {
 		Team t = new Team();
-		Scanner scanner = new Scanner(System.in);
-		boolean isDone = false;
-		while (isDone == false) {
-			System.out.println("Podaj numer");
-			String line = scanner.nextLine();
-			
-			try {
-				long number = Long.parseLong(line);
-				t.setNumber(number);
-				isDone=true;
-			} catch (NumberFormatException e) {
-				System.out.println("Musisz podaæ liczbê");
-			}
-		}
+				
+		String teamNumber;
+		do{
+			view.print("Podaj numer dru¿yny");
+			teamNumber=view.read();
+		}while(!ValidUtil.isValid(teamNumber));
 
-		scanner.close();
+		t.setNumber(Long.parseLong(teamNumber));
+		
 		repo.createTeam(t);
 	}
 
 	@Override
 	public String getName() {
-		return "CreateTeamAction";
+		return "CreateTeam";
 	}
 
 }

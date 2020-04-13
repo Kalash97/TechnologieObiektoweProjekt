@@ -13,7 +13,11 @@ public class PlatoonRepo {
 		return (Platoon) hpm.create(platoon);
 	}
 	
-	public void deletePlatoon(long id) {
-		hpm.delete(id, Platoon.class);
+	public void deletePlatoon(Platoon platoon) {
+		hpm.delete(platoon);
+	}
+	
+	public Platoon findById(long id) {
+		return (Platoon) hpm.findById(id, Platoon.class);
 	}
 }

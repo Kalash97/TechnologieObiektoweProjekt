@@ -1,47 +1,40 @@
 package com.Actions;
 
-import java.util.Scanner;
-
 import com.Entities.Weapon;
 import com.Enums.WeaponType;
 import com.Repos.WeaponRepo;
+import com.Utils.ValidUtil;
+import com.View.View;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class CreateWeaponAction implements Action {
 
+	private View view;
 	private WeaponRepo repo;
 
 	@Override
 	public void launch() {
 		Weapon w = new Weapon();
-		Scanner scanner = new Scanner(System.in);
 
-		System.out.println("Podaj nazwê");
-		w.setName(scanner.nextLine());
+		view.print("Podaj nazwê");
+		w.setName(view.read());
 
-		System.out.println("Podaj nr. seryjny");
-		w.setSerialNumber(scanner.nextLine());
+		view.print("Podaj nr. seryjny");
+		w.setSerialNumber(view.read());
 
-		boolean isDone = false;
-		while (isDone == false) {
-			System.out.println("Podaj typ spoœród dostêpnych");
-			for(WeaponType wpn : WeaponType.values()) {
-				System.out.println(wpn);
-			}
-			String weaponStr = scanner.nextLine();
-			
-			try {
-				WeaponType type = WeaponType.valueOf(weaponStr.toUpperCase());
-				w.setWeaponType(type);
-				isDone=true;
-			}catch (IllegalArgumentException e) {
-				System.out.println("Nie ma takiego typu");			
-			}
-		}
+		view.print("Dostêpne typy broni");
+		view.print(WeaponType.values());
 		
-		scanner.close();
+		String weaponTypeStr;
+		do {
+			view.print("Podaj typ broni");
+			weaponTypeStr=view.read();
+			
+		}while(!ValidUtil.isValid(weaponTypeStr, WeaponType.values()));
+		
+		w.setWeaponType(WeaponType.valueOf(weaponTypeStr.toUpperCase()));
 		
 		repo.createWeapon(w);
 	}

@@ -14,7 +14,11 @@ public class CompanyRepo {
 		return (Company) hpm.create(company);
 	}
 	
-	public void deleteCompany(long id) {
-		hpm.delete(id, Company.class);
+	public void deleteCompany(Company company) {
+		hpm.delete(company);
+	}
+	
+	public Company findById(long id) {
+		return (Company) hpm.findById(id, Company.class);
 	}
 }

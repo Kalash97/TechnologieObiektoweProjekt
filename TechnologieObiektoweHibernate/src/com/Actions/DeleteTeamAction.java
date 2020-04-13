@@ -1,33 +1,35 @@
 package com.Actions;
 
-import java.util.Scanner;
-
+import com.Entities.Team;
 import com.Repos.TeamRepo;
+import com.View.View;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class DeleteTeamAction implements Action{
 
+	private View view;
 	private TeamRepo repo;
 	
 	@Override
 	public void launch() {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Podaj id dru¿yny do usuniêcia.(s³owo <<cancel>> zawraca)");
-		String line = scanner.nextLine();
-		if (line.compareTo("cancel") == 0) {
-			scanner.close();
-			System.exit(1);
+		
+		view.print("Podaj id dru¿yny do usuniêcia.(s³owo <<cancel>> zawraca)");
+		
+		String line = view.read();
+		if (line.equals("cancel")) {
+			return;
 		}
-		scanner.close();
-		long id = Long.parseLong(line);
-		repo.deleteTeam(id);
+		
+		Team t = repo.findById(Long.parseLong(line));
+		
+		repo.deleteTeam(t);
 	}
 
 	@Override
 	public String getName() {
-		return "DeleteTeamAction";
+		return "DeleteTeam";
 	}
 
 }

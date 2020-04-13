@@ -1,33 +1,36 @@
 package com.Actions;
 
-import java.util.Scanner;
-
+import com.Entities.Battalion;
 import com.Repos.BattalionRepo;
+import com.View.View;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class DeleteBattalionAction implements Action{
 	
+	private View view;
 	private BattalionRepo repo;
 	
 	@Override
 	public void launch() {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Podaj id batalionu do usuniêcia.(s³owo <<cancel>> zawraca)");
-		String line = scanner.nextLine();
-		if (line.compareTo("cancel") == 0) {
-			scanner.close();
-			System.exit(1);
+		
+		view.print("Podaj id batalionu do usuniêcia.(s³owo <<cancel>> zawraca)");
+		
+		
+		String line = view.read();
+		if (line.equals("cancel")) {
+			return;
 		}
-		scanner.close();
-		long id = Long.parseLong(line);
-		repo.deleteBattalion(id);
+		
+		Battalion b =repo.findById(Long.parseLong(line));
+		
+		repo.deleteBattalion(b);
 	}
 
 	@Override
 	public String getName() {
-		return "DeleteBattalionAction";
+		return "DeleteBattalion";
 	}
 
 }

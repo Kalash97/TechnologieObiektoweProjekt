@@ -1,72 +1,61 @@
 package com.Actions;
 
-import java.util.Scanner;
-
 import com.Entities.Soldier;
 import com.Enums.BloodType;
 import com.Enums.Rank;
 import com.Repos.SoldierRepo;
+import com.Utils.ValidUtil;
+import com.View.View;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class CreateSoldierAction implements Action{
 
+	private View view;
 	private SoldierRepo repo;
 	
 	@Override
 	public void launch() {
 		Soldier s = new Soldier();
-		Scanner scanner = new Scanner(System.in);
 		
-		System.out.println("Podaj imiê");
-		s.setName(scanner.nextLine());
+		view.print("Podaj imiê");
+		s.setName(view.read());
 		
-		System.out.println("Podaj nazwisko");
-		s.setLastName(scanner.nextLine());
+		view.print("Podaj nazwisko");
+		s.setLastName(view.read());		
 		
-		boolean isDone = false;
-		while(isDone==false) {
-		System.out.println("Podaj grupê krwi spoœród dostêpnych");
-		for(BloodType b : BloodType.values()) {
-			System.out.println(b);
-		}
+		view.print("Dostêpne grupy krwi");
+		view.print(BloodType.values());
 		
-		String bloodTypeStr = scanner.nextLine();
-		
-			try {
-				BloodType bloodType = BloodType.valueOf(bloodTypeStr.toUpperCase());
-				s.setBloodType(bloodType);
-				isDone=true;
-			}catch (IllegalArgumentException e) {
-				System.out.println("Nie ma takiej grupy krwi");
-			}
-		}
-		
-		isDone=false;
-		while(isDone==false) {
-			System.out.println("Podaj stopieñ spoœród dostêpnych");
-			for(Rank r : Rank.values()) {
-				System.out.println(r);
-			}
-			String rankStr = scanner.nextLine();
+		String bloodTypeStr;
+		do {
+			view.print("Podaj grupê krwi");
+			bloodTypeStr = view.read();
 			
-			try {
-				Rank rank = Rank.valueOf(rankStr.toUpperCase());
-				s.setRank(rank);
-				isDone=true;
-			}catch(IllegalArgumentException e) {
-				System.out.println("Nie ma takiego stopnia");
-			}
-		}
-		scanner.close();
+		}while(!ValidUtil.isValid(bloodTypeStr, BloodType.values()));
 		
+		s.setBloodType(BloodType.valueOf(bloodTypeStr.toUpperCase()));
+			
+			
+		view.print("Dostêpne stopnie");
+		view.print(Rank.values());
+		
+		String rankStr;
+		do {
+			view.print("Podaj stopieñ");
+			rankStr=view.read();
+			
+		}while(!ValidUtil.isValid(rankStr, Rank.values()));
+			
+		s.setRank(Rank.valueOf(rankStr.toUpperCase()));
+	
 		repo.createSoldier(s);
 	}
 
 	@Override
 	public String getName() {
-		return "CreateSoldierAction";
+		return "CreateSoldier";
 	}
 
 }

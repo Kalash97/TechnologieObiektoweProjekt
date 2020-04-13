@@ -14,7 +14,11 @@ public class TeamRepo {
 		return (Team) hpm.create(team);
 	}
 	
-	public void deleteTeam(long id) {
-		hpm.delete(id, Team.class);
+	public void deleteTeam(Team team) {
+		hpm.delete(team);
+	}
+	
+	public Team findById(long id) {
+		return (Team) hpm.findById(id, Team.class);
 	}
 }
