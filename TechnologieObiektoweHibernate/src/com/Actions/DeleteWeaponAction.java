@@ -2,6 +2,7 @@ package com.Actions;
 
 import com.Entities.Weapon;
 import com.Repos.WeaponRepo;
+import com.Utils.ValidUtil;
 import com.View.View;
 
 import lombok.AllArgsConstructor;
@@ -15,15 +16,20 @@ public class DeleteWeaponAction implements Action {
 	@Override
 	public void launch() {
 
-		view.print("Podaj id broni do usuniêcia.(s³owo <<cancel>> zawraca)");
+		String line;
+		Weapon w;
 
-		String line = view.read();
-		if (line.equals("cancel")) {
-			return;
-		}
+		do {
+			do {
+				view.print("Podaj id broni do usuniêcia.(s³owo <<cancel>> zawraca)");
+				line = view.read();
+				if (line.equals("cancel")) {
+					return;
+				}
+			} while (!ValidUtil.isValid(line));
+			w = repo.findById(Long.parseLong(line));
+		} while (!ValidUtil.isValid(w));
 
-		Weapon w = repo.findById(Long.parseLong(line));
-		
 		repo.deleteWeapon(w);
 	}
 

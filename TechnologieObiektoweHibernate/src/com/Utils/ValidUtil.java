@@ -1,5 +1,6 @@
 package com.Utils;
 
+import com.Entities.Persistable;
 import com.Enums.BloodType;
 import com.Enums.Rank;
 import com.Enums.WeaponType;
@@ -49,6 +50,14 @@ public class ValidUtil {
 		}
 		
 		return true;
+	}
+	
+	public static boolean isValid(Persistable persistable) {
+		if(persistable==null) {
+			return false;
+		}else {
+			return true;
+		}
 	}
 	
 }

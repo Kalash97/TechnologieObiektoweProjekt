@@ -41,7 +41,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		init();
-
+		
 		while (true) {
 			consoleView.print("Lista dostêpnych akcji:");
 			showActions();
