@@ -17,6 +17,12 @@ import com.Actions.DeleteSoldierAction;
 import com.Actions.DeleteTeamAction;
 import com.Actions.DeleteWeaponAction;
 import com.Actions.ExitAction;
+import com.Actions.FindBattalionByIdAction;
+import com.Actions.FindCompanyByIdAction;
+import com.Actions.FindPlatoonByIdAction;
+import com.Actions.FindSoldierByIdAction;
+import com.Actions.FindTeamByIdAction;
+import com.Actions.FindWeaponByIdAction;
 import com.PersistanceManager.HibernatePersistanceManager;
 import com.Repos.BattalionRepo;
 import com.Repos.CompanyRepo;
@@ -80,21 +86,27 @@ public class Main {
 
 		actionsList.add(new CreateWeaponAction(consoleView, weaponRepo));
 		actionsList.add(new DeleteWeaponAction(consoleView, weaponRepo));
+		actionsList.add(new FindWeaponByIdAction(consoleView, weaponRepo));
 
 		actionsList.add(new CreateSoldierAction(consoleView, soldierRepo));
 		actionsList.add(new DeleteSoldierAction(consoleView, soldierRepo));
-
+		actionsList.add(new FindSoldierByIdAction(consoleView, soldierRepo));
+		
 		actionsList.add(new CreateTeamAction(consoleView, teamRepo));
 		actionsList.add(new DeleteTeamAction(consoleView, teamRepo));
+		actionsList.add(new FindTeamByIdAction(consoleView, teamRepo));
 
 		actionsList.add(new CreatePlatoonAction(consoleView, platoonRepo));
 		actionsList.add(new DeletePlatoonAction(consoleView, platoonRepo));
+		actionsList.add(new FindPlatoonByIdAction(consoleView, platoonRepo));
 
 		actionsList.add(new CreateCompanyAction(consoleView, companyRepo));
 		actionsList.add(new DeleteCompanyAction(consoleView, companyRepo));
+		actionsList.add(new FindCompanyByIdAction(consoleView, companyRepo));
 
 		actionsList.add(new CreateBattalionAction(consoleView, battalionRepo));
 		actionsList.add(new DeleteBattalionAction(consoleView, battalionRepo));
+		actionsList.add(new FindBattalionByIdAction(consoleView, battalionRepo));
 
 		actionsList.add(new ExitAction());
 	}

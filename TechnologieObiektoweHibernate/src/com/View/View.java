@@ -11,4 +11,5 @@ public interface View {
 	public void print(List<Object> list);
 	
 	public void print(Object[] array);
+	
 }
