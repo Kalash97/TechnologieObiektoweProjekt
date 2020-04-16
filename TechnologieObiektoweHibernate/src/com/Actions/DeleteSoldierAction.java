@@ -40,8 +40,7 @@ public class DeleteSoldierAction implements Action {
 
 		if(s.getWeapons().size()>0) {
 			for(int i=0; i<s.getWeapons().size();i++) {
-				long id = s.getWeapons().get(i).getId();
-				w = weaponRepo.findById(id);
+				w = s.getWeapons().get(i);
 				w.setSoldier(null);
 				weaponRepo.updateWeapon(w);
 			}
@@ -50,7 +49,7 @@ public class DeleteSoldierAction implements Action {
 		}
 		
 		if(s.getTeam()!=null) {
-			t = teamRepo.findById(s.getTeam().getId());
+			t=s.getTeam();
 			if(t.getCommander().getId()==s.getId()) {
 				t.setCommander(null);
 				t.getSoldiers().remove(s);	

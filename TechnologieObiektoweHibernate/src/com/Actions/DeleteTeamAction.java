@@ -35,15 +35,14 @@ public class DeleteTeamAction implements Action {
 		} while (!ValidUtil.isValid(t));
 		
 		if(t.getCommander()!=null) {
-			s = soldierRepo.findById(t.getCommander().getId());
+			s = t.getCommander();
 			t.setCommander(null);
 			soldierRepo.updateSoldier(s);
 		}
 		
 		if(t.getSoldiers().size()>0) {
 			for(int i=0; i<t.getSoldiers().size();i++) {
-				long id = t.getSoldiers().get(i).getId();
-				s=soldierRepo.findById(id);
+				s=t.getSoldiers().get(i);
 				s.setTeam(null);
 				soldierRepo.updateSoldier(s);
 			}
