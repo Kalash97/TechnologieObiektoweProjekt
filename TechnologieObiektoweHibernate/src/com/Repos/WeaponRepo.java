@@ -21,4 +21,8 @@ public class WeaponRepo {
 	public Weapon findById(long id) {
 		return (Weapon) hpm.findById(id, Weapon.class);
 	}
+	
+	public void updateWeapon(Weapon weapon) {
+		hpm.update(weapon);
+	}
 }

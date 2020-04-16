@@ -21,4 +21,8 @@ public class TeamRepo {
 	public Team findById(long id) {
 		return (Team) hpm.findById(id, Team.class);
 	}
+	
+	public void updateTeam(Team team) {
+		hpm.update(team);
+	}
 }

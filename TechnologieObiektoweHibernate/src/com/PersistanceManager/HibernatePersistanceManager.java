@@ -41,4 +41,12 @@ public class HibernatePersistanceManager {
 		em.close();
 		return persistable;
 	}
+	
+	public void update(Persistable persistable) {
+		EntityManager em = HibernateConnection.getManager();
+		em.getTransaction().begin();
+		em.merge(persistable);
+		em.getTransaction().commit();
+		em.close();
+	}
 }

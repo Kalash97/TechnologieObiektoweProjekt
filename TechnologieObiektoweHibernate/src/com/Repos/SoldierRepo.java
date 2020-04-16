@@ -21,4 +21,8 @@ public class SoldierRepo {
 	public Soldier findById(long id) {
 		return (Soldier) hpm.findById(id, Soldier.class);
 	}
+	
+	public void updateSoldier(Soldier soldier) {
+		hpm.update(soldier);
+	}
 }
