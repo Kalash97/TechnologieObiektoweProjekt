@@ -1,0 +1,16 @@
+W tym etapie stworzyliśmy projekt, połączyliśmy go z bazą danych MySQL, zaprojektowaliśmy i zaimplementowaliśmy 
+bazę danych (tematyka: jednostka wojskiwa do poziomu batalionu), stworzyliśmy część akcji odpowiadających 
+za operacje na bazie danych. Napotkane do tej pory problemy udało się rozwiązać.
+
+W następnym etapie będziemy kontynuować implementację aplikacji.
+
+Statystyki:
+
+Część teorytyczna:
+Bez zmian.
+
+Część praktyczna:
+Liczba plików: 47
+Liczba pakietów: 8
+Liczba linijek kodu: 1815
+  
