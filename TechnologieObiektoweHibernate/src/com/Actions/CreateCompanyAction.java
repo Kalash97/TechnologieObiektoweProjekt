@@ -16,16 +16,21 @@ public class CreateCompanyAction implements Action{
 	@Override
 	public void launch() {
 		Company c = new Company();
-		
-		String companyNumber;
-		do {
-			view.print("Podaj numer kompanii");
-			companyNumber=view.read();
-		}while(!ValidUtil.isValid(companyNumber));
+				
+		String companyNumber = getCompanyNumber();
 		
 		c.setNumber(Long.parseLong(companyNumber));
 		
 		repo.createCompany(c);
+	}
+
+	private String getCompanyNumber() {
+		String companyNumber;
+		do {
+			view.print("Podaj numer kompanii");
+			companyNumber=view.read();
+		}while(!ValidUtil.isLongInstance(companyNumber));
+		return companyNumber;
 	}
 
 	@Override

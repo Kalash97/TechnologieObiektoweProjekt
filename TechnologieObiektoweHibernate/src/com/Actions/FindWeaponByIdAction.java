@@ -1,6 +1,7 @@
 package com.Actions;
 
 import com.Entities.Weapon;
+import com.Exceptions.OperationCancelException;
 import com.Repos.WeaponRepo;
 import com.Utils.ValidUtil;
 import com.View.View;
@@ -16,18 +17,8 @@ public class FindWeaponByIdAction implements Action {
 	@Override
 	public void launch() {
 
-		String line;
 		Weapon w;
-		do {
-			do {
-				view.print("Podaj id broni do znalezienia.(s³owo <<cancel>> zawraca)");
-				line = view.read();
-				if (line.equals("cancel")) {
-					return;
-				}
-			} while (!ValidUtil.isValid(line));
-			w = repo.findById(Long.parseLong(line));
-		} while (!ValidUtil.isValid(w));
+		w = findValidWeapon();
 		
 		view.print("Znaleziona broñ:");
 		view.print("Nazwa: "+w.getName());
@@ -37,6 +28,26 @@ public class FindWeaponByIdAction implements Action {
 		view.print("");
 	}
 
+	private Weapon findValidWeapon() {
+		String line;
+		Weapon w;
+		do {
+			do {
+				view.print("Podaj id broni do znalezienia.(s³owo <<cancel>> zawraca)");
+				line = view.read();
+				canceling(line);
+			} while (!ValidUtil.isLongInstance(line));
+			w = repo.findById(Long.parseLong(line));
+		} while (!ValidUtil.isValid(w));
+		return w;
+	}
+
+	private void canceling(String line) {
+		if("cancel".equals(line)) {
+			throw new OperationCancelException("canceling findWeapon");
+		}
+	}
+	
 	@Override
 	public String getName() {
 		return "FindWeaponById";

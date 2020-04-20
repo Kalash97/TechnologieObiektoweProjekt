@@ -28,12 +28,7 @@ public class CreateSoldierAction implements Action{
 		view.print("Dostêpne grupy krwi");
 		view.print(BloodType.values());
 		
-		String bloodTypeStr;
-		do {
-			view.print("Podaj grupê krwi");
-			bloodTypeStr = view.read();
-			
-		}while(!ValidUtil.isValid(bloodTypeStr, BloodType.values()));
+		String bloodTypeStr = getBloodType();
 		
 		s.setBloodType(BloodType.valueOf(bloodTypeStr.toUpperCase()));
 			
@@ -41,16 +36,31 @@ public class CreateSoldierAction implements Action{
 		view.print("Dostêpne stopnie");
 		view.print(Rank.values());
 		
+		String rankStr = getRank();
+			
+		s.setRank(Rank.valueOf(rankStr.toUpperCase()));
+	
+		repo.createSoldier(s);
+	}
+
+	private String getRank() {
 		String rankStr;
 		do {
 			view.print("Podaj stopieñ");
 			rankStr=view.read();
 			
 		}while(!ValidUtil.isValid(rankStr, Rank.values()));
+		return rankStr;
+	}
+
+	private String getBloodType() {
+		String bloodTypeStr;
+		do {
+			view.print("Podaj grupê krwi");
+			bloodTypeStr = view.read();
 			
-		s.setRank(Rank.valueOf(rankStr.toUpperCase()));
-	
-		repo.createSoldier(s);
+		}while(!ValidUtil.isValid(bloodTypeStr, BloodType.values()));
+		return bloodTypeStr;
 	}
 
 	@Override

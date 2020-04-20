@@ -26,6 +26,7 @@ import com.Actions.FindPlatoonByIdAction;
 import com.Actions.FindSoldierByIdAction;
 import com.Actions.FindTeamByIdAction;
 import com.Actions.FindWeaponByIdAction;
+import com.Exceptions.OperationCancelException;
 import com.PersistanceManager.HibernatePersistanceManager;
 import com.Repos.BattalionRepo;
 import com.Repos.CompanyRepo;
@@ -50,7 +51,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		init();
-		
+
 		while (true) {
 			consoleView.print("Lista dostêpnych akcji:");
 			showActions();
@@ -62,18 +63,26 @@ public class Main {
 
 	private static void showActions() {
 		for (Action a : actionsList) {
-			consoleView.print(" "+a.getName());
+			consoleView.print(" " + a.getName());
 		}
 	}
 
 	private static void runAction(String name) {
 		for (Action a : actionsList) {
 			if (name.equals(a.getName())) {
-				a.launch();
+				launchActionOrShowError(a);
 				return;
 			}
 		}
 		consoleView.print("Nie ma takiej akcji: " + name);
+	}
+
+	private static void launchActionOrShowError(Action a) {
+		try {
+			a.launch();
+		} catch (OperationCancelException e) {
+			consoleView.print(e.getMessage());
+		}
 	}
 
 	public static void init() {
@@ -94,7 +103,7 @@ public class Main {
 		actionsList.add(new CreateSoldierAction(consoleView, soldierRepo));
 		actionsList.add(new DeleteSoldierAction(consoleView, soldierRepo, weaponRepo, teamRepo));
 		actionsList.add(new FindSoldierByIdAction(consoleView, soldierRepo));
-		
+
 		actionsList.add(new CreateTeamAction(consoleView, teamRepo));
 		actionsList.add(new DeleteTeamAction(consoleView, teamRepo, soldierRepo));
 		actionsList.add(new FindTeamByIdAction(consoleView, teamRepo));
@@ -110,12 +119,12 @@ public class Main {
 		actionsList.add(new CreateBattalionAction(consoleView, battalionRepo));
 		actionsList.add(new DeleteBattalionAction(consoleView, battalionRepo));
 		actionsList.add(new FindBattalionByIdAction(consoleView, battalionRepo));
-		
+
 		actionsList.add(new AssignWeaponToSoldierAction(consoleView, weaponRepo, soldierRepo));
-		
+
 		actionsList.add(new AssignSoldierToTeamAction(consoleView, soldierRepo, teamRepo));
 		actionsList.add(new AssignCommanderToTeamAction(consoleView, teamRepo, soldierRepo));
-		
+
 		actionsList.add(new ExitAction());
 	}
 

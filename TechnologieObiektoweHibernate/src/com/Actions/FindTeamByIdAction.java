@@ -5,6 +5,7 @@ import java.util.List;
 import com.Entities.Platoon;
 import com.Entities.Soldier;
 import com.Entities.Team;
+import com.Exceptions.OperationCancelException;
 import com.Repos.TeamRepo;
 import com.Utils.ValidUtil;
 import com.View.View;
@@ -19,18 +20,8 @@ public class FindTeamByIdAction implements Action {
 
 	@Override
 	public void launch() {
-		String line;
 		Team t;
-		do {
-			do {
-				view.print("Podaj id dru¿yny do znalezienia.(s³owo <<cancel>> zawraca)");
-				line = view.read();
-				if (line.equals("cancel")) {
-					return;
-				}
-			} while (!ValidUtil.isValid(line));
-			t = repo.findById(Long.parseLong(line));
-		} while (!ValidUtil.isValid(t));
+		t = findValidTeam();
 
 		view.print("Znaleziona dru¿yna:");
 		view.print("Numer: " + t.getNumber());
@@ -51,6 +42,26 @@ public class FindTeamByIdAction implements Action {
 		view.print("");
 	}
 
+	private Team findValidTeam() {
+		String line;
+		Team t;
+		do {
+			do {
+				view.print("Podaj id dru¿yny do znalezienia.(s³owo <<cancel>> zawraca)");
+				line = view.read();
+				canceling(line);
+			} while (!ValidUtil.isLongInstance(line));
+			t = repo.findById(Long.parseLong(line));
+		} while (!ValidUtil.isValid(t));
+		return t;
+	}
+
+	private void canceling(String line) {
+		if("cancel".equals(line)) {
+			throw new OperationCancelException("canceling findTeam");
+		}
+	}
+	
 	@Override
 	public String getName() {
 		return "FindTeamById";

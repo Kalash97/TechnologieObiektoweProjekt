@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.Entities.Soldier;
 import com.Entities.Weapon;
+import com.Exceptions.OperationCancelException;
 import com.Repos.SoldierRepo;
 import com.Utils.ValidUtil;
 import com.View.View;
@@ -18,18 +19,9 @@ public class FindSoldierByIdAction implements Action {
 
 	@Override
 	public void launch() {
-		String line;
 		Soldier s;
-		do {
-			do {
-				view.print("Podaj id ¿o³nierza do znalezienia.(s³owo <<cancel>> zawraca)");
-				line = view.read();
-				if (line.equals("cancel")) {
-					return;
-				}
-			} while (!ValidUtil.isValid(line));
-			s = repo.findById(Long.parseLong(line));
-		} while (!ValidUtil.isValid(s));
+		
+		s = findValidSoldier();
 
 		view.print("Znaleziony ¿o³nierz:");
 		view.print("Imiê: " + s.getName());
@@ -45,6 +37,26 @@ public class FindSoldierByIdAction implements Action {
 		}
 		view.print("Dru¿yna: " + s.getTeam());
 		view.print("");
+	}
+
+	private Soldier findValidSoldier() {
+		String line;
+		Soldier s;
+		do {
+			do {
+				view.print("Podaj id ¿o³nierza do znalezienia.");
+				line = view.read();	
+				canceling(line);
+			} while (!ValidUtil.isLongInstance(line));
+			s = repo.findById(Long.parseLong(line));
+		} while (!ValidUtil.isValid(s));
+		return s;
+	}
+
+	private void canceling(String line) {
+		if("cancel".equals(line)) {
+			throw new OperationCancelException("canceling findSoldier");
+		}
 	}
 
 	@Override

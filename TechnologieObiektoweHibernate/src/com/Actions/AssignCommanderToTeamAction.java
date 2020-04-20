@@ -2,6 +2,7 @@ package com.Actions;
 
 import com.Entities.Soldier;
 import com.Entities.Team;
+import com.Exceptions.OperationCancelException;
 import com.Repos.SoldierRepo;
 import com.Repos.TeamRepo;
 import com.Utils.ValidUtil;
@@ -20,34 +21,21 @@ public class AssignCommanderToTeamAction implements Action{
 	public void launch() {	
 		Team t;
 		Soldier s;
-		String line;
 		
-		do {
-			do {
-				view.print("Podaj id dru篡ny do przypisania dow鏚cy.(s這wo <<cancel>> zawraca)");
-				line = view.read();
-				if (line.equals("cancel")) {
-					return;
-				}
-			} while (!ValidUtil.isValid(line));
-			t = teamRepo.findById(Long.parseLong(line));
-		} while (!ValidUtil.isValid(t));
+		t = getValidTeam();
 		
 		for(int i=0; i<t.getSoldiers().size(); i++) {
 			System.out.println(t.getSoldiers().get(i));
 		}
 		
-		do {
-			do {
-				view.print("Podaj id nowego dow鏚cy.(s這wo <<cancel>> zawraca)");
-				line = view.read();
-				if (line.equals("cancel")) {
-					return;
-				}
-			} while (!ValidUtil.isValid(line));
-			s = soldierRepo.findById(Long.parseLong(line));
-		} while (!ValidUtil.isValid(s));
+		s = getValidSoldier();
 		
+		assignCommanderToTeam(t, s);	
+		teamRepo.updateTeam(t);
+		soldierRepo.updateSoldier(s);
+	}
+
+	private void assignCommanderToTeam(Team t, Soldier s) {
 		if(t.getSoldiers().contains(s)) {
 			t.setCommander(s);
 		}else {
@@ -55,11 +43,42 @@ public class AssignCommanderToTeamAction implements Action{
 			t.getSoldiers().add(s);
 			t.setCommander(s);
 		}
-		
-		teamRepo.updateTeam(t);
-		soldierRepo.updateSoldier(s);
 	}
 
+	private Soldier getValidSoldier() {
+		Soldier s;
+		String line;
+		do {
+			do {
+				view.print("Podaj id nowego dow鏚cy.(s這wo <<cancel>> zawraca)");
+				line = view.read();
+				canceling(line);
+			} while (!ValidUtil.isLongInstance(line));
+			s = soldierRepo.findById(Long.parseLong(line));
+		} while (!ValidUtil.isValid(s));
+		return s;
+	}
+
+	private Team getValidTeam() {
+		Team t;
+		String line;
+		do {
+			do {
+				view.print("Podaj id dru篡ny do przypisania dow鏚cy.(s這wo <<cancel>> zawraca)");
+				line = view.read();
+				canceling(line);
+			} while (!ValidUtil.isLongInstance(line));
+			t = teamRepo.findById(Long.parseLong(line));
+		} while (!ValidUtil.isValid(t));
+		return t;
+	}
+
+	private void canceling(String line) {
+		if("cancel".equals(line)) {
+			throw new OperationCancelException("canceling assignCommander");
+		}
+	}
+	
 	@Override
 	public String getName() {
 		return "AssignCommanderToTeam";

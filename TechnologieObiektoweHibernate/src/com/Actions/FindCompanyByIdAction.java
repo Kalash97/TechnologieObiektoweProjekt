@@ -5,6 +5,7 @@ import java.util.List;
 import com.Entities.Battalion;
 import com.Entities.Company;
 import com.Entities.Platoon;
+import com.Exceptions.OperationCancelException;
 import com.Repos.CompanyRepo;
 import com.Utils.ValidUtil;
 import com.View.View;
@@ -19,19 +20,9 @@ public class FindCompanyByIdAction implements Action{
 	
 	@Override
 	public void launch() {
-		String line;
 		Company c;
 		
-		do {
-			do {
-				view.print("Podaj id kompanii do znalezienia.(s³owo <<cancel>> zawraca)");
-				line = view.read();
-				if (line.equals("cancel")) {
-					return;
-				}
-			} while (!ValidUtil.isValid(line));
-			c = repo.findById(Long.parseLong(line));
-		} while (!ValidUtil.isValid(c));
+		c = getValidCompany();
 		
 		view.print("Znaleziona kompania:");
 		view.print("Numer: " + c.getNumber());
@@ -52,6 +43,26 @@ public class FindCompanyByIdAction implements Action{
 		view.print("");
 	}
 
+	private Company getValidCompany() {
+		String line;
+		Company c;
+		do {
+			do {
+				view.print("Podaj id kompanii do znalezienia.(s³owo <<cancel>> zawraca)");
+				line = view.read();
+				canceling(line);
+			} while (!ValidUtil.isLongInstance(line));
+			c = repo.findById(Long.parseLong(line));
+		} while (!ValidUtil.isValid(c));
+		return c;
+	}
+
+	private void canceling(String line) {
+		if("cancel".equals(line)) {
+			throw new OperationCancelException("canceling findSoldier");
+		}
+	}
+	
 	@Override
 	public String getName() {
 		return "FindCompanyById";

@@ -17,15 +17,20 @@ public class CreateBattalionAction implements Action{
 	public void launch() {
 		Battalion b = new Battalion();
 		
-		String battalionNumber;
-		do {
-			view.print("Podaj numer batalionu");
-			battalionNumber=view.read();
-		}while(!ValidUtil.isValid(battalionNumber));
+		 String battalionNumber = readBattalionNumber();
 		
 		b.setNumber(Long.parseLong(battalionNumber));
 		
 		repo.createBattalion(b);
+	}
+
+	private String readBattalionNumber() {
+		String battalionNumber;
+		do {
+			view.print("Podaj numer batalionu");
+			battalionNumber=view.read();
+		}while(!ValidUtil.isLongInstance(battalionNumber));
+		return battalionNumber;
 	}
 
 	@Override

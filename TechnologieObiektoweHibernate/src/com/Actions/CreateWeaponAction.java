@@ -27,16 +27,21 @@ public class CreateWeaponAction implements Action {
 		view.print("Dostêpne typy broni");
 		view.print(WeaponType.values());
 		
+		String weaponTypeStr = getWeaponType();
+		
+		w.setWeaponType(WeaponType.valueOf(weaponTypeStr.toUpperCase()));
+		
+		repo.createWeapon(w);
+	}
+
+	private String getWeaponType() {
 		String weaponTypeStr;
 		do {
 			view.print("Podaj typ broni");
 			weaponTypeStr=view.read();
 			
 		}while(!ValidUtil.isValid(weaponTypeStr, WeaponType.values()));
-		
-		w.setWeaponType(WeaponType.valueOf(weaponTypeStr.toUpperCase()));
-		
-		repo.createWeapon(w);
+		return weaponTypeStr;
 	}
 
 	@Override

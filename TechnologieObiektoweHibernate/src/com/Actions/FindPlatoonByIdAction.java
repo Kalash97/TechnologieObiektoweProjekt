@@ -5,6 +5,7 @@ import java.util.List;
 import com.Entities.Company;
 import com.Entities.Platoon;
 import com.Entities.Team;
+import com.Exceptions.OperationCancelException;
 import com.Repos.PlatoonRepo;
 import com.Utils.ValidUtil;
 import com.View.View;
@@ -19,18 +20,8 @@ public class FindPlatoonByIdAction implements Action{
 	
 	@Override
 	public void launch() {
-		String line;
 		Platoon p;
-		do {
-			do {
-				view.print("Podaj id plutonu do znalezienia.(s³owo <<cancel>> zawraca)");
-				line = view.read();
-				if (line.equals("cancel")) {
-					return;
-				}
-			} while (!ValidUtil.isValid(line));
-			p = repo.findById(Long.parseLong(line));
-		} while (!ValidUtil.isValid(p));
+		p = findValidPlatoon();
 		
 		view.print("Znaleziony pluton:");
 		view.print("Numer: " + p.getNumber());
@@ -51,6 +42,26 @@ public class FindPlatoonByIdAction implements Action{
 		view.print("");
 	}
 
+	private Platoon findValidPlatoon() {
+		String line;
+		Platoon p;
+		do {
+			do {
+				view.print("Podaj id plutonu do znalezienia.(s³owo <<cancel>> zawraca)");
+				line = view.read();
+				canceling(line);
+			} while (!ValidUtil.isLongInstance(line));
+			p = repo.findById(Long.parseLong(line));
+		} while (!ValidUtil.isValid(p));
+		return p;
+	}
+
+	private void canceling(String line) {
+		if("cancel".equals(line)) {
+			throw new OperationCancelException("canceling findSoldier");
+		}
+	}
+	
 	@Override
 	public String getName() {
 		return "FindPlatoonById";

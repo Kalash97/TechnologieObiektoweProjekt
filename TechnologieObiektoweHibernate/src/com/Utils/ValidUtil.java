@@ -41,7 +41,7 @@ public class ValidUtil {
 		return true;
 	}
 	
-	public static boolean isValid(String line) {
+	public static boolean isLongInstance(String line) {
 		
 		try {
 			Long.parseLong(line);

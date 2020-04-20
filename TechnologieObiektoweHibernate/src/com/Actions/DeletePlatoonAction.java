@@ -1,6 +1,7 @@
 package com.Actions;
 
 import com.Entities.Platoon;
+import com.Exceptions.OperationCancelException;
 import com.Repos.PlatoonRepo;
 import com.Utils.ValidUtil;
 import com.View.View;
@@ -15,24 +16,35 @@ public class DeletePlatoonAction implements Action {
 
 	@Override
 	public void launch() {
+		//TO DO detaching entities
 
-		String line;
 		Platoon p;
 
-		do {
-			do {
-				System.out.println("Podaj id plutonu do usuniêcia.(s³owo <<cancel>> zawraca)");
-				line = view.read();
-				if (line.equals("cancel")) {
-					return;
-				}
-			} while (!ValidUtil.isValid(line));
-			p = repo.findById(Long.parseLong(line));
-		} while (!ValidUtil.isValid(p));
+		p = getValidPlatoon();
 
 		repo.deletePlatoon(p);
 	}
 
+	private Platoon getValidPlatoon() {
+		String line;
+		Platoon p;
+		do {
+			do {
+				System.out.println("Podaj id plutonu do usuniêcia.(s³owo <<cancel>> zawraca)");
+				line = view.read();
+				canceling(line);
+			} while (!ValidUtil.isLongInstance(line));
+			p = repo.findById(Long.parseLong(line));
+		} while (!ValidUtil.isValid(p));
+		return p;
+	}
+
+	private void canceling(String line) {
+		if("cancel".equals(line)) {
+			throw new OperationCancelException("canceling deletePlatoon");
+		}
+	}
+	
 	@Override
 	public String getName() {
 		return "DeletePlatoon";

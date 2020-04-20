@@ -17,15 +17,20 @@ public class CreateTeamAction implements Action {
 	public void launch() {
 		Team t = new Team();
 				
-		String teamNumber;
-		do{
-			view.print("Podaj numer dru¿yny");
-			teamNumber=view.read();
-		}while(!ValidUtil.isValid(teamNumber));
+		String teamNumber = getTeamNumber();
 
 		t.setNumber(Long.parseLong(teamNumber));
 		
 		repo.createTeam(t);
+	}
+
+	private String getTeamNumber() {
+		String teamNumber;
+		do{
+			view.print("Podaj numer dru¿yny");
+			teamNumber=view.read();
+		}while(!ValidUtil.isLongInstance(teamNumber));
+		return teamNumber;
 	}
 
 	@Override
