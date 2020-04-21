@@ -2,11 +2,13 @@ package com.Actions;
 
 import java.util.List;
 
+import com.Entities.Company;
 import com.Entities.Platoon;
 import com.Entities.Soldier;
 import com.Entities.Team;
 import com.Entities.Weapon;
 import com.Exceptions.OperationCancelException;
+import com.Repos.CompanyRepo;
 import com.Repos.PlatoonRepo;
 import com.Repos.SoldierRepo;
 import com.Repos.TeamRepo;
@@ -24,6 +26,7 @@ public class DeleteSoldierAction implements Action {
 	private WeaponRepo weaponRepo;
 	private TeamRepo teamRepo;
 	private PlatoonRepo platoonRepo;
+	private CompanyRepo companyRepo;
 
 	@Override
 	public void launch() {
@@ -32,10 +35,22 @@ public class DeleteSoldierAction implements Action {
 		removeWeaponsFromSoldier(s);
 		removeSoldierFromTeam(s);
 		removeCommanderFromPlatoon(s);
+		removeCommanderFromCompany(s);
 		
 		soldierRepo.deleteSoldier(s);
 	}
 
+	private void removeCommanderFromCompany(Soldier s) {
+		List<Company> companies = soldierRepo.findCompanyOfCommander(s);
+		if(companies.size()>0) {
+			for(int i=0; i<companies.size();i++) {
+				Company c = companies.get(i);
+				c.setCommander(null);
+				companyRepo.updateCompany(c);
+			}
+		}
+	}
+	
 	private void removeCommanderFromPlatoon(Soldier s) {
 		List<Platoon> platoons = soldierRepo.findPlatoonOfCommander(s);
 		if(platoons.size()>0) {

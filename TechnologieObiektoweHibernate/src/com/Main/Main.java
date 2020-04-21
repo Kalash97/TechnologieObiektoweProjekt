@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.Actions.Action;
+import com.Actions.AssignCommanderToCompanyAction;
 import com.Actions.AssignCommanderToPlatoonAction;
 import com.Actions.AssignCommanderToTeamAction;
+import com.Actions.AssignPlatoonToCompanyAction;
 import com.Actions.AssignSoldierToTeamAction;
 import com.Actions.AssignTeamToPlatoonAction;
 import com.Actions.AssignWeaponToSoldierAction;
@@ -103,7 +105,7 @@ public class Main {
 		actionsList.add(new FindWeaponByIdAction(consoleView, weaponRepo));
 
 		actionsList.add(new CreateSoldierAction(consoleView, soldierRepo));
-		actionsList.add(new DeleteSoldierAction(consoleView, soldierRepo, weaponRepo, teamRepo, platoonRepo));
+		actionsList.add(new DeleteSoldierAction(consoleView, soldierRepo, weaponRepo, teamRepo, platoonRepo, companyRepo));
 		actionsList.add(new FindSoldierByIdAction(consoleView, soldierRepo));
 
 		actionsList.add(new CreateTeamAction(consoleView, teamRepo));
@@ -115,7 +117,7 @@ public class Main {
 		actionsList.add(new FindPlatoonByIdAction(consoleView, platoonRepo));
 
 		actionsList.add(new CreateCompanyAction(consoleView, companyRepo));
-		actionsList.add(new DeleteCompanyAction(consoleView, companyRepo));
+		actionsList.add(new DeleteCompanyAction(consoleView, companyRepo, platoonRepo));
 		actionsList.add(new FindCompanyByIdAction(consoleView, companyRepo));
 
 		actionsList.add(new CreateBattalionAction(consoleView, battalionRepo));
@@ -128,7 +130,9 @@ public class Main {
 		actionsList.add(new AssignCommanderToTeamAction(consoleView, teamRepo, soldierRepo));
 		actionsList.add(new AssignTeamToPlatoonAction(consoleView, platoonRepo, teamRepo));
 		actionsList.add(new AssignCommanderToPlatoonAction(consoleView, soldierRepo, platoonRepo));
-
+		actionsList.add(new AssignPlatoonToCompanyAction(consoleView, companyRepo, platoonRepo));
+		actionsList.add(new AssignCommanderToCompanyAction(consoleView, soldierRepo, companyRepo));
+		
 		actionsList.add(new ExitAction());
 	}
 

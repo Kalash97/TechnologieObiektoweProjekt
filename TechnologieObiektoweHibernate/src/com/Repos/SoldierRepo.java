@@ -3,6 +3,7 @@ package com.Repos;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.Entities.Company;
 import com.Entities.Persistable;
 import com.Entities.Platoon;
 import com.Entities.Soldier;
@@ -42,5 +43,18 @@ public class SoldierRepo {
 			}
 		}
 		return platoons;
+	}
+	
+	public List<Company> findCompanyOfCommander(Soldier soldier){
+		String query = "SELECT C FROM Company C, Soldier S WHERE C.commander.id = " + soldier.getId();
+		List<Persistable> results = hpm.findByQuery(query, Company.class);
+		List<Company> companies = new ArrayList<Company>();
+		if(results.size()>0) {
+			for(int i=0; i<results.size(); i++) {
+				Company c = (Company) results.get(i);
+				companies.add(c);
+			}
+		}
+		return companies;
 	}
 }

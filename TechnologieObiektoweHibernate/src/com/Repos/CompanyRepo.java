@@ -21,4 +21,8 @@ public class CompanyRepo {
 	public Company findById(long id) {
 		return (Company) hpm.findById(id, Company.class);
 	}
+	
+	public void updateCompany(Company c) {
+		hpm.update(c);
+	}
 }

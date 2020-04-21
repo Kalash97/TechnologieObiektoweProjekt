@@ -1,8 +1,10 @@
 package com.Actions;
 
 import com.Entities.Company;
+import com.Entities.Platoon;
 import com.Exceptions.OperationCancelException;
 import com.Repos.CompanyRepo;
+import com.Repos.PlatoonRepo;
 import com.Utils.ValidUtil;
 import com.View.View;
 
@@ -12,7 +14,8 @@ import lombok.AllArgsConstructor;
 public class DeleteCompanyAction implements Action {
 
 	private View view;
-	CompanyRepo repo;
+	private CompanyRepo companyRepo;
+	private PlatoonRepo platoonRepo;
 
 	@Override
 	public void launch() {
@@ -21,10 +24,32 @@ public class DeleteCompanyAction implements Action {
 		Company c;
 
 		c = getValidCompany();
+		
+		removeComanderFromCompany(c);
+		removePlatoonsFromCompany(c);
 
-		repo.deleteCompany(c);
+		companyRepo.deleteCompany(c);
 	}
 
+	private void removeComanderFromCompany(Company c) {
+		if(c.getCommander()!=null) {
+			c.setCommander(null);
+			companyRepo.updateCompany(c);
+		}
+	}
+	
+	private void removePlatoonsFromCompany(Company c) {
+		Platoon p;
+		if(c.getPlattons().size()>0) {
+			for(int i=0; i<c.getPlattons().size();i++) {
+				p=c.getPlattons().get(i);
+				p.setCompany(null);
+				platoonRepo.updatePlatoon(p);
+			}
+			companyRepo.updateCompany(c);
+		}
+	}
+	
 	private Company getValidCompany() {
 		String line;
 		Company c;
@@ -34,7 +59,7 @@ public class DeleteCompanyAction implements Action {
 				line = view.read();
 				canceling(line);
 			} while (!ValidUtil.isLongInstance(line));
-			c = repo.findById(Long.parseLong(line));
+			c = companyRepo.findById(Long.parseLong(line));
 		} while (!ValidUtil.isValid(c));
 		return c;
 	}
