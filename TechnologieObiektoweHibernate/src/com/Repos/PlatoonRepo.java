@@ -20,4 +20,9 @@ public class PlatoonRepo {
 	public Platoon findById(long id) {
 		return (Platoon) hpm.findById(id, Platoon.class);
 	}
+	
+	public void updatePlatoon(Platoon p) {
+		hpm.update(p);
+	}
+	
 }

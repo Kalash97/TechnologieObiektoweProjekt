@@ -11,43 +11,29 @@ import com.View.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class DeletePlatoonAction implements Action {
+public class AssignTeamToPlatoonAction implements Action{
 
 	private View view;
 	private PlatoonRepo platoonRepo;
 	private TeamRepo teamRepo;
-
+	
 	@Override
 	public void launch() {
-		//TO DO detaching entities
-
 		Platoon p;
-
-		p = getValidPlatoon();
-
-		removeCommanderFromPlatoon(p);
-		removeTeamsFromPlatoon(p);
-		
-		platoonRepo.deletePlatoon(p);
-	}
-
-	private void removeTeamsFromPlatoon(Platoon p) {
 		Team t;
-		if(p.getTeams().size()>0) {
-			for(int i=0; i<p.getTeams().size();i++) {
-				t=p.getTeams().get(i);
-				t.setPlatoon(null);
-				teamRepo.updateTeam(t);
-			}
-			platoonRepo.updatePlatoon(p);
-		}
+		
+		p = getValidPlatoon();
+		t = getValidTeam();
+		
+		assignTeamToPlatoon(p, t);
+		
+		platoonRepo.updatePlatoon(p);
+		teamRepo.updateTeam(t);
 	}
-	
-	private void removeCommanderFromPlatoon(Platoon p) {
-		if(p.getCommander()!=null) {
-			p.setCommander(null);
-			platoonRepo.updatePlatoon(p);
-		}
+
+	private void assignTeamToPlatoon(Platoon p, Team t) {
+		t.setPlatoon(p);
+		p.getTeams().add(t);
 	}
 	
 	private Platoon getValidPlatoon() {
@@ -55,7 +41,7 @@ public class DeletePlatoonAction implements Action {
 		Platoon p;
 		do {
 			do {
-				System.out.println("Podaj id plutonu do usuniêcia.(s³owo <<cancel>> zawraca)");
+				System.out.println("Podaj id plutonu do przypisania dru¿yny.(s³owo <<cancel>> zawraca)");
 				line = view.read();
 				canceling(line);
 			} while (!ValidUtil.isLongInstance(line));
@@ -63,16 +49,30 @@ public class DeletePlatoonAction implements Action {
 		} while (!ValidUtil.isValid(p));
 		return p;
 	}
-
+	
+	private Team getValidTeam() {
+		Team t;
+		String line;
+		do {
+			do {
+				view.print("Podaj id dru¿yny do przypisania plutonu.(s³owo <<cancel>> zawraca)");
+				line = view.read();
+				canceling(line);
+			} while (!ValidUtil.isLongInstance(line));
+			t = teamRepo.findById(Long.parseLong(line));
+		} while (!ValidUtil.isValid(t));
+		return t;
+	}
+	
 	private void canceling(String line) {
 		if("cancel".equals(line)) {
-			throw new OperationCancelException("canceling deletePlatoon");
+			throw new OperationCancelException("canceling AssignTeamToPlatoon");
 		}
 	}
 	
 	@Override
 	public String getName() {
-		return "DeletePlatoon";
+		return "AssignTeamToPlatoon";
 	}
 
 }

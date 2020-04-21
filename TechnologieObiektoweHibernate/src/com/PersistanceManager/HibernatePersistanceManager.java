@@ -1,6 +1,9 @@
 package com.PersistanceManager;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import com.Entities.Persistable;
 
@@ -38,5 +41,15 @@ public class HibernatePersistanceManager {
 		em.merge(persistable);
 		em.getTransaction().commit();
 		em.close();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Persistable> findByQuery(String query, Class<?> type){
+		EntityManager em = HibernateConnection.getManager();
+		
+		 TypedQuery<?> typedQuery = em.createQuery(query, type);
+		 
+		 return (List<Persistable>) typedQuery.getResultList();
+		
 	}
 }
