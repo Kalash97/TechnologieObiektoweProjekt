@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.Actions.Action;
+import com.Actions.AssignCommanderToBattalionAction;
 import com.Actions.AssignCommanderToCompanyAction;
 import com.Actions.AssignCommanderToPlatoonAction;
 import com.Actions.AssignCommanderToTeamAction;
+import com.Actions.AssignCompanyToBattalionAction;
 import com.Actions.AssignPlatoonToCompanyAction;
 import com.Actions.AssignSoldierToTeamAction;
 import com.Actions.AssignTeamToPlatoonAction;
@@ -105,7 +107,7 @@ public class Main {
 		actionsList.add(new FindWeaponByIdAction(consoleView, weaponRepo));
 
 		actionsList.add(new CreateSoldierAction(consoleView, soldierRepo));
-		actionsList.add(new DeleteSoldierAction(consoleView, soldierRepo, weaponRepo, teamRepo, platoonRepo, companyRepo));
+		actionsList.add(new DeleteSoldierAction(consoleView, soldierRepo, weaponRepo, teamRepo, platoonRepo, companyRepo, battalionRepo));
 		actionsList.add(new FindSoldierByIdAction(consoleView, soldierRepo));
 
 		actionsList.add(new CreateTeamAction(consoleView, teamRepo));
@@ -121,7 +123,7 @@ public class Main {
 		actionsList.add(new FindCompanyByIdAction(consoleView, companyRepo));
 
 		actionsList.add(new CreateBattalionAction(consoleView, battalionRepo));
-		actionsList.add(new DeleteBattalionAction(consoleView, battalionRepo));
+		actionsList.add(new DeleteBattalionAction(consoleView, battalionRepo, companyRepo));
 		actionsList.add(new FindBattalionByIdAction(consoleView, battalionRepo));
 
 		actionsList.add(new AssignWeaponToSoldierAction(consoleView, weaponRepo, soldierRepo));
@@ -132,6 +134,8 @@ public class Main {
 		actionsList.add(new AssignCommanderToPlatoonAction(consoleView, soldierRepo, platoonRepo));
 		actionsList.add(new AssignPlatoonToCompanyAction(consoleView, companyRepo, platoonRepo));
 		actionsList.add(new AssignCommanderToCompanyAction(consoleView, soldierRepo, companyRepo));
+		actionsList.add(new AssignCompanyToBattalionAction(consoleView, battalionRepo, companyRepo));
+		actionsList.add(new AssignCommanderToBattalionAction(consoleView, soldierRepo, battalionRepo));
 		
 		actionsList.add(new ExitAction());
 	}

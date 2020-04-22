@@ -19,8 +19,6 @@ public class DeleteCompanyAction implements Action {
 
 	@Override
 	public void launch() {
-
-		//TO DO detaching entities
 		Company c;
 
 		c = getValidCompany();

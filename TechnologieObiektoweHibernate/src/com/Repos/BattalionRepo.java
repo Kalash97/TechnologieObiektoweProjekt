@@ -21,4 +21,8 @@ public class BattalionRepo {
 	public Battalion findById(long id) {
 		return (Battalion) hpm.findById(id, Battalion.class);
 	}
+	
+	public void updateBattalion(Battalion battalion) {
+		hpm.update(battalion);
+	}
 }
