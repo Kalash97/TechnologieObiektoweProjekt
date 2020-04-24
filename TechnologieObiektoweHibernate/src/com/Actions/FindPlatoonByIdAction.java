@@ -25,10 +25,10 @@ public class FindPlatoonByIdAction implements Action{
 		
 		view.print("Znaleziony pluton:");
 		view.print("Numer: " + p.getNumber());
-		view.print("Dowódca: " + p.getCommander());
+		view.print("Dowódca:: Imiê: " + p.getCommander().getName()+", Nazwisko: "+p.getCommander().getLastName()+", Stopieñ: "+p.getCommander().getRank());
 		Company c = p.getCompany();
 		if(c!=null) {
-			view.print("Kompania: Id:" + c.getId() + " Numer: " + c.getNumber());
+			view.print("Kompania:: Id:" + c.getId() + " Numer: " + c.getNumber());
 		}else {
 			view.print("Kompania: "+c);
 		}
@@ -36,7 +36,7 @@ public class FindPlatoonByIdAction implements Action{
 		List<Team> list = p.getTeams();
 		if(list.size()>0) {
 			for(int i=0;i<list.size();i++) {
-				view.print("Dru¿yna nr.: " + i + " ID: "+list.get(i).getId());
+				view.print(i+ ": " + " ID: "+list.get(i).getId()+ ", Nr. dru¿yny: "+ list.get(i).getNumber());
 			}
 		}
 		view.print("");

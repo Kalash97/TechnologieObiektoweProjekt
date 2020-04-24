@@ -26,7 +26,7 @@ public class FindCompanyByIdAction implements Action{
 		
 		view.print("Znaleziona kompania:");
 		view.print("Numer: " + c.getNumber());
-		view.print("Dowódca: " + c.getCommander());
+		view.print("Dowódca:: Imiê:" + c.getCommander().getName()+ ", Nazwisko: "+c.getCommander().getLastName()+", Stopieñ: "+c.getCommander().getRank());
 		Battalion b = c.getBattalion();
 		if(b!=null) {
 			view.print("Batalion: Id:" + b.getId() + " Numer: " + b.getNumber());
@@ -37,7 +37,7 @@ public class FindCompanyByIdAction implements Action{
 		List<Platoon> list = c.getPlattons();
 		if(list.size()>0) {
 			for(int i=0; i<list.size(); i++) {
-				view.print("Pluton nr.: " + i + " ID: "+list.get(i).getId());
+				view.print(i + ": " + "ID: "+list.get(i).getId() + ", Nr. plutonu: "+list.get(i).getNumber());
 			}
 		}
 		view.print("");

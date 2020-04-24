@@ -25,7 +25,7 @@ public class FindTeamByIdAction implements Action {
 
 		view.print("Znaleziona dru¿yna:");
 		view.print("Numer: " + t.getNumber());
-		view.print("Dowódca: " + t.getCommander());
+		view.print("Dowódca:: Imiê: " + t.getCommander().getName()+ ", Nazwisko: "+t.getCommander().getLastName()+", Stopieñ: "+t.getCommander().getRank());
 		Platoon p = t.getPlatoon();
 		if (p!=null) {
 			view.print("Pluton: Id:" + p.getId() + " Numer: " + p.getNumber());
@@ -36,7 +36,7 @@ public class FindTeamByIdAction implements Action {
 		List<Soldier> list = t.getSoldiers();
 		if (list.size() > 0) {
 			for (int i = 0; i < list.size(); i++) {
-				view.print("¯o³nierz nr.: " + i + " ID: " + list.get(i).getId());
+				view.print(i + ": " + "ID: " + list.get(i).getId()+ ", Imiê: "+list.get(i).getName() + ", Nazwisko: "+ list.get(i).getLastName() + ", Stopieñ: "+ list.get(i).getRank());
 			}
 		}
 		view.print("");

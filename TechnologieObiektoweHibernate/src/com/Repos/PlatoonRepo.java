@@ -1,7 +1,11 @@
 package com.Repos;
 
+import java.util.List;
+
+import com.Entities.Persistable;
 import com.Entities.Platoon;
 import com.PersistanceManager.HibernatePersistanceManager;
+import com.Utils.ParseUtil;
 
 import lombok.AllArgsConstructor;
 
@@ -25,4 +29,23 @@ public class PlatoonRepo {
 		hpm.update(p);
 	}
 	
+	public List<Platoon> findPlatoonsWithoutTeams(){
+		String query = "SELECT P FROM Platoon P WHERE size(P.teams)=0";
+		return findPlatoonsByQuery(query);
+	}
+	
+	public List<Platoon> findPlatoonsWithoutCompany(){
+		String query = "SELECT P FROM Platoon P WHERE P.company.id=null";
+		return findPlatoonsByQuery(query);
+	}
+
+	public List<Platoon> findPlatoonsWithoutCommander(){
+		String query = "SELECT P FROM Platoon P WHERE P.commander.id=null";
+		return findPlatoonsByQuery(query);
+	}
+	private List<Platoon> findPlatoonsByQuery(String query) {
+		List<Persistable> results = hpm.findByQuery(query, Platoon.class);
+		List<Platoon> platoons = ParseUtil.parsePlatoonList(results);
+		return platoons;
+	}
 }

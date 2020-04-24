@@ -27,11 +27,25 @@ import com.Actions.DeleteTeamAction;
 import com.Actions.DeleteWeaponAction;
 import com.Actions.ExitAction;
 import com.Actions.FindBattalionByIdAction;
+import com.Actions.FindBattalionsWithoutCommanderAction;
+import com.Actions.FindBattalionsWithoutCompaniesAction;
+import com.Actions.FindCompaniesWithoutBattalionAction;
+import com.Actions.FindCompaniesWithoutCommanderAction;
+import com.Actions.FindCompaniesWithoutPlatoonsAction;
 import com.Actions.FindCompanyByIdAction;
 import com.Actions.FindPlatoonByIdAction;
+import com.Actions.FindPlatoonsWithoutCommanderAction;
+import com.Actions.FindPlatoonsWithoutCompanyAction;
+import com.Actions.FindPlatoonsWithoutTeamsAction;
 import com.Actions.FindSoldierByIdAction;
+import com.Actions.FindSoldiersWithoutTeamAction;
+import com.Actions.FindSoldiersWithoutWeaponAction;
 import com.Actions.FindTeamByIdAction;
+import com.Actions.FindTeamsWithoutCommanderAction;
+import com.Actions.FindTeamsWithoutPlatoonAction;
+import com.Actions.FindTeamsWithoutSoldiersAction;
 import com.Actions.FindWeaponByIdAction;
+import com.Actions.FindWeaponsWithoutSoldierAction;
 import com.Exceptions.OperationCancelException;
 import com.PersistanceManager.HibernatePersistanceManager;
 import com.Repos.BattalionRepo;
@@ -136,6 +150,26 @@ public class Main {
 		actionsList.add(new AssignCommanderToCompanyAction(consoleView, soldierRepo, companyRepo));
 		actionsList.add(new AssignCompanyToBattalionAction(consoleView, battalionRepo, companyRepo));
 		actionsList.add(new AssignCommanderToBattalionAction(consoleView, soldierRepo, battalionRepo));
+		
+		actionsList.add(new FindWeaponsWithoutSoldierAction(consoleView, weaponRepo));
+		
+		actionsList.add(new FindSoldiersWithoutTeamAction(consoleView, soldierRepo));
+		actionsList.add(new FindSoldiersWithoutWeaponAction(consoleView, soldierRepo));
+		
+		actionsList.add(new FindTeamsWithoutSoldiersAction(consoleView, teamRepo));
+		actionsList.add(new FindTeamsWithoutPlatoonAction(consoleView, teamRepo));
+		actionsList.add(new FindTeamsWithoutCommanderAction(consoleView, teamRepo));
+		
+		actionsList.add(new FindPlatoonsWithoutTeamsAction(consoleView, platoonRepo));
+		actionsList.add(new FindPlatoonsWithoutCompanyAction(consoleView, platoonRepo));
+		actionsList.add(new FindPlatoonsWithoutCommanderAction(consoleView, platoonRepo));
+		
+		actionsList.add(new FindCompaniesWithoutPlatoonsAction(consoleView, companyRepo));
+		actionsList.add(new FindCompaniesWithoutBattalionAction(consoleView, companyRepo));
+		actionsList.add(new FindCompaniesWithoutCommanderAction(consoleView, companyRepo));
+		
+		actionsList.add(new FindBattalionsWithoutCompaniesAction(consoleView, battalionRepo));
+		actionsList.add(new FindBattalionsWithoutCommanderAction(consoleView, battalionRepo));
 		
 		actionsList.add(new ExitAction());
 	}

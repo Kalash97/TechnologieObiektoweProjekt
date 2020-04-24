@@ -1,6 +1,5 @@
 package com.Repos;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.Entities.Battalion;
@@ -9,6 +8,7 @@ import com.Entities.Persistable;
 import com.Entities.Platoon;
 import com.Entities.Soldier;
 import com.PersistanceManager.HibernatePersistanceManager;
+import com.Utils.ParseUtil;
 
 import lombok.AllArgsConstructor;
 
@@ -35,40 +35,51 @@ public class SoldierRepo {
 
 	public List<Platoon> findPlatoonOfCommander(Soldier soldier) {
 		String query = "SELECT P FROM Platoon P, Soldier S WHERE P.commander.id = " + soldier.getId();
-		List<Persistable> results = hpm.findByQuery(query, Platoon.class);
-		List<Platoon> platoons = new ArrayList<Platoon>();
-		if (results.size() > 0) {
-			for (int i = 0; i < results.size(); i++) {
-				Platoon p = (Platoon) results.get(i);
-				platoons.add(p);
-			}
-		}
-		return platoons;
+		return findPlatoonsByQuery(query);
 	}
 	
 	public List<Company> findCompanyOfCommander(Soldier soldier){
 		String query = "SELECT C FROM Company C, Soldier S WHERE C.commander.id = " + soldier.getId();
-		List<Persistable> results = hpm.findByQuery(query, Company.class);
-		List<Company> companies = new ArrayList<Company>();
-		if(results.size()>0) {
-			for(int i=0; i<results.size(); i++) {
-				Company c = (Company) results.get(i);
-				companies.add(c);
-			}
-		}
-		return companies;
+		return findCompaniesByQuery(query);
 	}
 	
 	public List<Battalion> findBattalionOfCommander(Soldier soldier){
 		String query = "SELECT B FROM Battalion B, Soldier S WHERE B.commander.id = " + soldier.getId();
+		return findBattalionsByQuery(query);
+
+	}
+
+	public List<Soldier> findSoldiersWithoutTeam(){
+		String query = "SELECT S FROM Soldier S WHERE S.team.id=null";
+		return findSoldiersByQuery(query);
+	}
+	
+	public List<Soldier> findSoldiersWithoutWeapon(){
+		String query = "SELECT S FROM Soldier S WHERE size(S.weapons)=0";
+		return findSoldiersByQuery(query);
+	}
+
+	private List<Soldier> findSoldiersByQuery(String query) {
+		List<Persistable> results = hpm.findByQuery(query, Soldier.class);
+		List<Soldier> soldiers = ParseUtil.parseSoldierList(results);
+		return soldiers;
+	}
+	
+	private List<Platoon> findPlatoonsByQuery(String query) {
+		List<Persistable> results = hpm.findByQuery(query, Platoon.class);
+		List<Platoon> platoons = ParseUtil.parsePlatoonList(results);
+		return platoons;
+	}
+
+	private List<Company> findCompaniesByQuery(String query) {
+		List<Persistable> results = hpm.findByQuery(query, Company.class);
+		List<Company> companies = ParseUtil.parseCompanyList(results);
+		return companies;
+	}
+	
+	private List<Battalion> findBattalionsByQuery(String query) {
 		List<Persistable> results = hpm.findByQuery(query, Battalion.class);
-		List<Battalion> battalions = new ArrayList<Battalion>();
-		if(results.size()>0) {
-			for(int i=0; i<results.size();i++) {
-				Battalion b = (Battalion) results.get(i);
-				battalions.add(b);
-			}
-		}
+		List<Battalion> battalions = ParseUtil.parseBattalionList(results);
 		return battalions;
 	}
 }

@@ -24,7 +24,7 @@ public class FindWeaponByIdAction implements Action {
 		view.print("Nazwa: "+w.getName());
 		view.print("Numer seryjny: "+w.getSerialNumber());
 		view.print("Typ: "+w.getWeaponType());
-		view.print("W³aœciciel: "+w.getSoldier());
+		view.print("W³aœciciel:: ID: "+w.getSoldier().getId()+", Imiê: "+ w.getSoldier().getName() + ", Nazwisko: "+w.getSoldier().getLastName());
 		view.print("");
 	}
 

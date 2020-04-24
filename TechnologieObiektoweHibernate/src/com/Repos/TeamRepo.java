@@ -1,7 +1,11 @@
 package com.Repos;
 
+import java.util.List;
+
+import com.Entities.Persistable;
 import com.Entities.Team;
 import com.PersistanceManager.HibernatePersistanceManager;
+import com.Utils.ParseUtil;
 
 import lombok.AllArgsConstructor;
 
@@ -24,5 +28,26 @@ public class TeamRepo {
 	
 	public void updateTeam(Team team) {
 		hpm.update(team);
+	}
+	
+	public List<Team> findTeamsWithoutSoldiers(){
+		String query = "SELECT T FROM Team T WHERE size(T.soldiers)=0";
+		return findTeamsByQuery(query);
+	}
+	
+	public List<Team> findTeamsWithoutPlatoon(){
+		String query = "SELECT T FROM Team T WHERE T.platoon.id=null";
+		return findTeamsByQuery(query);
+	}
+	
+	public List<Team> findTeamsWithoutCommander(){
+		String query = "SELECT T FROM Team T WHERE T.commander.id=null";
+		return findTeamsByQuery(query);
+	}
+
+	private List<Team> findTeamsByQuery(String query) {
+		List<Persistable> results = hpm.findByQuery(query, Team.class);
+		List<Team> teams = ParseUtil.parseTeamList(results);
+		return teams;
 	}
 }

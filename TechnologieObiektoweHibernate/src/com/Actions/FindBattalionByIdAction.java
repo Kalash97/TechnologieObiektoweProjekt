@@ -31,7 +31,7 @@ public class FindBattalionByIdAction implements Action{
 		List<Company> list = b.getCompanies();
 		if(list.size()>0) {
 			for(int i=0; i<list.size(); i++) {
-				view.print("Kompania nr.: " + i + " ID: "+list.get(i).getId());
+				view.print(i+": " + " ID: "+list.get(i).getId()+", Nr. kompanii: "+ list.get(i).getNumber());
 			}
 		}
 		view.print("");

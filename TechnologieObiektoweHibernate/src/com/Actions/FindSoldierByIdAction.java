@@ -32,10 +32,10 @@ public class FindSoldierByIdAction implements Action {
 		List<Weapon> list = s.getWeapons();
 		if (list.size() > 0) {
 			for (int i = 0; i < list.size(); i++) {
-				view.print("Broñ nr.:" + i + " ID: " + list.get(i).getId());
+				view.print(i + ": " + " ID: " + list.get(i).getId() + ", Nazwa: "+ list.get(i).getName()+ ", Nr. seryjny: "+ list.get(i).getSerialNumber());
 			}
 		}
-		view.print("Dru¿yna: " + s.getTeam());
+		view.print("Dru¿yna:: ID: " + s.getTeam().getId()+ ", Numer: "+s.getTeam().getNumber());
 		view.print("");
 	}
 
