@@ -34,7 +34,7 @@ public class FindSoldiersWithoutTeamAction implements Action{
 	
 	@Override
 	public String getName() {
-		return "FindSoldiersWithoutTeamAction";
+		return "FindSoldiersWithoutTeam";
 	}
 
 }
