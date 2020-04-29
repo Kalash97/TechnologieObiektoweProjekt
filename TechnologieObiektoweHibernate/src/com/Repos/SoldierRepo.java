@@ -7,6 +7,7 @@ import com.Entities.Company;
 import com.Entities.Persistable;
 import com.Entities.Platoon;
 import com.Entities.Soldier;
+import com.Entities.Team;
 import com.PersistanceManager.HibernatePersistanceManager;
 import com.Utils.ParseUtil;
 
@@ -33,6 +34,16 @@ public class SoldierRepo {
 		hpm.update(soldier);
 	}
 
+	public List<Team> findTeamsOfSoldier(Soldier soldier){
+		String query = "SELECT T FROM Team T, Soldier S WHERE S.id = " + soldier.getId() + " AND S MEMBER OF T.soldiers";
+		return findTeamsByQuery(query);
+	}
+	
+	public List<Team> findTeamsOfCommander(Soldier soldier){
+		String query = "SELECT T FROM Team T, Soldier S WHERE T.commander.id= " + soldier.getId();
+		return findTeamsByQuery(query);
+	}
+	
 	public List<Platoon> findPlatoonOfCommander(Soldier soldier) {
 		String query = "SELECT P FROM Platoon P, Soldier S WHERE P.commander.id = " + soldier.getId();
 		return findPlatoonsByQuery(query);
@@ -63,6 +74,12 @@ public class SoldierRepo {
 		List<Persistable> results = hpm.findByQuery(query, Soldier.class);
 		List<Soldier> soldiers = ParseUtil.parseSoldierList(results);
 		return soldiers;
+	}
+
+	private List<Team> findTeamsByQuery(String query){
+		List<Persistable> results = hpm.findByQuery(query, Team.class);
+		List<Team> teams = ParseUtil.parseTeamList(results);
+		return teams;
 	}
 	
 	private List<Platoon> findPlatoonsByQuery(String query) {

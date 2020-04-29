@@ -43,6 +43,7 @@ public class PlatoonRepo {
 		String query = "SELECT P FROM Platoon P WHERE P.commander.id=null";
 		return findPlatoonsByQuery(query);
 	}
+	
 	private List<Platoon> findPlatoonsByQuery(String query) {
 		List<Persistable> results = hpm.findByQuery(query, Platoon.class);
 		List<Platoon> platoons = ParseUtil.parsePlatoonList(results);

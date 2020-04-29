@@ -155,13 +155,13 @@ public class Main {
 		actionsList.add(new AssignWeaponToSoldierAction(consoleView, weaponRepo, soldierRepo));
 
 		actionsList.add(new AssignSoldierToTeamAction(consoleView, soldierRepo, teamRepo));
-		actionsList.add(new AssignCommanderToTeamAction(consoleView, teamRepo, soldierRepo));
+		actionsList.add(new AssignCommanderToTeamAction(consoleView, teamRepo, platoonRepo, companyRepo, battalionRepo, soldierRepo));
 		actionsList.add(new AssignTeamToPlatoonAction(consoleView, platoonRepo, teamRepo));
-		actionsList.add(new AssignCommanderToPlatoonAction(consoleView, soldierRepo, platoonRepo));
+		actionsList.add(new AssignCommanderToPlatoonAction(consoleView, soldierRepo, battalionRepo, companyRepo, platoonRepo, teamRepo));
 		actionsList.add(new AssignPlatoonToCompanyAction(consoleView, companyRepo, platoonRepo));
-		actionsList.add(new AssignCommanderToCompanyAction(consoleView, soldierRepo, companyRepo));
+		actionsList.add(new AssignCommanderToCompanyAction(consoleView, soldierRepo, battalionRepo, companyRepo, platoonRepo, teamRepo));
 		actionsList.add(new AssignCompanyToBattalionAction(consoleView, battalionRepo, companyRepo));
-		actionsList.add(new AssignCommanderToBattalionAction(consoleView, soldierRepo, battalionRepo));
+		actionsList.add(new AssignCommanderToBattalionAction(consoleView, soldierRepo, battalionRepo, teamRepo, platoonRepo, companyRepo));
 		
 		actionsList.add(new FindWeaponsWithoutSoldierAction(consoleView, weaponRepo));
 		
