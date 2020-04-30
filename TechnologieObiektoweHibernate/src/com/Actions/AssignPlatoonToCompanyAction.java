@@ -11,28 +11,39 @@ import com.View.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class AssignPlatoonToCompanyAction implements Action{
+public class AssignPlatoonToCompanyAction implements Action {
 
 	private View view;
 	private CompanyRepo companyRepo;
 	private PlatoonRepo platoonRepo;
-	
+
 	@Override
 	public void launch() {
 		Company c = getValidCompany();
 		Platoon p = getValidPlatoon();
-		
-		assignPlatoonToCompany(c, p);
-		
-		companyRepo.updateCompany(c);
-		platoonRepo.updatePlatoon(p);
+
+		assignPlatoonToCompany(c, p);		
 	}
 
 	public void assignPlatoonToCompany(Company c, Platoon p) {
-		p.setCompany(c);
-		c.getPlattons().add(p);
+		if (!companyContainsPlatoon(c, p)) {
+			p.setCompany(c);
+			c.getPlattons().add(p);
+			companyRepo.updateCompany(c);
+			platoonRepo.updatePlatoon(p);
+		}
 	}
-	
+
+	private boolean companyContainsPlatoon(Company c, Platoon p) {
+		for (int i = 0; i < c.getPlattons().size(); i++) {
+			if (c.getPlattons().get(i).getNumber() == p.getNumber()) {
+				view.print("Pluton o podanym numerze ju¿ istnieje w kompanii!");
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private Company getValidCompany() {
 		String line;
 		Company c;
@@ -46,7 +57,7 @@ public class AssignPlatoonToCompanyAction implements Action{
 		} while (!ValidUtil.isValid(c));
 		return c;
 	}
-	
+
 	private Platoon getValidPlatoon() {
 		String line;
 		Platoon p;
@@ -60,13 +71,13 @@ public class AssignPlatoonToCompanyAction implements Action{
 		} while (!ValidUtil.isValid(p));
 		return p;
 	}
-	
+
 	private void canceling(String line) {
-		if("cancel".equals(line)) {
+		if ("cancel".equals(line)) {
 			throw new OperationCancelException("canceling AssignPlatoonToCompany");
 		}
 	}
-	
+
 	@Override
 	public String getName() {
 		return "AssignPlatoonToCompany";

@@ -11,31 +11,43 @@ import com.View.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class AssignTeamToPlatoonAction implements Action{
+public class AssignTeamToPlatoonAction implements Action {
 
 	private View view;
 	private PlatoonRepo platoonRepo;
 	private TeamRepo teamRepo;
-	
+
 	@Override
 	public void launch() {
 		Platoon p;
 		Team t;
-		
+
 		p = getValidPlatoon();
 		t = getValidTeam();
-		
+
 		assignTeamToPlatoon(p, t);
 		
-		platoonRepo.updatePlatoon(p);
-		teamRepo.updateTeam(t);
 	}
 
 	private void assignTeamToPlatoon(Platoon p, Team t) {
-		t.setPlatoon(p);
-		p.getTeams().add(t);
+		if (!platoonContainsTeam(p, t)) {
+			t.setPlatoon(p);
+			p.getTeams().add(t);
+			platoonRepo.updatePlatoon(p);
+			teamRepo.updateTeam(t);
+		}
 	}
-	
+
+	private boolean platoonContainsTeam(Platoon p, Team t) {
+		for (int i = 0; i < p.getTeams().size(); i++) {
+			if (p.getTeams().get(i).getNumber() == t.getNumber()) {
+				view.print("Druzyna o podanym numerze ju¿ istnieje w plutonie!");
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private Platoon getValidPlatoon() {
 		String line;
 		Platoon p;
@@ -49,7 +61,7 @@ public class AssignTeamToPlatoonAction implements Action{
 		} while (!ValidUtil.isValid(p));
 		return p;
 	}
-	
+
 	private Team getValidTeam() {
 		Team t;
 		String line;
@@ -63,13 +75,13 @@ public class AssignTeamToPlatoonAction implements Action{
 		} while (!ValidUtil.isValid(t));
 		return t;
 	}
-	
+
 	private void canceling(String line) {
-		if("cancel".equals(line)) {
+		if ("cancel".equals(line)) {
 			throw new OperationCancelException("canceling AssignTeamToPlatoon");
 		}
 	}
-	
+
 	@Override
 	public String getName() {
 		return "AssignTeamToPlatoon";
