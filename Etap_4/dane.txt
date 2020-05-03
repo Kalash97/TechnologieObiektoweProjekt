@@ -1,0 +1,23 @@
+W tym etapie kontynuowaliśmy implementację aplikacji. Stworzyliśmy akcje dodające dowódców do jednostek, dodające 
+jednostki do jednostek wyższego szczebla (drużyna-pluton, itp.), wyświetlające niepełne 
+encje (żołnierzy bez broni, jednostek bez dowódców, itp.), oraz zmodyfikowaliśmy 
+część starych akcji (zabezpieczenie przed dodaniem więcej niż jednej jednostki o tym samym numerze do jednostki 
+wyszego szczebla, zabezpieczenie przed możliwością dowodzenia wieloma jednostkami przez tego samego dowódcę, itp.). 
+Ponadto dalej pracowaliśmy nad dokumentacją.
+
+W następnym etapie będziemy kontynuować implementację aplikacji, oraz pisanie dokumentacji.
+
+Statystyki:
+
+Część teorytyczna:
+Liczba plików sprawozdania: 1 plik odt.
+Rozmiar pliku: 222 KB
+Liczba stron sprawozdania: 37
+Liczba słów: 2646
+Liczba znaków: 25594
+Liczba zdjęć: 19
+
+Część praktyczna:
+Liczba plików: 78
+Liczba pakietów: 15
+Liczba linijek kodu: 4508
