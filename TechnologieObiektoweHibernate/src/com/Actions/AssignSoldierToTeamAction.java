@@ -2,6 +2,7 @@ package com.Actions;
 
 import com.Entities.Soldier;
 import com.Entities.Team;
+import com.Enums.Rank;
 import com.Exceptions.OperationCancelException;
 import com.Repos.SoldierRepo;
 import com.Repos.TeamRepo;
@@ -11,30 +12,36 @@ import com.View.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class AssignSoldierToTeamAction implements Action{
+public class AssignSoldierToTeamAction implements Action {
 
 	private View view;
 	private SoldierRepo soldierRepo;
 	private TeamRepo teamRepo;
-	
+
 	@Override
 	public void launch() {
 		Team t;
 		Soldier s;
-		
+
 		t = getValidTeam();
-		
+
 		s = getValidSoldier();
-		
+
 		assignSoldierToTeam(t, s);
+
 		
-		teamRepo.updateTeam(t);
-		soldierRepo.updateSoldier(s);
 	}
 
 	private void assignSoldierToTeam(Team t, Soldier s) {
-		s.setTeam(t);
-		t.getSoldiers().add(s);
+		if (ValidUtil.isRankLowerOrEqual(s, Rank.MASTER_SERGEANT)) {
+			s.setTeam(t);
+			t.getSoldiers().add(s);
+			teamRepo.updateTeam(t);
+			soldierRepo.updateSoldier(s);
+		} else {
+			view.print("¯o³nierz ma nieodpowiedni stopieñ");
+			return;
+		}
 	}
 
 	private Soldier getValidSoldier() {
@@ -66,11 +73,11 @@ public class AssignSoldierToTeamAction implements Action{
 	}
 
 	private void canceling(String line) {
-		if("cancel".equals(line)) {
+		if ("cancel".equals(line)) {
 			throw new OperationCancelException("canceling assigningSoldier");
 		}
 	}
-	
+
 	@Override
 	public String getName() {
 		return "AssignSoldierToTeam";

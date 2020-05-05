@@ -48,8 +48,7 @@ public class AssignCommanderToTeamAction implements Action {
 		detachCommanderFromBattalions(s);
 
 		assignCommanderToTeam(t, s);
-		teamRepo.updateTeam(t);
-		soldierRepo.updateSoldier(s);
+		
 	}
 
 	private void detachCommanderFromBattalions(Soldier s) {
@@ -93,13 +92,17 @@ public class AssignCommanderToTeamAction implements Action {
 	}
 
 	private void assignCommanderToTeam(Team t, Soldier s) {
-		if (ValidUtil.isRankHigh(s, Rank.CORPORAL, Rank.SERGEANT)) {
+		if (ValidUtil.isRankProper(s, Rank.CORPORAL, Rank.MASTER_SERGEANT)) {
 			if (t.getSoldiers().contains(s)) {
 				t.setCommander(s);
+				teamRepo.updateTeam(t);
+				soldierRepo.updateSoldier(s);
 			} else {
 				s.setTeam(t);
 				t.getSoldiers().add(s);
 				t.setCommander(s);
+				teamRepo.updateTeam(t);
+				soldierRepo.updateSoldier(s);
 			}
 		}else {
 			view.print("¯o³nierz ma nieodpowiedni stopieñ");

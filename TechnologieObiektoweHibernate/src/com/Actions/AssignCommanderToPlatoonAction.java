@@ -7,6 +7,7 @@ import com.Entities.Company;
 import com.Entities.Platoon;
 import com.Entities.Soldier;
 import com.Entities.Team;
+import com.Enums.Rank;
 import com.Exceptions.OperationCancelException;
 import com.Repos.BattalionRepo;
 import com.Repos.CompanyRepo;
@@ -19,35 +20,40 @@ import com.View.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class AssignCommanderToPlatoonAction implements Action{
-	
+public class AssignCommanderToPlatoonAction implements Action {
+
 	private View view;
 	private SoldierRepo soldierRepo;
 	private BattalionRepo battalionRepo;
 	private CompanyRepo companyRepo;
 	private PlatoonRepo platoonRepo;
-	private TeamRepo teamRepo;	
-	
+	private TeamRepo teamRepo;
+
 	@Override
 	public void launch() {
 		Platoon p;
 		Soldier s;
-		
+
 		p = getValidPlatoon();
 		s = getValidSoldier();
-		
+
 		detachCommanderFromTeams(s);
 		detachSoldierFromTeams(s);
 		detachCommanderFromPlatoons(s);
 		detachCommanderFromCompanies(s);
 		detachCommanderFromBattalions(s);
-		
-		assignCommanderToPlatoon(p, s);
-		platoonRepo.updatePlatoon(p);
+
+		assignCommanderToPlatoon(p, s);	
 	}
-	
+
 	private void assignCommanderToPlatoon(Platoon p, Soldier s) {
-		p.setCommander(s);
+		if (ValidUtil.isRankProper(s, Rank.LT_2ND, Rank.LT_1ST)) {
+			p.setCommander(s);
+			platoonRepo.updatePlatoon(p);
+		} else {
+			view.print("¯o³nierz ma nieodpowiedni stopieñ");
+			return;
+		}
 	}
 
 	private Soldier getValidSoldier() {
@@ -63,7 +69,7 @@ public class AssignCommanderToPlatoonAction implements Action{
 		} while (!ValidUtil.isValid(s));
 		return s;
 	}
-	
+
 	private Platoon getValidPlatoon() {
 		Platoon p;
 		String line;
@@ -77,11 +83,11 @@ public class AssignCommanderToPlatoonAction implements Action{
 		} while (!ValidUtil.isValid(p));
 		return p;
 	}
-	
+
 	private void detachCommanderFromBattalions(Soldier s) {
 		List<Battalion> battalions = soldierRepo.findBattalionOfCommander(s);
-		if(battalions.size()>0) {
-			for(Battalion battalion : battalions) {
+		if (battalions.size() > 0) {
+			for (Battalion battalion : battalions) {
 				battalion.setCommander(null);
 				battalionRepo.updateBattalion(battalion);
 			}
@@ -90,8 +96,8 @@ public class AssignCommanderToPlatoonAction implements Action{
 
 	private void detachCommanderFromCompanies(Soldier s) {
 		List<Company> companies = soldierRepo.findCompanyOfCommander(s);
-		if(companies.size()>0) {
-			for(Company company : companies) {
+		if (companies.size() > 0) {
+			for (Company company : companies) {
 				company.setCommander(null);
 				companyRepo.updateCompany(company);
 			}
@@ -100,18 +106,18 @@ public class AssignCommanderToPlatoonAction implements Action{
 
 	private void detachCommanderFromPlatoons(Soldier s) {
 		List<Platoon> platoons = soldierRepo.findPlatoonOfCommander(s);
-		if(platoons.size()>0) {
-			for(Platoon platoon : platoons) {
+		if (platoons.size() > 0) {
+			for (Platoon platoon : platoons) {
 				platoon.setCommander(null);
 				platoonRepo.updatePlatoon(platoon);
 			}
 		}
 	}
-	
+
 	private void detachSoldierFromTeams(Soldier s) {
 		List<Team> teams = soldierRepo.findTeamsOfSoldier(s);
-		if(teams.size()>0) {
-			for(Team team : teams) {
+		if (teams.size() > 0) {
+			for (Team team : teams) {
 				team.getSoldiers().remove(s);
 				s.setTeam(null);
 				teamRepo.updateTeam(team);
@@ -119,19 +125,19 @@ public class AssignCommanderToPlatoonAction implements Action{
 			}
 		}
 	}
-	
+
 	private void detachCommanderFromTeams(Soldier s) {
 		List<Team> teams = soldierRepo.findTeamsOfCommander(s);
-		if(teams.size()>0) {
-			for(Team team : teams) {
+		if (teams.size() > 0) {
+			for (Team team : teams) {
 				team.setCommander(null);
 				teamRepo.updateTeam(team);
 			}
 		}
 	}
-	
+
 	private void canceling(String line) {
-		if("cancel".equals(line)) {
+		if ("cancel".equals(line)) {
 			throw new OperationCancelException("canceling assignCommander");
 		}
 	}

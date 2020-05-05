@@ -61,7 +61,7 @@ public class ValidUtil {
 		}
 	}
 	
-	public static boolean isRankHigh(Soldier soldier, Rank rank1, Rank rank2) {
+	public static boolean isRankProper(Soldier soldier, Rank rank1, Rank rank2) {
 		if((soldier.getRank().compareTo(rank1)>0 || soldier.getRank().compareTo(rank1)==0) && (soldier.getRank().compareTo(rank2)<0 || soldier.getRank().compareTo(rank2)==0)) {
 			return true;
 		}else {
@@ -70,4 +70,19 @@ public class ValidUtil {
 		
 	}
 	
+	public static boolean isRankProper(Soldier soldier, Rank rank) {
+		if(soldier.getRank().compareTo(rank)==0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public static boolean isRankLowerOrEqual(Soldier soldier, Rank rank) {
+		if(soldier.getRank().compareTo(rank)<0 || soldier.getRank().compareTo(rank)==0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }
