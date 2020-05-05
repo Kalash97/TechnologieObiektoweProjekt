@@ -1,6 +1,7 @@
 package com.Utils;
 
 import com.Entities.Persistable;
+import com.Entities.Soldier;
 import com.Enums.BloodType;
 import com.Enums.Rank;
 import com.Enums.WeaponType;
@@ -58,6 +59,15 @@ public class ValidUtil {
 		}else {
 			return true;
 		}
+	}
+	
+	public static boolean isRankHigh(Soldier soldier, Rank rank1, Rank rank2) {
+		if((soldier.getRank().compareTo(rank1)>0 || soldier.getRank().compareTo(rank1)==0) && (soldier.getRank().compareTo(rank2)<0 || soldier.getRank().compareTo(rank2)==0)) {
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 	
 }
