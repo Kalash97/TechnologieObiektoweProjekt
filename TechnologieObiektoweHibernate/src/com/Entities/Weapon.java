@@ -10,7 +10,9 @@ import com.Enums.WeaponType;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+@ToString(exclude = "soldier")
 @Entity
 public class Weapon implements Persistable{
 

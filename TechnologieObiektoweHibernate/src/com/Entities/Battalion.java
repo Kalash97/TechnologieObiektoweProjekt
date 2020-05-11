@@ -10,7 +10,9 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import lombok.Getter;
+import lombok.ToString;
 
+@ToString(callSuper = true, exclude = "companies")
 @Entity
 public class Battalion extends Unit implements Persistable{
 

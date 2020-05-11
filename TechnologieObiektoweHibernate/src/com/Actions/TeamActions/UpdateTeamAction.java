@@ -19,6 +19,7 @@ public class UpdateTeamAction implements Action{
 	public void launch() {
 		Team t = findValidTeam();
 		view.print("Podaj nowy numer.(Zostaw puste jeœli nie chcesz zmieniaæ)");
+		
 		String line = getTeamNumber();
 		if(!line.equals("")) {
 			t.setNumber(Long.parseLong(line));

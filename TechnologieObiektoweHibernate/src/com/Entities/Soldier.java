@@ -19,7 +19,9 @@ import com.Enums.Rank;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+@ToString(exclude = {"team", "weapons"})
 @Entity
 public class Soldier implements Persistable{
 

@@ -3,14 +3,16 @@ package com.View;
 import java.util.List;
 import java.util.Scanner;
 
-public class ConsoleView implements View{
+import com.Exceptions.OperationCancelException;
+
+public class ConsoleView implements View {
 
 	private Scanner scanner = new Scanner(System.in);
 
 	public void print(String msg) {
 		System.out.println(msg);
 	}
-	
+
 	public String read() {
 		return scanner.nextLine();
 	}
@@ -28,9 +30,38 @@ public class ConsoleView implements View{
 
 	@Override
 	public void print(Object[] array) {
-		for(int i=0; i<array.length; i++) {
-			System.out.println(i+":"+array[i]);
+		for (int i = 0; i < array.length; i++) {
+			System.out.println(i + ":" + array[i]);
 		}
 	}
-	
+
+	@Override
+	public long getValidNumber(String string) {
+		print(string);
+		while (true) {
+			String line = scanner.nextLine();
+			try {
+				return Long.parseLong(line);
+			} catch (NumberFormatException e) {
+				print("Podaj prawid³owy numer");
+			}
+		}
+	}
+
+	@Override
+	public long getValidNumberCancellable(String string) {
+		print(string);
+		while (true) {
+			String line = scanner.nextLine();
+			if("cancel".equalsIgnoreCase(line)) {
+				throw new OperationCancelException("Canceling action");
+			}
+			try {
+				return Long.parseLong(line);
+			} catch (NumberFormatException e) {
+				print("Podaj prawid³owy numer");
+			}
+		}
+	}
+
 }

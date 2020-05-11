@@ -5,6 +5,7 @@ import java.util.List;
 import com.Actions.Action;
 import com.Entities.Soldier;
 import com.Repos.SoldierRepo;
+import com.Utils.ViewHelper;
 import com.View.View;
 
 import lombok.AllArgsConstructor;
@@ -18,19 +19,20 @@ public class FindSoldiersWithoutTeamAction implements Action{
 	@Override
 	public void launch() {
 		List<Soldier> soldiers = soldierRepo.findSoldiersWithoutTeam();
-		showSoldiers(soldiers);
+		//showSoldiers(soldiers);
+		ViewHelper.printResults(ViewHelper.soldiersToPersistable(soldiers), view);
 	}
 
-	private void showSoldiers(List<Soldier> soldiers) {
-		if(soldiers.size()>0) {
-			for(int i=0; i<soldiers.size();i++) {
-				Soldier s = soldiers.get(i);
-				view.print(i+": ID: "+ s.getId()+", Imiê: "+s.getName()+", Nazwisko: "+s.getLastName()+", Stopieñ: "+ s.getRank());
-			}
-		}else {
-			view.print("Brak nieprzypisanch ¿o³nierzy.");
-		}
-	}
+//	private void showSoldiers(List<Soldier> soldiers) {
+//		if(soldiers.size()>0) {
+//			for(int i=0; i<soldiers.size();i++) {
+//				Soldier s = soldiers.get(i);
+//				view.print(i+": ID: "+ s.getId()+", Imiê: "+s.getName()+", Nazwisko: "+s.getLastName()+", Stopieñ: "+ s.getRank());
+//			}
+//		}else {
+//			view.print("Brak nieprzypisanch ¿o³nierzy.");
+//		}
+//	}
 	
 	@Override
 	public String getName() {
