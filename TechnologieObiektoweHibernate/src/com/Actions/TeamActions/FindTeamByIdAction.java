@@ -47,12 +47,12 @@ public class FindTeamByIdAction implements Action {
 //		view.print("");
 		
 		ViewHelper.printResults(Arrays.asList(t), view);
-		try {
-			view.print("-----Dowódca:");
-			ViewHelper.printResults(Arrays.asList(t.getCommander()), view);
-		}catch (NullPointerException e) {
-			view.print("Brak dowódcy");
-		}
+//		try {
+//			view.print("-----Dowódca:");
+//			ViewHelper.printResults(Arrays.asList(t.getCommander()), view);
+//		}catch (NullPointerException e) {
+//			view.print("Brak dowódcy");
+//		}
 		
 		view.print("-----¯o³nierze:");
 		ViewHelper.printResults(ViewHelper.soldiersToPersistable(t.getSoldiers()), view);
@@ -82,11 +82,11 @@ public class FindTeamByIdAction implements Action {
 		}
 	}
 
-	private void canceling(String line) {
-		if ("cancel".equals(line)) {
-			throw new OperationCancelException("canceling findTeam");
-		}
-	}
+//	private void canceling(String line) {
+//		if ("cancel".equals(line)) {
+//			throw new OperationCancelException("canceling findTeam");
+//		}
+//	}
 
 	@Override
 	public String getName() {

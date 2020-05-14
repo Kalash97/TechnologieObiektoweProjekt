@@ -18,21 +18,9 @@ public class FindWeaponsWithoutSoldierAction implements Action{
 	
 	@Override
 	public void launch() {
-		List<Weapon> unassignedWeapons = weaponRepo.findUnassignedWeapons();
-		//showUnassignedWeapons(unassignedWeapons);
-		ViewHelper.printResults(ViewHelper.weaponsToPersistable(unassignedWeapons), view);
+		List<Weapon> weapons = weaponRepo.findUnassignedWeapons();
+		ViewHelper.printResults(ViewHelper.weaponsToPersistable(weapons), view);
 	}
-
-//	private void showUnassignedWeapons(List<Weapon> unassignedWeapons) {
-//		if(unassignedWeapons.size()>0) {
-//			for(int i=0; i<unassignedWeapons.size();i++) {
-//				Weapon w = unassignedWeapons.get(i);
-//				view.print(i+": ID: " +w.getId()+", Nazwa: "+w.getName()+", Nr. seryjny: "+w.getSerialNumber()+", Typ: "+ w.getWeaponType());
-//			}
-//		}else {
-//			view.print("Brak nieprzypisanej broni.");
-//		}
-//	}
 
 	@Override
 	public String getName() {

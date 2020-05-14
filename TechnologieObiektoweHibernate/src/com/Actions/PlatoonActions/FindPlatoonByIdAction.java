@@ -1,5 +1,6 @@
 package com.Actions.PlatoonActions;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.Actions.Action;
@@ -9,6 +10,7 @@ import com.Entities.Team;
 import com.Exceptions.OperationCancelException;
 import com.Repos.PlatoonRepo;
 import com.Utils.ValidUtil;
+import com.Utils.ViewHelper;
 import com.View.View;
 
 import lombok.AllArgsConstructor;
@@ -24,44 +26,49 @@ public class FindPlatoonByIdAction implements Action{
 		Platoon p;
 		p = findValidPlatoon();
 		
-		view.print("Znaleziony pluton:");
-		view.print("Numer: " + p.getNumber());
-		view.print("Dowódca:: Imiê: " + p.getCommander().getName()+", Nazwisko: "+p.getCommander().getLastName()+", Stopieñ: "+p.getCommander().getRank());
-		Company c = p.getCompany();
-		if(c!=null) {
-			view.print("Kompania:: Id:" + c.getId() + " Numer: " + c.getNumber());
-		}else {
-			view.print("Kompania: "+c);
+		ViewHelper.printResults(Arrays.asList(p), view);
+		view.print("");
+		
+		try {
+			view.print("-----Kompania:");
+			ViewHelper.printResults(Arrays.asList(p.getCompany()), view);
+		}catch (NullPointerException e) {
+			view.print("Brak kompanii");
 		}
-		view.print("Dru¿yny w plutonie:");
-		List<Team> list = p.getTeams();
-		if(list.size()>0) {
-			for(int i=0;i<list.size();i++) {
-				view.print(i+ ": " + " ID: "+list.get(i).getId()+ ", Nr. dru¿yny: "+ list.get(i).getNumber());
-			}
-		}
+		view.print("");
+		
+		view.print("-----Dru¿yny:");
+		ViewHelper.printResults(ViewHelper.teamsToPersistable(p.getTeams()), view);		
 		view.print("");
 	}
 
 	private Platoon findValidPlatoon() {
-		String line;
-		Platoon p;
-		do {
-			do {
-				view.print("Podaj id plutonu do znalezienia.(s³owo <<cancel>> zawraca)");
-				line = view.read();
-				canceling(line);
-			} while (!ValidUtil.isLongInstance(line));
-			p = repo.findById(Long.parseLong(line));
-		} while (!ValidUtil.isValid(p));
-		return p;
-	}
-
-	private void canceling(String line) {
-		if("cancel".equals(line)) {
-			throw new OperationCancelException("canceling findSoldier");
+//		String line;
+//		Platoon p;
+//		do {
+//			do {
+//				view.print("Podaj id plutonu do znalezienia.(s³owo <<cancel>> zawraca)");
+//				line = view.read();
+//				canceling(line);
+//			} while (!ValidUtil.isLongInstance(line));
+//			p = repo.findById(Long.parseLong(line));
+//		} while (!ValidUtil.isValid(p));
+//		return p;
+		
+		while(true) {
+			long id = view.getValidNumberCancellable("Podaj ID plutonu");
+			Platoon p = repo.findById(id);
+			if(p!=null) {
+				return p;
+			}
 		}
 	}
+
+//	private void canceling(String line) {
+//		if("cancel".equals(line)) {
+//			throw new OperationCancelException("canceling findSoldier");
+//		}
+//	}
 	
 	@Override
 	public String getName() {

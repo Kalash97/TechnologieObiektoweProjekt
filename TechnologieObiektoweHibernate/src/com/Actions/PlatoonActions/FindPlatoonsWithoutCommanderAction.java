@@ -5,6 +5,7 @@ import java.util.List;
 import com.Actions.Action;
 import com.Entities.Platoon;
 import com.Repos.PlatoonRepo;
+import com.Utils.ViewHelper;
 import com.View.View;
 
 import lombok.AllArgsConstructor;
@@ -18,19 +19,20 @@ public class FindPlatoonsWithoutCommanderAction implements Action{
 	@Override
 	public void launch() {
 		List<Platoon> platoons = platoonRepo.findPlatoonsWithoutCommander();
-		showPlatoons(platoons);
+		//showPlatoons(platoons);
+		ViewHelper.printResults(ViewHelper.platoonsToPersistable(platoons), view);
 	}
 
-	private void showPlatoons(List<Platoon> platoons) {
-		if(platoons.size()>0) {
-			for(int i=0; i<platoons.size();i++) {
-				Platoon p = platoons.get(i);
-				view.print(i + ": ID: "+p.getId()+", Numer: "+p.getNumber());
-			}
-		}else {
-			view.print("Brak plutonów bez dowódcy");
-		}
-	}
+//	private void showPlatoons(List<Platoon> platoons) {
+//		if(platoons.size()>0) {
+//			for(int i=0; i<platoons.size();i++) {
+//				Platoon p = platoons.get(i);
+//				view.print(i + ": ID: "+p.getId()+", Numer: "+p.getNumber());
+//			}
+//		}else {
+//			view.print("Brak plutonów bez dowódcy");
+//		}
+//	}
 
 	@Override
 	public String getName() {

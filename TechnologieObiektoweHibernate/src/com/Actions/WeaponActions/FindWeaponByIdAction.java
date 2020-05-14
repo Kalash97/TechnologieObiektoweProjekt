@@ -40,12 +40,6 @@ public class FindWeaponByIdAction implements Action {
 		}
 	}
 
-//	private void canceling(String line) {
-//		if ("cancel".equals(line)) {
-//			throw new OperationCancelException("canceling findWeapon");
-//		}
-//	}
-
 	@Override
 	public String getName() {
 		return "FindWeaponById";

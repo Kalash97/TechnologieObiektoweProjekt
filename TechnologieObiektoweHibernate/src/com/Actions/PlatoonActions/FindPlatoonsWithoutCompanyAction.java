@@ -5,6 +5,7 @@ import java.util.List;
 import com.Actions.Action;
 import com.Entities.Platoon;
 import com.Repos.PlatoonRepo;
+import com.Utils.ViewHelper;
 import com.View.View;
 
 import lombok.AllArgsConstructor;
@@ -18,18 +19,7 @@ public class FindPlatoonsWithoutCompanyAction implements Action{
 	@Override
 	public void launch() {
 		List<Platoon> platoons = platoonRepo.findPlatoonsWithoutCompany();
-		showPlatoons(platoons);
-	}
-
-	private void showPlatoons(List<Platoon> platoons) {
-		if(platoons.size()>0) {
-			for(int i=0; i<platoons.size();i++) {
-				Platoon p = platoons.get(i);
-				view.print(i + ": ID: "+p.getId()+", Numer: "+p.getNumber());
-			}
-		}else {
-			view.print("Brak plutonów bez kompanii");
-		}
+		ViewHelper.printResults(ViewHelper.platoonsToPersistable(platoons), view);
 	}
 
 	@Override

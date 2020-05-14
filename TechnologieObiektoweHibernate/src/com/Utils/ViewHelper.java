@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.Entities.Persistable;
+import com.Entities.Platoon;
 import com.Entities.Soldier;
+import com.Entities.Team;
 import com.Entities.Weapon;
 import com.View.View;
 
@@ -24,4 +26,11 @@ public class ViewHelper {
 		return soldiers.stream().map(s->(Persistable)s).collect(Collectors.toList());
 	}
 
+	public static List<Persistable> teamsToPersistable(List<Team> teams){
+		return teams.stream().map(t->(Persistable)t).collect(Collectors.toList());
+	}
+	
+	public static List<Persistable> platoonsToPersistable(List<Platoon> platoons){
+		return platoons.stream().map(p->(Persistable)p).collect(Collectors.toList());
+	}
 }
