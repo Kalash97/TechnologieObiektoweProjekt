@@ -1,69 +1,53 @@
 package com.Actions.CompanyActions;
 
-import java.util.List;
+import java.util.Arrays;
 
 import com.Actions.Action;
-import com.Entities.Battalion;
 import com.Entities.Company;
-import com.Entities.Platoon;
-import com.Exceptions.OperationCancelException;
 import com.Repos.CompanyRepo;
-import com.Utils.ValidUtil;
+import com.Utils.ViewHelper;
 import com.View.View;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class FindCompanyByIdAction implements Action{
+public class FindCompanyByIdAction implements Action {
 
 	private View view;
 	private CompanyRepo repo;
-	
+
 	@Override
 	public void launch() {
 		Company c;
-		
+
 		c = getValidCompany();
-		
-		view.print("Znaleziona kompania:");
-		view.print("Numer: " + c.getNumber());
-		view.print("Dowódca:: Imiê:" + c.getCommander().getName()+ ", Nazwisko: "+c.getCommander().getLastName()+", Stopieñ: "+c.getCommander().getRank());
-		Battalion b = c.getBattalion();
-		if(b!=null) {
-			view.print("Batalion: Id:" + b.getId() + " Numer: " + b.getNumber());
-		}else {
-			view.print("Batalion: "+b);
+
+		ViewHelper.printResults(Arrays.asList(c), view);
+
+		try {
+			view.print("-----Batalion:");
+			ViewHelper.printResults(Arrays.asList(c.getBattalion()), view);
+		} catch (NullPointerException e) {
+			view.print("Brak batalionu");
 		}
-		view.print("Plutony w kompanii:");
-		List<Platoon> list = c.getPlattons();
-		if(list.size()>0) {
-			for(int i=0; i<list.size(); i++) {
-				view.print(i + ": " + "ID: "+list.get(i).getId() + ", Nr. plutonu: "+list.get(i).getNumber());
-			}
-		}
+		view.print("");
+
+		view.print("-----Plutony:");
+		ViewHelper.printResults(ViewHelper.platoonsToPersistable(c.getPlattons()), view);
 		view.print("");
 	}
 
 	private Company getValidCompany() {
-		String line;
-		Company c;
-		do {
-			do {
-				view.print("Podaj id kompanii do znalezienia.(s³owo <<cancel>> zawraca)");
-				line = view.read();
-				canceling(line);
-			} while (!ValidUtil.isLongInstance(line));
-			c = repo.findById(Long.parseLong(line));
-		} while (!ValidUtil.isValid(c));
-		return c;
-	}
-
-	private void canceling(String line) {
-		if("cancel".equals(line)) {
-			throw new OperationCancelException("canceling findSoldier");
+	
+		while (true) {
+			long id = view.getValidNumberCancellable("Podaj ID kompanii");
+			Company c = repo.findById(id);
+			if (c != null) {
+				return c;
+			}
 		}
 	}
-	
+
 	@Override
 	public String getName() {
 		return "FindCompanyById";

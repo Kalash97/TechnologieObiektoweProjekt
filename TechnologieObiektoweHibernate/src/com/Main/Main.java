@@ -16,6 +16,7 @@ import com.Actions.AssignWeaponToSoldierAction;
 import com.Actions.ExitAction;
 import com.Actions.BattalionActions.CreateBattalionAction;
 import com.Actions.BattalionActions.DeleteBattalionAction;
+import com.Actions.BattalionActions.FindBattalionByCommanderAction;
 import com.Actions.BattalionActions.FindBattalionByIdAction;
 import com.Actions.BattalionActions.FindBattalionsWithoutCommanderAction;
 import com.Actions.BattalionActions.FindBattalionsWithoutCompaniesAction;
@@ -25,11 +26,13 @@ import com.Actions.CompanyActions.DeleteCompanyAction;
 import com.Actions.CompanyActions.FindCompaniesWithoutBattalionAction;
 import com.Actions.CompanyActions.FindCompaniesWithoutCommanderAction;
 import com.Actions.CompanyActions.FindCompaniesWithoutPlatoonsAction;
+import com.Actions.CompanyActions.FindCompanyByCommanderAction;
 import com.Actions.CompanyActions.FindCompanyByIdAction;
 import com.Actions.CompanyActions.RemoveCommanderFromCompanyAction;
 import com.Actions.CompanyActions.UpdateCompanyAction;
 import com.Actions.PlatoonActions.CreatePlatoonAction;
 import com.Actions.PlatoonActions.DeletePlatoonAction;
+import com.Actions.PlatoonActions.FindPlatoonByCommanderAction;
 import com.Actions.PlatoonActions.FindPlatoonByIdAction;
 import com.Actions.PlatoonActions.FindPlatoonsWithoutCommanderAction;
 import com.Actions.PlatoonActions.FindPlatoonsWithoutCompanyAction;
@@ -44,6 +47,7 @@ import com.Actions.SoldierActions.FindSoldiersWithoutWeaponAction;
 import com.Actions.SoldierActions.UpdateSoldierAction;
 import com.Actions.TeamActions.CreateTeamAction;
 import com.Actions.TeamActions.DeleteTeamAction;
+import com.Actions.TeamActions.FindTeamByCommanderAction;
 import com.Actions.TeamActions.FindTeamByIdAction;
 import com.Actions.TeamActions.FindTeamsWithoutCommanderAction;
 import com.Actions.TeamActions.FindTeamsWithoutPlatoonAction;
@@ -140,26 +144,29 @@ public class Main {
 		actionsList.add(new FindTeamByIdAction(consoleView, teamRepo));
 		actionsList.add(new UpdateTeamAction(consoleView, teamRepo));
 		actionsList.add(new RemoveCommanderFromTeamAction(consoleView, teamRepo));
+		actionsList.add(new FindTeamByCommanderAction(consoleView, soldierRepo));
 
 		actionsList.add(new CreatePlatoonAction(consoleView, platoonRepo));
 		actionsList.add(new DeletePlatoonAction(consoleView, platoonRepo, teamRepo));
 		actionsList.add(new FindPlatoonByIdAction(consoleView, platoonRepo));
 		actionsList.add(new UpdatePlatoonAction(consoleView, platoonRepo));
 		actionsList.add(new RemoveCommanderFromPlatoonAction(consoleView, platoonRepo));
+		actionsList.add(new FindPlatoonByCommanderAction(consoleView, soldierRepo));
 
 		actionsList.add(new CreateCompanyAction(consoleView, companyRepo));
 		actionsList.add(new DeleteCompanyAction(consoleView, companyRepo, platoonRepo));
 		actionsList.add(new FindCompanyByIdAction(consoleView, companyRepo));
 		actionsList.add(new UpdateCompanyAction(consoleView, companyRepo));
 		actionsList.add(new RemoveCommanderFromCompanyAction(consoleView, companyRepo));
+		actionsList.add(new FindCompanyByCommanderAction(consoleView, soldierRepo));
 
 		actionsList.add(new CreateBattalionAction(consoleView, battalionRepo));
 		actionsList.add(new DeleteBattalionAction(consoleView, battalionRepo, companyRepo));
 		actionsList.add(new FindBattalionByIdAction(consoleView, battalionRepo));
 		actionsList.add(new UpdateBattalionAction(consoleView, battalionRepo));
+		actionsList.add(new FindBattalionByCommanderAction(consoleView, soldierRepo));
 
 		actionsList.add(new AssignWeaponToSoldierAction(consoleView, weaponRepo, soldierRepo));
-
 		actionsList.add(new AssignSoldierToTeamAction(consoleView, soldierRepo, teamRepo));
 		actionsList.add(new AssignCommanderToTeamAction(consoleView, teamRepo, platoonRepo, companyRepo, battalionRepo, soldierRepo));
 		actionsList.add(new AssignTeamToPlatoonAction(consoleView, platoonRepo, teamRepo));

@@ -1,8 +1,11 @@
 package com.Utils;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.Entities.Battalion;
+import com.Entities.Company;
 import com.Entities.Persistable;
 import com.Entities.Platoon;
 import com.Entities.Soldier;
@@ -30,7 +33,32 @@ public class ViewHelper {
 		return teams.stream().map(t->(Persistable)t).collect(Collectors.toList());
 	}
 	
+	
 	public static List<Persistable> platoonsToPersistable(List<Platoon> platoons){
 		return platoons.stream().map(p->(Persistable)p).collect(Collectors.toList());
+	}
+	
+	public static List<Persistable> compainiesToPersistable(List<Company> companies){
+		return companies.stream().map(c->(Persistable)c).collect(Collectors.toList());
+	}
+	
+	public static List<Persistable> battalionsToPersistable(List<Battalion> battalions){
+		return battalions.stream().map(b->(Persistable)b).collect(Collectors.toList());
+	}
+	
+	public static List<Persistable> teamsToPersistable(Set<Team> teams){
+		return teams.stream().map(t->(Persistable)t).collect(Collectors.toList());
+	}
+	
+	public static List<Persistable> platoonsToPersistable(Set<Platoon> platoons){
+		return platoons.stream().map(p->(Persistable)p).collect(Collectors.toList());
+	}
+	
+	public static List<Persistable> compainiesToPersistable(Set<Company> companies){
+		return companies.stream().map(c->(Persistable)c).collect(Collectors.toList());
+	}
+	
+	public static List<Persistable> battalionsToPersistable(Set<Battalion> battalions){
+		return battalions.stream().map(b->(Persistable)b).collect(Collectors.toList());
 	}
 }

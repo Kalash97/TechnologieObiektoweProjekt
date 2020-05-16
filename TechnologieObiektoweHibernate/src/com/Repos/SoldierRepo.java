@@ -30,6 +30,11 @@ public class SoldierRepo {
 		return (Soldier) hpm.findById(id, Soldier.class);
 	}
 
+	public List<Soldier> findSoldiersByName(String name, String lastName){
+		String query = "SELECT S FROM Soldier S WHERE S.name = " + "'" +name + "'" + " AND S.lastName = " + "'" + lastName + "'";
+		return findSoldiersByQuery(query);
+	}
+	
 	public void updateSoldier(Soldier soldier) {
 		hpm.update(soldier);
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 import com.Actions.Action;
 import com.Entities.Battalion;
 import com.Repos.BattalionRepo;
+import com.Utils.ViewHelper;
 import com.View.View;
 
 import lombok.AllArgsConstructor;
@@ -18,18 +19,7 @@ public class FindBattalionsWithoutCommanderAction implements Action{
 	@Override
 	public void launch() {
 		List<Battalion> battalions = battalionRepo.findBattalionsWithoutCommander();
-		showBattalions(battalions);
-	}
-
-	private void showBattalions(List<Battalion> battalions) {
-		if(battalions.size()>0) {
-			for(int i=0; i<battalions.size();i++) {
-				Battalion b = battalions.get(i);
-				view.print(i + ": ID: "+b.getId()+", Numer: "+b.getNumber());
-			}
-		}else {
-			view.print("Brak batalionów bez kompanii");
-		}
+		ViewHelper.printResults(ViewHelper.battalionsToPersistable(battalions), view);
 	}
 	
 	@Override
