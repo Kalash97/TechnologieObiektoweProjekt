@@ -18,20 +18,8 @@ public class FindTeamsWithoutCommanderAction implements Action{
 	@Override
 	public void launch() {
 		List<Team> teams = teamRepo.findTeamsWithoutCommander();
-		//showTeams(teams);
-		ViewHelper.printResults(ViewHelper.teamsToPersistable(teams), view);
+		ViewHelper.printResults(teams, view);
 	}
-
-//	private void showTeams(List<Team> teams) {
-//		if(teams.size()>0) {
-//			for(int i=0; i<teams.size();i++) {
-//				Team t = teams.get(i);
-//				view.print(i+": ID: "+ t.getId()+", Numer: "+t.getNumber());
-//			}
-//		}else {
-//			view.print("Brak dru¿yn bez dowódców.");
-//		}
-//	}
 
 	@Override
 	public String getName() {

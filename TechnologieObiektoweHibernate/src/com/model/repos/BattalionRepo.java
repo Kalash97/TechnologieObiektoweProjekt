@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.model.entities.Battalion;
 import com.model.entities.Persistable;
+import com.model.entities.Soldier;
 import com.model.persistanceManager.HibernatePersistanceManager;
 import com.utils.ParseUtil;
 
@@ -41,6 +42,18 @@ public class BattalionRepo {
 	}
 	
 	private List<Battalion> findbattalionsByQuery(String query){
+		List<Persistable> results = hpm.findByQuery(query, Battalion.class);
+		List<Battalion> battalions = ParseUtil.parseBattalionList(results);
+		return battalions;
+	}
+	
+	public List<Battalion> findBattalionOfCommander(Soldier soldier){
+		String query = "SELECT B FROM Battalion B, Soldier S WHERE B.commander.id = " + soldier.getId();
+		return findBattalionsByQuery(query);
+
+	}
+	
+	private List<Battalion> findBattalionsByQuery(String query) {
 		List<Persistable> results = hpm.findByQuery(query, Battalion.class);
 		List<Battalion> battalions = ParseUtil.parseBattalionList(results);
 		return battalions;

@@ -20,20 +20,9 @@ public class FindTeamsWithoutSoldiersAction implements Action{
 	public void launch() {
 		List<Team> teams = teamRepo.findTeamsWithoutSoldiers();
 		//showTeams(teams);
-		ViewHelper.printResults(ViewHelper.teamsToPersistable(teams), view);
+		ViewHelper.printResults(teams, view);
 	}
-
-//	private void showTeams(List<Team> teams) {
-//		if(teams.size()>0) {
-//			for(int i=0; i<teams.size();i++) {
-//				Team t = teams.get(i);
-//				view.print(i + ": ID: "+t.getId()+", Numer: "+t.getNumber());
-//			}
-//		}else {
-//			view.print("Brak dru¿yn bez ¿o³nierzy");
-//		}
-//	}
-
+	
 	@Override
 	public String getName() {
 		return "FindTeamsWithoutSoldiers";

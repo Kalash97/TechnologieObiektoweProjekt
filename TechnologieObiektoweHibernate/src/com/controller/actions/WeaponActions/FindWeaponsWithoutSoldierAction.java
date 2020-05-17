@@ -19,7 +19,7 @@ public class FindWeaponsWithoutSoldierAction implements Action{
 	@Override
 	public void launch() {
 		List<Weapon> weapons = weaponRepo.findUnassignedWeapons();
-		ViewHelper.printResults(ViewHelper.weaponsToPersistable(weapons), view);
+		ViewHelper.printResults(weapons, view);
 	}
 
 	@Override

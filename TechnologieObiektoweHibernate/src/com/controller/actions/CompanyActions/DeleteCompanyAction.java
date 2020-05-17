@@ -5,8 +5,7 @@ import com.model.entities.Company;
 import com.model.entities.Platoon;
 import com.model.repos.CompanyRepo;
 import com.model.repos.PlatoonRepo;
-import com.utils.ValidUtil;
-import com.utils.exceptions.OperationCancelException;
+import com.utils.RepoUtil;
 import com.view.View;
 
 import lombok.AllArgsConstructor;
@@ -20,10 +19,8 @@ public class DeleteCompanyAction implements Action {
 
 	@Override
 	public void launch() {
-		Company c;
-
-		c = getValidCompany();
-		
+		Company c = RepoUtil.getValidCompany(view, companyRepo);
+	
 		removeComanderFromCompany(c);
 		removePlatoonsFromCompany(c);
 
@@ -48,27 +45,6 @@ public class DeleteCompanyAction implements Action {
 			companyRepo.updateCompany(c);
 		}
 	}
-	
-	private Company getValidCompany() {
-		String line;
-		Company c;
-		do {
-			do {
-				view.print("Podaj id kompanii do usuniêcia.(s³owo <<cancel>> zawraca)");
-				line = view.read();
-				canceling(line);
-			} while (!ValidUtil.isLongInstance(line));
-			c = companyRepo.findById(Long.parseLong(line));
-		} while (!ValidUtil.isValid(c));
-		return c;
-	}
-
-	private void canceling(String line) {
-		if("cancel".equals(line)) {
-			throw new OperationCancelException("canceling deleteCompany");
-		}
-	}
-	
 	@Override
 	public String getName() {
 		return "DeleteCompany";

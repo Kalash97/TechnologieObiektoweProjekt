@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.model.entities.Persistable;
 import com.model.entities.Platoon;
+import com.model.entities.Soldier;
 import com.model.persistanceManager.HibernatePersistanceManager;
 import com.utils.ParseUtil;
 
@@ -48,5 +49,10 @@ public class PlatoonRepo {
 		List<Persistable> results = hpm.findByQuery(query, Platoon.class);
 		List<Platoon> platoons = ParseUtil.parsePlatoonList(results);
 		return platoons;
+	}
+	
+	public List<Platoon> findPlatoonOfCommander(Soldier soldier) {
+		String query = "SELECT P FROM Platoon P, Soldier S WHERE P.commander.id = " + soldier.getId();
+		return findPlatoonsByQuery(query);
 	}
 }

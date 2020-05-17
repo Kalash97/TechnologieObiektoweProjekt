@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.model.entities.Company;
 import com.model.entities.Persistable;
+import com.model.entities.Soldier;
 import com.model.persistanceManager.HibernatePersistanceManager;
 import com.utils.ParseUtil;
 
@@ -49,5 +50,10 @@ public class CompanyRepo {
 		List<Persistable> results = hpm.findByQuery(query, Company.class);
 		List<Company> companies = ParseUtil.parseCompanyList(results);
 		return companies;
+	}
+	
+	public List<Company> findCompanyOfCommander(Soldier soldier){
+		String query = "SELECT C FROM Company C, Soldier S WHERE C.commander.id = " + soldier.getId();
+		return findCompanyByQuery(query);
 	}
 }

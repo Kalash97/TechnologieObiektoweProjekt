@@ -33,7 +33,7 @@ public class FindPlatoonByIdAction implements Action{
 		view.print("");
 		
 		view.print("-----Dru¿yny:");
-		ViewHelper.printResults(ViewHelper.teamsToPersistable(p.getTeams()), view);		
+		ViewHelper.printResults(p.getTeams(), view);		
 		view.print("");
 	}
 

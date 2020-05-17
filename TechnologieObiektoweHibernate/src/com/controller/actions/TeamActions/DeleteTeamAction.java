@@ -5,8 +5,7 @@ import com.model.entities.Soldier;
 import com.model.entities.Team;
 import com.model.repos.SoldierRepo;
 import com.model.repos.TeamRepo;
-import com.utils.ValidUtil;
-import com.utils.exceptions.OperationCancelException;
+import com.utils.RepoUtil;
 import com.view.View;
 
 import lombok.AllArgsConstructor;
@@ -21,13 +20,11 @@ public class DeleteTeamAction implements Action {
 	@Override
 	public void launch() {
 
-		Team t;
-
-		t = getValidTeam();
+		Team t = RepoUtil.getValidTeam(view, teamRepo);
 		
 		removeCommanderFromTeam(t);
-		
 		removeSoldiersFromTeam(t);
+		
 		teamRepo.deleteTeam(t);
 	}
 
@@ -49,26 +46,6 @@ public class DeleteTeamAction implements Action {
 			s = t.getCommander();
 			t.setCommander(null);
 			soldierRepo.updateSoldier(s);
-		}
-	}
-
-	private Team getValidTeam() {
-		String line;
-		Team t;
-		do {
-			do {
-				view.print("Podaj id dru¿yny do usuniêcia.(s³owo <<cancel>> zawraca)");
-				line = view.read();
-				canceling(line);
-			} while (!ValidUtil.isLongInstance(line));
-			t = teamRepo.findById(Long.parseLong(line));
-		} while (!ValidUtil.isValid(t));
-		return t;
-	}
-	
-	private void canceling(String line) {
-		if("cancel".equals(line)) {
-			throw new OperationCancelException("canceling deleteTeam");
 		}
 	}
 

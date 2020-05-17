@@ -25,22 +25,11 @@ public class FindTeamByIdAction implements Action {
 		view.print("");
 		
 		view.print("-----¯o³nierze:");
-		ViewHelper.printResults(ViewHelper.soldiersToPersistable(t.getSoldiers()), view);	
+		ViewHelper.printResults(t.getSoldiers(), view);	
 		view.print("");
 	}
 
 	private Team findValidTeam() {
-//		String line;
-//		Team t;
-//		do {
-//			do {
-//				view.print("Podaj id dru¿yny do znalezienia.(s³owo <<cancel>> zawraca)");
-//				line = view.read();
-//				canceling(line);
-//			} while (!ValidUtil.isLongInstance(line));
-//			t = repo.findById(Long.parseLong(line));
-//		} while (!ValidUtil.isValid(t));
-//		return t;
 
 		while (true) {
 			long id = view.getValidNumberCancellable("Podaj ID dru¿yny");
@@ -50,12 +39,6 @@ public class FindTeamByIdAction implements Action {
 			}
 		}
 	}
-
-//	private void canceling(String line) {
-//		if ("cancel".equals(line)) {
-//			throw new OperationCancelException("canceling findTeam");
-//		}
-//	}
 
 	@Override
 	public String getName() {

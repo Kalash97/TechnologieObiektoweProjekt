@@ -5,8 +5,7 @@ import com.model.entities.Platoon;
 import com.model.entities.Team;
 import com.model.repos.PlatoonRepo;
 import com.model.repos.TeamRepo;
-import com.utils.ValidUtil;
-import com.utils.exceptions.OperationCancelException;
+import com.utils.RepoUtil;
 import com.view.View;
 
 import lombok.AllArgsConstructor;
@@ -20,12 +19,9 @@ public class DeletePlatoonAction implements Action {
 
 	@Override
 	public void launch() {
-		//TO DO detaching entities
 
-		Platoon p;
-
-		p = getValidPlatoon();
-
+		Platoon p = RepoUtil.getValidPlatoon(view, platoonRepo);
+		
 		removeCommanderFromPlatoon(p);
 		removeTeamsFromPlatoon(p);
 		
@@ -50,27 +46,7 @@ public class DeletePlatoonAction implements Action {
 			platoonRepo.updatePlatoon(p);
 		}
 	}
-	
-	private Platoon getValidPlatoon() {
-		String line;
-		Platoon p;
-		do {
-			do {
-				System.out.println("Podaj id plutonu do usuniêcia.(s³owo <<cancel>> zawraca)");
-				line = view.read();
-				canceling(line);
-			} while (!ValidUtil.isLongInstance(line));
-			p = platoonRepo.findById(Long.parseLong(line));
-		} while (!ValidUtil.isValid(p));
-		return p;
-	}
 
-	private void canceling(String line) {
-		if("cancel".equals(line)) {
-			throw new OperationCancelException("canceling deletePlatoon");
-		}
-	}
-	
 	@Override
 	public String getName() {
 		return "DeletePlatoon";

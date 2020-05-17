@@ -144,27 +144,27 @@ public class Main {
 		actionsList.add(new FindTeamByIdAction(consoleView, teamRepo));
 		actionsList.add(new UpdateTeamAction(consoleView, teamRepo));
 		actionsList.add(new RemoveCommanderFromTeamAction(consoleView, teamRepo));
-		actionsList.add(new FindTeamByCommanderAction(consoleView, soldierRepo));
+		actionsList.add(new FindTeamByCommanderAction(consoleView, soldierRepo, teamRepo));
 
 		actionsList.add(new CreatePlatoonAction(consoleView, platoonRepo));
 		actionsList.add(new DeletePlatoonAction(consoleView, platoonRepo, teamRepo));
 		actionsList.add(new FindPlatoonByIdAction(consoleView, platoonRepo));
 		actionsList.add(new UpdatePlatoonAction(consoleView, platoonRepo));
 		actionsList.add(new RemoveCommanderFromPlatoonAction(consoleView, platoonRepo));
-		actionsList.add(new FindPlatoonByCommanderAction(consoleView, soldierRepo));
+		actionsList.add(new FindPlatoonByCommanderAction(consoleView, soldierRepo, platoonRepo));
 
 		actionsList.add(new CreateCompanyAction(consoleView, companyRepo));
 		actionsList.add(new DeleteCompanyAction(consoleView, companyRepo, platoonRepo));
 		actionsList.add(new FindCompanyByIdAction(consoleView, companyRepo));
 		actionsList.add(new UpdateCompanyAction(consoleView, companyRepo));
 		actionsList.add(new RemoveCommanderFromCompanyAction(consoleView, companyRepo));
-		actionsList.add(new FindCompanyByCommanderAction(consoleView, soldierRepo));
+		actionsList.add(new FindCompanyByCommanderAction(consoleView, soldierRepo, companyRepo));
 
 		actionsList.add(new CreateBattalionAction(consoleView, battalionRepo));
 		actionsList.add(new DeleteBattalionAction(consoleView, battalionRepo, companyRepo));
 		actionsList.add(new FindBattalionByIdAction(consoleView, battalionRepo));
 		actionsList.add(new UpdateBattalionAction(consoleView, battalionRepo));
-		actionsList.add(new FindBattalionByCommanderAction(consoleView, soldierRepo));
+		actionsList.add(new FindBattalionByCommanderAction(consoleView, soldierRepo, battalionRepo));
 
 		actionsList.add(new AssignWeaponToSoldierAction(consoleView, weaponRepo, soldierRepo));
 		actionsList.add(new AssignSoldierToTeamAction(consoleView, soldierRepo, teamRepo));

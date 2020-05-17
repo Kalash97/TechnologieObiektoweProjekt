@@ -19,7 +19,7 @@ public class FindCompaniesWithoutCommanderAction implements Action{
 	@Override
 	public void launch() {
 		List<Company> companies = companyRepo.findCompaniesWithoutCommander();
-		ViewHelper.printResults(ViewHelper.compainiesToPersistable(companies), view);
+		ViewHelper.printResults(companies, view);
 	}
 	
 	@Override

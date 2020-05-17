@@ -19,7 +19,7 @@ public class FindBattalionsWithoutCompaniesAction implements Action{
 	@Override
 	public void launch() {
 		List<Battalion> battalions = battalionRepo.findBattalionsWithoutCompanies();
-		ViewHelper.printResults(ViewHelper.battalionsToPersistable(battalions), view);
+		ViewHelper.printResults(battalions, view);
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public class FindCompaniesWithoutPlatoonsAction implements Action{
 	@Override
 	public void launch() {
 		List<Company> companies = companyRepo.findCompaniesWithoutPlatoons();
-		ViewHelper.printResults(ViewHelper.compainiesToPersistable(companies), view);
+		ViewHelper.printResults(companies, view);
 	}
 
 	@Override

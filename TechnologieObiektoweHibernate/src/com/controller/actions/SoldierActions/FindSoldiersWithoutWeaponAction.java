@@ -18,21 +18,9 @@ public class FindSoldiersWithoutWeaponAction implements Action{
 	
 	@Override
 	public void launch() {
-		List<Soldier> unarmedSoldiers = soldierRepo.findSoldiersWithoutWeapon();
-		//showUnarmedSoldiers(unarmedSoldiers);
-		ViewHelper.printResults(ViewHelper.soldiersToPersistable(unarmedSoldiers), view);
+		List<Soldier> soldiers = soldierRepo.findSoldiersWithoutWeapon();
+		ViewHelper.printResults(soldiers, view);
 	}
-	
-//	private void showUnarmedSoldiers(List<Soldier> unarmedSoldiers) {
-//		if(unarmedSoldiers.size()>0) {
-//			for(int i=0; i<unarmedSoldiers.size();i++) {
-//				Soldier s = unarmedSoldiers.get(i);
-//				view.print(i+": ID: "+ s.getId()+", Imiê: "+s.getName()+", Nazwisko: "+s.getLastName()+", Stopieñ: "+ s.getRank());
-//			}
-//		}else {
-//			view.print("Brak nieuzbrojonych ¿o³nierzy.");
-//		}
-//	}
 
 	@Override
 	public String getName() {

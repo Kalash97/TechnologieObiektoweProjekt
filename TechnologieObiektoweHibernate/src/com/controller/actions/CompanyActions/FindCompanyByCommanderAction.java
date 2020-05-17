@@ -7,6 +7,7 @@ import java.util.Set;
 import com.controller.actions.Action;
 import com.model.entities.Company;
 import com.model.entities.Soldier;
+import com.model.repos.CompanyRepo;
 import com.model.repos.SoldierRepo;
 import com.utils.ViewHelper;
 import com.view.View;
@@ -17,7 +18,8 @@ import lombok.AllArgsConstructor;
 public class FindCompanyByCommanderAction implements Action {
 
 	private View view;
-	private SoldierRepo repo;
+	private SoldierRepo soldierRepo;
+	private CompanyRepo companyRepo;
 
 	@Override
 	public void launch() {
@@ -27,15 +29,15 @@ public class FindCompanyByCommanderAction implements Action {
 		view.print("Podaj nazwisko");
 		String lastName = view.read();
 		
-		List<Soldier> soldiers = repo.findSoldiersByName(name, lastName);
+		List<Soldier> soldiers = soldierRepo.findSoldiersByName(name, lastName);
 		
 		for (Soldier s : soldiers) {
-			List<Company> companies = repo.findCompanyOfCommander(s);
+			List<Company> companies = companyRepo.findCompanyOfCommander(s);
 			Set<Company> companiesSet = new HashSet<Company>();
 			for (Company c : companies) {
 				companiesSet.add(c);
 			}
-			ViewHelper.printResults(ViewHelper.compainiesToPersistable(companiesSet), view);
+			ViewHelper.printResults(companiesSet, view);
 		}
 	}
 

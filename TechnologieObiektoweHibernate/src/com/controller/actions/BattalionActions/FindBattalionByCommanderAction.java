@@ -7,6 +7,7 @@ import java.util.Set;
 import com.controller.actions.Action;
 import com.model.entities.Battalion;
 import com.model.entities.Soldier;
+import com.model.repos.BattalionRepo;
 import com.model.repos.SoldierRepo;
 import com.utils.ViewHelper;
 import com.view.View;
@@ -17,7 +18,8 @@ import lombok.AllArgsConstructor;
 public class FindBattalionByCommanderAction implements Action{
 
 	private View view;
-	private SoldierRepo repo;
+	private SoldierRepo soldierRepo;
+	private BattalionRepo battalionRepo;
 	
 	@Override
 	public void launch() {
@@ -27,15 +29,15 @@ public class FindBattalionByCommanderAction implements Action{
 		view.print("Podaj nazwisko");
 		String lastName = view.read();
 		
-		List<Soldier> soldiers = repo.findSoldiersByName(name, lastName);
+		List<Soldier> soldiers = soldierRepo.findSoldiersByName(name, lastName);
 		
 		for(Soldier s : soldiers) {
-			List<Battalion> battalions = repo.findBattalionOfCommander(s);
+			List<Battalion> battalions = battalionRepo.findBattalionOfCommander(s);
 			Set<Battalion> battalionsSet = new HashSet<Battalion>();
 			for(Battalion b : battalions) {
 				battalionsSet.add(b);
 			}
-			ViewHelper.printResults(ViewHelper.battalionsToPersistable(battalionsSet), view);
+			ViewHelper.printResults(battalionsSet, view);
 		}
 	}
 

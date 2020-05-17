@@ -19,7 +19,7 @@ public class FindPlatoonsWithoutTeamsAction implements Action{
 	@Override
 	public void launch() {
 		List<Platoon> platoons = platoonRepo.findPlatoonsWithoutTeams();
-		ViewHelper.printResults(ViewHelper.platoonsToPersistable(platoons), view);
+		ViewHelper.printResults(platoons, view);
 	}
 
 	@Override

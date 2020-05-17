@@ -19,7 +19,7 @@ public class FindBattalionsWithoutCommanderAction implements Action{
 	@Override
 	public void launch() {
 		List<Battalion> battalions = battalionRepo.findBattalionsWithoutCommander();
-		ViewHelper.printResults(ViewHelper.battalionsToPersistable(battalions), view);
+		ViewHelper.printResults(battalions, view);
 	}
 	
 	@Override

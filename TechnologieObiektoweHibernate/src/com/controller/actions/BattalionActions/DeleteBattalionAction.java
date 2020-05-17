@@ -5,8 +5,7 @@ import com.model.entities.Battalion;
 import com.model.entities.Company;
 import com.model.repos.BattalionRepo;
 import com.model.repos.CompanyRepo;
-import com.utils.ValidUtil;
-import com.utils.exceptions.OperationCancelException;
+import com.utils.RepoUtil;
 import com.view.View;
 
 import lombok.AllArgsConstructor;
@@ -20,9 +19,8 @@ public class DeleteBattalionAction implements Action {
 
 	@Override
 	public void launch() {
-		Battalion b;
+		Battalion b = RepoUtil.getValidBattalion(view, battalionRepo);
 
-		b = getValidBattalion();
 		removeCommanderFromBattalion(b);
 		removeCompaniesFromBattalion(b);
 
@@ -37,34 +35,13 @@ public class DeleteBattalionAction implements Action {
 	}
 	
 	private void removeCompaniesFromBattalion(Battalion b) {
-		Company c;
 		if(b.getCompanies().size()>0) {
 			for(int i=0; i<b.getCompanies().size();i++) {
-				c=b.getCompanies().get(i);
+				Company c=b.getCompanies().get(i);
 				c.setBattalion(null);
 				companyRepo.updateCompany(c);
 			}
 			battalionRepo.updateBattalion(b);
-		}
-	}
-	
-	private Battalion getValidBattalion() {
-		Battalion b;
-		String line;
-		do {
-			do {
-				view.print("Podaj id batalionu do usuniêcia.(s³owo <<cancel>> zawraca)");
-				line = view.read();
-				canceling(line);
-			} while (!ValidUtil.isLongInstance(line));
-			b = battalionRepo.findById(Long.parseLong(line));
-		} while (!ValidUtil.isValid(b));
-		return b;
-	}
-
-	private void canceling(String line) {
-		if("cancel".equals(line)) {
-			throw new OperationCancelException("canceling deleteBattalion");
 		}
 	}
 	

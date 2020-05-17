@@ -3,7 +3,7 @@ package com.controller.actions.WeaponActions;
 import com.controller.actions.Action;
 import com.model.entities.Weapon;
 import com.model.repos.WeaponRepo;
-import com.utils.ValidUtil;
+import com.utils.RepoUtil;
 import com.utils.enums.WeaponType;
 import com.view.View;
 
@@ -27,22 +27,9 @@ public class CreateWeaponAction implements Action {
 
 		view.print("Dostêpne typy broni");
 		view.print(WeaponType.values());
-		
-		String weaponTypeStr = getWeaponType();
-		
-		w.setWeaponType(WeaponType.valueOf(weaponTypeStr.toUpperCase()));
+		w.setWeaponType(RepoUtil.getValidWeaponType(view));
 		
 		repo.createWeapon(w);
-	}
-
-	private String getWeaponType() {
-		String weaponTypeStr;
-		do {
-			view.print("Podaj typ broni");
-			weaponTypeStr=view.read();
-			
-		}while(!ValidUtil.isValid(weaponTypeStr, WeaponType.values()));
-		return weaponTypeStr;
 	}
 
 	@Override

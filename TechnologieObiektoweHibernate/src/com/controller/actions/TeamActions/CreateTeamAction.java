@@ -3,7 +3,6 @@ package com.controller.actions.TeamActions;
 import com.controller.actions.Action;
 import com.model.entities.Team;
 import com.model.repos.TeamRepo;
-import com.utils.ValidUtil;
 import com.view.View;
 
 import lombok.AllArgsConstructor;
@@ -17,21 +16,9 @@ public class CreateTeamAction implements Action {
 	@Override
 	public void launch() {
 		Team t = new Team();
-				
-		String teamNumber = getTeamNumber();
-
-		t.setNumber(Long.parseLong(teamNumber));
+		t.setNumber(view.getValidNumber("Podaj Id"));
 		
 		repo.createTeam(t);
-	}
-
-	private String getTeamNumber() {
-		String teamNumber;
-		do{
-			view.print("Podaj numer dru¿yny");
-			teamNumber=view.read();
-		}while(!ValidUtil.isLongInstance(teamNumber));
-		return teamNumber;
 	}
 
 	@Override

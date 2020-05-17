@@ -2,12 +2,8 @@ package com.model.repos;
 
 import java.util.List;
 
-import com.model.entities.Battalion;
-import com.model.entities.Company;
 import com.model.entities.Persistable;
-import com.model.entities.Platoon;
 import com.model.entities.Soldier;
-import com.model.entities.Team;
 import com.model.persistanceManager.HibernatePersistanceManager;
 import com.utils.ParseUtil;
 
@@ -38,33 +34,7 @@ public class SoldierRepo {
 	public void updateSoldier(Soldier soldier) {
 		hpm.update(soldier);
 	}
-
-	public List<Team> findTeamsOfSoldier(Soldier soldier){
-		String query = "SELECT T FROM Team T, Soldier S WHERE S.id = " + soldier.getId() + " AND S MEMBER OF T.soldiers";
-		return findTeamsByQuery(query);
-	}
 	
-	public List<Team> findTeamsOfCommander(Soldier soldier){
-		String query = "SELECT T FROM Team T, Soldier S WHERE T.commander.id= " + soldier.getId();
-		return findTeamsByQuery(query);
-	}
-	
-	public List<Platoon> findPlatoonOfCommander(Soldier soldier) {
-		String query = "SELECT P FROM Platoon P, Soldier S WHERE P.commander.id = " + soldier.getId();
-		return findPlatoonsByQuery(query);
-	}
-	
-	public List<Company> findCompanyOfCommander(Soldier soldier){
-		String query = "SELECT C FROM Company C, Soldier S WHERE C.commander.id = " + soldier.getId();
-		return findCompaniesByQuery(query);
-	}
-	
-	public List<Battalion> findBattalionOfCommander(Soldier soldier){
-		String query = "SELECT B FROM Battalion B, Soldier S WHERE B.commander.id = " + soldier.getId();
-		return findBattalionsByQuery(query);
-
-	}
-
 	public List<Soldier> findSoldiersWithoutTeam(){
 		String query = "SELECT S FROM Soldier S WHERE S.team.id=null";
 		return findSoldiersByQuery(query);
@@ -80,28 +50,5 @@ public class SoldierRepo {
 		List<Soldier> soldiers = ParseUtil.parseSoldierList(results);
 		return soldiers;
 	}
-
-	private List<Team> findTeamsByQuery(String query){
-		List<Persistable> results = hpm.findByQuery(query, Team.class);
-		List<Team> teams = ParseUtil.parseTeamList(results);
-		return teams;
-	}
 	
-	private List<Platoon> findPlatoonsByQuery(String query) {
-		List<Persistable> results = hpm.findByQuery(query, Platoon.class);
-		List<Platoon> platoons = ParseUtil.parsePlatoonList(results);
-		return platoons;
-	}
-
-	private List<Company> findCompaniesByQuery(String query) {
-		List<Persistable> results = hpm.findByQuery(query, Company.class);
-		List<Company> companies = ParseUtil.parseCompanyList(results);
-		return companies;
-	}
-	
-	private List<Battalion> findBattalionsByQuery(String query) {
-		List<Persistable> results = hpm.findByQuery(query, Battalion.class);
-		List<Battalion> battalions = ParseUtil.parseBattalionList(results);
-		return battalions;
-	}
 }

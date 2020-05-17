@@ -33,7 +33,7 @@ public class FindCompanyByIdAction implements Action {
 		view.print("");
 
 		view.print("-----Plutony:");
-		ViewHelper.printResults(ViewHelper.platoonsToPersistable(c.getPlattons()), view);
+		ViewHelper.printResults(c.getPlattons(), view);
 		view.print("");
 	}
 

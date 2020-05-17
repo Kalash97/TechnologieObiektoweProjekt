@@ -3,7 +3,6 @@ package com.controller.actions.BattalionActions;
 import com.controller.actions.Action;
 import com.model.entities.Battalion;
 import com.model.repos.BattalionRepo;
-import com.utils.ValidUtil;
 import com.view.View;
 
 import lombok.AllArgsConstructor;
@@ -17,21 +16,9 @@ public class CreateBattalionAction implements Action{
 	@Override
 	public void launch() {
 		Battalion b = new Battalion();
-		
-		 String battalionNumber = readBattalionNumber();
-		
-		b.setNumber(Long.parseLong(battalionNumber));
+		b.setNumber(view.getValidNumber("podaj Id"));
 		
 		repo.createBattalion(b);
-	}
-
-	private String readBattalionNumber() {
-		String battalionNumber;
-		do {
-			view.print("Podaj numer batalionu");
-			battalionNumber=view.read();
-		}while(!ValidUtil.isLongInstance(battalionNumber));
-		return battalionNumber;
 	}
 
 	@Override

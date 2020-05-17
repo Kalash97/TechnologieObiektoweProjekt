@@ -3,6 +3,7 @@ package com.model.repos;
 import java.util.List;
 
 import com.model.entities.Persistable;
+import com.model.entities.Soldier;
 import com.model.entities.Team;
 import com.model.persistanceManager.HibernatePersistanceManager;
 import com.utils.ParseUtil;
@@ -49,5 +50,15 @@ public class TeamRepo {
 		List<Persistable> results = hpm.findByQuery(query, Team.class);
 		List<Team> teams = ParseUtil.parseTeamList(results);
 		return teams;
+	}
+	
+	public List<Team> findTeamsOfSoldier(Soldier soldier){
+		String query = "SELECT T FROM Team T, Soldier S WHERE S.id = " + soldier.getId() + " AND S MEMBER OF T.soldiers";
+		return findTeamsByQuery(query);
+	}
+	
+	public List<Team> findTeamsOfCommander(Soldier soldier){
+		String query = "SELECT T FROM Team T, Soldier S WHERE T.commander.id= " + soldier.getId();
+		return findTeamsByQuery(query);
 	}
 }

@@ -25,7 +25,8 @@ public class FindBattalionByIdAction implements Action {
 		ViewHelper.printResults(Arrays.asList(b), view);
 		view.print("");
 
-		ViewHelper.printResults(ViewHelper.compainiesToPersistable(b.getCompanies()), view);
+		//ViewHelper.printResults(ViewHelper.compainiesToPersistable(b.getCompanies()), view);
+		ViewHelper.printResults(b.getCompanies(), view);
 		view.print("");
 	}
 
