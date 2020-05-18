@@ -1,0 +1,21 @@
+W tym etapie kontynuowaliśmy implementację aplikacji. Stworzyliśmy akcje wyświetlające wszystkie encje danej 
+klasy, refactorowaliśmy część pakietów, dodaliśmy walidację (np. sprawdzanie czy żołnierz ma odpowiedni
+stopień do dowodzenia jednostką), oraz dokonaliśmy wielu innych zmian w kodzie. 
+Ponadto dalej pracowaliśmy nad dokumentacją.
+
+W następnym etapie będziemy kontynuować pisanie dokumentacji.
+
+Statystyki:
+
+Część teorytyczna:
+Liczba plików sprawozdania: 1 plik odt.
+Rozmiar pliku: 222 KB
+Liczba stron sprawozdania: 37
+Liczba słów: 2713
+Liczba znaków: 26028
+Liczba zdjęć: 19
+
+Część praktyczna:
+Liczba plików: 90
+Liczba pakietów: 15
+Liczba linijek kodu: 3791
