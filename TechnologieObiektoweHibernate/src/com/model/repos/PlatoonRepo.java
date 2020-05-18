@@ -55,4 +55,9 @@ public class PlatoonRepo {
 		String query = "SELECT P FROM Platoon P, Soldier S WHERE P.commander.id = " + soldier.getId();
 		return findPlatoonsByQuery(query);
 	}
+	
+	public List<Platoon> findAllPlatoons() {
+		String query = "SELECT P FROM Platoon P";
+		return findPlatoonsByQuery(query);
+	}
 }

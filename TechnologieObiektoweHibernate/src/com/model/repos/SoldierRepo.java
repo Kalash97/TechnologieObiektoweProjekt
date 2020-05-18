@@ -51,4 +51,9 @@ public class SoldierRepo {
 		return soldiers;
 	}
 	
+	public List<Soldier> findAllSoldiers() {
+		String query = "SELECT S FROM Soldier S";
+		return findSoldiersByQuery(query);
+	}
+	
 }

@@ -40,4 +40,9 @@ public class WeaponRepo {
 		List<Weapon> weapons = ParseUtil.parseWeaponList(results);
 		return weapons;
 	}
+	
+	public List<Weapon> findAllWeapons() {
+		String query = "SELECT W FROM Weapon W";
+		return findWeaponsByQuery(query);
+	}
 }

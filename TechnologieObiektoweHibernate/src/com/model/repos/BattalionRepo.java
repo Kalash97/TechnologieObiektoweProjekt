@@ -33,18 +33,12 @@ public class BattalionRepo {
 	
 	public List<Battalion> findBattalionsWithoutCompanies(){
 		String query = "SELECT B FROM Battalion B WHERE size(B.companies)=0";
-		return findbattalionsByQuery(query);
+		return findBattalionsByQuery(query);
 	}
 	
 	public List<Battalion> findBattalionsWithoutCommander(){
 		String query = "SELECT B FROM Battalion B WHERE B.commander.id=null";
-		return findbattalionsByQuery(query);
-	}
-	
-	private List<Battalion> findbattalionsByQuery(String query){
-		List<Persistable> results = hpm.findByQuery(query, Battalion.class);
-		List<Battalion> battalions = ParseUtil.parseBattalionList(results);
-		return battalions;
+		return findBattalionsByQuery(query);
 	}
 	
 	public List<Battalion> findBattalionOfCommander(Soldier soldier){
@@ -53,9 +47,15 @@ public class BattalionRepo {
 
 	}
 	
-	private List<Battalion> findBattalionsByQuery(String query) {
+	public List<Battalion> findAllBattalions() {
+		String query = "SELECT B FROM Battalion B";
+		return findBattalionsByQuery(query);
+	}
+	
+	private List<Battalion> findBattalionsByQuery(String query){
 		List<Persistable> results = hpm.findByQuery(query, Battalion.class);
 		List<Battalion> battalions = ParseUtil.parseBattalionList(results);
 		return battalions;
 	}
+
 }
