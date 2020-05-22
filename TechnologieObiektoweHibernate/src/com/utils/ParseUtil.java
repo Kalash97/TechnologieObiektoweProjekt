@@ -11,6 +11,7 @@ import com.model.entities.Soldier;
 import com.model.entities.Team;
 import com.model.entities.Weapon;
 
+@NoArgsConstrucor
 public class ParseUtil {
 	
 	public static List<Weapon> parseWeaponList(List<Persistable> results) {
