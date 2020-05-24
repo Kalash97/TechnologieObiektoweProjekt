@@ -5,6 +5,7 @@ import java.util.Arrays;
 import com.controller.actions.Action;
 import com.model.entities.Soldier;
 import com.model.repos.SoldierRepo;
+import com.utils.RepoUtil;
 import com.utils.ViewHelper;
 import com.view.View;
 
@@ -18,9 +19,8 @@ public class FindSoldierByIdAction implements Action {
 
 	@Override
 	public void launch() {
-		Soldier s;
+		Soldier s = RepoUtil.getValidSoldier(view, repo);
 
-		s = findValidSoldier();
 		ViewHelper.printResults(Arrays.asList(s), view);
 		
 		try {
@@ -29,18 +29,7 @@ public class FindSoldierByIdAction implements Action {
 			view.print("Brak dru¿yny");
 		}
 		
-	}
-
-	private Soldier findValidSoldier() {
-
-		while (true) {
-			long id = view.getValidNumberCancellable("Podaj ID ¿o³nierza");
-			Soldier s = repo.findById(id);
-			if (s != null) {
-				return s;
-			}
-		}
-	}
+	}	
 
 	@Override
 	public String getName() {

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import com.controller.actions.Action;
 import com.model.entities.Company;
 import com.model.repos.CompanyRepo;
+import com.utils.RepoUtil;
 import com.utils.ViewHelper;
 import com.view.View;
 
@@ -20,7 +21,7 @@ public class FindCompanyByIdAction implements Action {
 	public void launch() {
 		Company c;
 
-		c = getValidCompany();
+		c = RepoUtil.getValidCompany(view, repo);
 
 		ViewHelper.printResults(Arrays.asList(c), view);
 
@@ -35,17 +36,6 @@ public class FindCompanyByIdAction implements Action {
 		view.print("-----Plutony:");
 		ViewHelper.printResults(c.getPlattons(), view);
 		view.print("");
-	}
-
-	private Company getValidCompany() {
-	
-		while (true) {
-			long id = view.getValidNumberCancellable("Podaj ID kompanii");
-			Company c = repo.findById(id);
-			if (c != null) {
-				return c;
-			}
-		}
 	}
 
 	@Override

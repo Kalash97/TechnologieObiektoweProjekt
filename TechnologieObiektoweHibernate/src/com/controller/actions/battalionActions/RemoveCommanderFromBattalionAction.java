@@ -18,8 +18,7 @@ public class RemoveCommanderFromBattalionAction implements Action{
 	public void launch() {
 		Battalion b = RepoUtil.getValidBattalion(view, repo);
 		
-		b.setCommander(null);
-		repo.updateBattalion(b);
+		RepoUtil.removeCommanderFromBattalion(b, repo);
 	}
 	
 	@Override

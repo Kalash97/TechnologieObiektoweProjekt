@@ -18,8 +18,7 @@ public class RemoveCommanderFromCompanyAction implements Action{
 	public void launch() {
 		Company c = RepoUtil.getValidCompany(view, repo);
 		
-		c.setCommander(null);
-		repo.updateCompany(c);
+		RepoUtil.removeComanderFromCompany(c, repo);
 	}
 
 	@Override
