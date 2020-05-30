@@ -8,6 +8,14 @@ import com.view.View;
 public class ViewHelper {
 
 	@SuppressWarnings("rawtypes")
+	public static void printResults(String message, List results, View view) {
+		view.print(message);
+		for(Object o : results) {
+			view.print(o.toString());
+		}
+	}
+	
+	@SuppressWarnings("rawtypes")
 	public static void printResults(List results, View view) {
 		for(Object o : results) {
 			view.print(o.toString());

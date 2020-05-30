@@ -5,6 +5,7 @@ import java.util.Arrays;
 import com.controller.actions.Action;
 import com.model.entities.Company;
 import com.model.repos.CompanyRepo;
+import com.utils.RepoUtil;
 import com.utils.ViewHelper;
 import com.view.View;
 
@@ -18,34 +19,18 @@ public class FindCompanyByIdAction implements Action {
 
 	@Override
 	public void launch() {
-		Company c;
-
-		c = getValidCompany();
-
+		Company c = RepoUtil.getValidCompany(view,repo);
 		ViewHelper.printResults(Arrays.asList(c), view);
 
 		try {
-			view.print("-----Batalion:");
-			ViewHelper.printResults(Arrays.asList(c.getBattalion()), view);
+			ViewHelper.printResults("-----Batalion:",Arrays.asList(c.getBattalion()), view);
 		} catch (NullPointerException e) {
-			view.print("Brak batalionu");
+			view.printWithEndingDelimeter("Brak batalionu");
 		}
-		view.print("");
+		view.printDelimeter();
 
-		view.print("-----Plutony:");
-		ViewHelper.printResults(c.getPlattons(), view);
-		view.print("");
-	}
-
-	private Company getValidCompany() {
-	
-		while (true) {
-			long id = view.getValidNumberCancellable("Podaj ID kompanii");
-			Company c = repo.findById(id);
-			if (c != null) {
-				return c;
-			}
-		}
+		ViewHelper.printResults("-----Plutony:", c.getPlattons(), view);
+		view.printDelimeter();
 	}
 
 	@Override

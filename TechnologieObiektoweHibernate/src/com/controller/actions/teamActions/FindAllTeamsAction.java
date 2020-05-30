@@ -20,7 +20,7 @@ public class FindAllTeamsAction implements Action{
 	public void launch() {
 		List<Team> teams = repo.findAllTeams();
 		ViewHelper.printResults(teams, view);
-		view.print("");
+		view.printDelimeter();
 	}
 
 	@Override

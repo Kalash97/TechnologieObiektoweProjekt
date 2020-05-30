@@ -22,11 +22,10 @@ public class FindTeamByIdAction implements Action {
 		t = findValidTeam();
 
 		ViewHelper.printResults(Arrays.asList(t), view);
-		view.print("");
+		view.printDelimeter();
 		
-		view.print("-----¯o³nierze:");
-		ViewHelper.printResults(t.getSoldiers(), view);	
-		view.print("");
+		ViewHelper.printResults("-----¯o³nierze:",t.getSoldiers(), view);	
+		view.printDelimeter();
 	}
 
 	private Team findValidTeam() {

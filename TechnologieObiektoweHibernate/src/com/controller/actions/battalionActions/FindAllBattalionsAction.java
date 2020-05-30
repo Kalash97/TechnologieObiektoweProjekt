@@ -20,7 +20,6 @@ public class FindAllBattalionsAction implements Action{
 	public void launch() {
 		List<Battalion> battalions = repo.findAllBattalions();
 		ViewHelper.printResults(battalions, view);
-		view.print("");
 	}
 
 	@Override

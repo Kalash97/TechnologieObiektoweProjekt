@@ -20,7 +20,7 @@ public class FindAllPlatoonsAction implements Action{
 	public void launch() {
 		List<Platoon> platoons = repo.findAllPlatoons();
 		ViewHelper.printResults(platoons, view);
-		view.print("");
+		view.printDelimeter();
 	}
 
 	@Override

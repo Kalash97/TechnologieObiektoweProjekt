@@ -24,21 +24,14 @@ public class FindPlatoonByCommanderAction implements Action{
 	@Override
 	public void launch() {
 
-		view.print("Podaj imiê");
-		String name = view.read();
-		
-		view.print("Podaj nazwisko");
-		String lastName = view.read();
+		String name = view.readProperty("Podaj imiê");
+		String lastName = view.readProperty("Podaj nazwisko");
 		
 		List<Soldier> soldiers = soldierRepo.findSoldiersByName(name, lastName);
 		
 		for (Soldier s : soldiers) {
 			List<Platoon> platoons = platoonRepo.findPlatoonOfCommander(s);
-			Set<Platoon> platoonsSet = new HashSet<Platoon>();
-			for(Platoon p : platoons) {
-				platoonsSet.add(p);
-			}
-			ViewHelper.printResults(platoonsSet, view);
+			ViewHelper.printResults(s.getFullName(),platoons, view);
 		}
 	}
 

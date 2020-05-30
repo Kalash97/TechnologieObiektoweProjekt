@@ -5,6 +5,7 @@ import java.util.Arrays;
 import com.controller.actions.Action;
 import com.model.entities.Battalion;
 import com.model.repos.BattalionRepo;
+import com.utils.RepoUtil;
 import com.utils.ViewHelper;
 import com.view.View;
 
@@ -18,26 +19,9 @@ public class FindBattalionByIdAction implements Action {
 
 	@Override
 	public void launch() {
-
-		Battalion b;
-
-		b = getValidBattalion();
+		Battalion b = RepoUtil.getValidBattalion(view,repo);
 		ViewHelper.printResults(Arrays.asList(b), view);
-		view.print("");
-
-		ViewHelper.printResults(b.getCompanies(), view);
-		view.print("");
-	}
-
-	private Battalion getValidBattalion() {
-
-		while (true) {
-			long id = view.getValidNumberCancellable("Podaj ID batalionu");
-			Battalion b = repo.findById(id);
-			if (b != null) {
-				return b;
-			}
-		}
+		ViewHelper.printResults("Companies:", b.getCompanies(), view);
 	}
 
 	@Override

@@ -20,7 +20,7 @@ public class FindAllCompaniesAction implements Action{
 	public void launch() {
 		List<Company> companies = repo.findAllCompanies();
 		ViewHelper.printResults(companies, view);
-		view.print("");
+		view.printDelimeter();
 	}
 
 	@Override

@@ -94,7 +94,7 @@ public class Main {
 		while (true) {
 			consoleView.print("Lista dostêpnych akcji:");
 			showActions();
-			consoleView.print("");
+			consoleView.printDelimeter();
 			consoleView.print("Podaj akcjê");
 			runAction(consoleView.read());
 		}

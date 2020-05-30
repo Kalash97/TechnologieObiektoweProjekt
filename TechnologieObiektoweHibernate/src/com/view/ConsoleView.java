@@ -12,9 +12,25 @@ public class ConsoleView implements View {
 	public void print(String msg) {
 		System.out.println(msg);
 	}
+	
+	public void printDelimeter(){
+		print("");
+	}
+	
+	@Override
+	public void printWithEndingDelimeter(String msg) {
+		print(msg);
+		printDelimeter();
+	}
 
 	public String read() {
 		return scanner.nextLine();
+	}
+	
+	@Override
+	public String readProperty(String message) {
+		print(message);
+		return read();
 	}
 
 	@Override
@@ -31,7 +47,7 @@ public class ConsoleView implements View {
 	@Override
 	public void print(Object[] array) {
 		for (int i = 0; i < array.length; i++) {
-			System.out.println(i + ":" + array[i]);
+			print(i + ":" + array[i]);
 		}
 	}
 
@@ -63,5 +79,4 @@ public class ConsoleView implements View {
 			}
 		}
 	}
-
 }

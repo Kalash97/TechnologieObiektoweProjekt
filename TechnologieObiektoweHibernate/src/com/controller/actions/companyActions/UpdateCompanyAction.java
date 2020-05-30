@@ -19,7 +19,6 @@ public class UpdateCompanyAction implements Action{
 		Company c = RepoUtil.getValidCompany(view, repo);
 		c.setNumber(view.getValidNumber("Podaj Id"));
 		
-		
 		repo.updateCompany(c);
 	}
 

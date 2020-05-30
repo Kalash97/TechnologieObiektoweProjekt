@@ -19,7 +19,6 @@ public class UpdateBattalionAction implements Action{
 		Battalion b = RepoUtil.getValidBattalion(view, repo);	
 		b.setNumber(view.getValidNumber("Podaj Id"));
 		
-		
 		repo.updateBattalion(b);
 	}
 	

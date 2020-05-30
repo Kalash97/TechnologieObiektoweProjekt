@@ -23,21 +23,14 @@ public class FindBattalionByCommanderAction implements Action{
 	
 	@Override
 	public void launch() {
-		view.print("Podaj imiê");
-		String name = view.read();
-		
-		view.print("Podaj nazwisko");
-		String lastName = view.read();
+		String name = view.readProperty("Podaj imiê");	
+		String lastName = view.readProperty("Podaj nazwisko");
 		
 		List<Soldier> soldiers = soldierRepo.findSoldiersByName(name, lastName);
 		
 		for(Soldier s : soldiers) {
 			List<Battalion> battalions = battalionRepo.findBattalionOfCommander(s);
-			Set<Battalion> battalionsSet = new HashSet<Battalion>();
-			for(Battalion b : battalions) {
-				battalionsSet.add(b);
-			}
-			ViewHelper.printResults(battalionsSet, view);
+			ViewHelper.printResults(s.getFullName(), battalions, view);
 		}
 	}
 

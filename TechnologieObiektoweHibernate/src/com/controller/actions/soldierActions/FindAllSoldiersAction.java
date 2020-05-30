@@ -20,7 +20,7 @@ public class FindAllSoldiersAction implements Action{
 	public void launch() {
 		List<Soldier> soldiers = repo.findAllSoldiers();
 		ViewHelper.printResults(soldiers, view);
-		view.print("");
+		view.printDelimeter();
 	}
 
 	@Override

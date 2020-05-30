@@ -20,7 +20,7 @@ public class FindAllWeaponsAction implements Action{
 	public void launch() {
 		List<Weapon> weapons = repo.findAllWeapons();
 		ViewHelper.printResults(weapons, view);
-		view.print("");
+		view.printDelimeter();
 	}
 
 	@Override

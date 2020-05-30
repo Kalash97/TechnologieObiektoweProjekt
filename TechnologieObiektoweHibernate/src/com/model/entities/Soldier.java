@@ -56,4 +56,8 @@ public class Soldier implements Persistable{
 	@Setter
 	@ManyToOne
 	private Team team;
+	
+	public String getFullName(){
+		return getName() + " " + getLastName();
+	}
 }

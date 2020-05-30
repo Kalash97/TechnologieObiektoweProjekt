@@ -23,21 +23,14 @@ public class FindCompanyByCommanderAction implements Action {
 
 	@Override
 	public void launch() {
-		view.print("Podaj imiê");
-		String name = view.read();
-
-		view.print("Podaj nazwisko");
-		String lastName = view.read();
+		String name = view.readProperty("Podaj imiê");
+		String lastName = view.readProperty("Podaj nazwisko");
 		
 		List<Soldier> soldiers = soldierRepo.findSoldiersByName(name, lastName);
 		
 		for (Soldier s : soldiers) {
 			List<Company> companies = companyRepo.findCompanyOfCommander(s);
-			Set<Company> companiesSet = new HashSet<Company>();
-			for (Company c : companies) {
-				companiesSet.add(c);
-			}
-			ViewHelper.printResults(companiesSet, view);
+			ViewHelper.printResults(s.getFullName(),companies, view);
 		}
 	}
 
