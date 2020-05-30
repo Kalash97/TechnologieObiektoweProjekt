@@ -5,6 +5,7 @@ import java.util.Arrays;
 import com.controller.actions.Action;
 import com.model.entities.Weapon;
 import com.model.repos.WeaponRepo;
+import com.utils.RepoUtil;
 import com.utils.ViewHelper;
 import com.view.View;
 
@@ -19,24 +20,13 @@ public class FindWeaponByIdAction implements Action {
 	@Override
 	public void launch() {
 
-		Weapon w;
-		w = findValidWeapon();
+		Weapon w = RepoUtil.getValidWeapon(view, repo);
 
 		ViewHelper.printResults(Arrays.asList(w), view);
 		try {
 			ViewHelper.printResults(Arrays.asList(w.getSoldier()), view);
 		}catch (NullPointerException e) {
 			view.print("Brak ¿o³nierza");
-		}
-	}
-
-	private Weapon findValidWeapon() {
-		while (true) {
-			long id = view.getValidNumberCancellable("Podaj ID broni");
-			Weapon w = repo.findById(id);
-			if(w!=null) {
-				return w;
-			}
 		}
 	}
 

@@ -2,7 +2,6 @@ package com.controller.actions.companyActions;
 
 import com.controller.actions.Action;
 import com.model.entities.Company;
-import com.model.entities.Platoon;
 import com.model.repos.CompanyRepo;
 import com.model.repos.PlatoonRepo;
 import com.utils.RepoUtil;
@@ -21,30 +20,15 @@ public class DeleteCompanyAction implements Action {
 	public void launch() {
 		Company c = RepoUtil.getValidCompany(view, companyRepo);
 	
-		removeComanderFromCompany(c);
-		removePlatoonsFromCompany(c);
+		RepoUtil.removeComanderFromCompany(c, companyRepo);
+		RepoUtil.removePlatoonsFromCompany(c, platoonRepo, companyRepo);
 
 		companyRepo.deleteCompany(c);
 	}
 
-	private void removeComanderFromCompany(Company c) {
-		if(c.getCommander()!=null) {
-			c.setCommander(null);
-			companyRepo.updateCompany(c);
-		}
-	}
 	
-	private void removePlatoonsFromCompany(Company c) {
-		Platoon p;
-		if(c.getPlattons().size()>0) {
-			for(int i=0; i<c.getPlattons().size();i++) {
-				p=c.getPlattons().get(i);
-				p.setCompany(null);
-				platoonRepo.updatePlatoon(p);
-			}
-			companyRepo.updateCompany(c);
-		}
-	}
+	
+	
 	@Override
 	public String getName() {
 		return "DeleteCompany";

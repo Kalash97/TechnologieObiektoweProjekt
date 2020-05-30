@@ -2,7 +2,6 @@ package com.controller.actions.battalionActions;
 
 import com.controller.actions.Action;
 import com.model.entities.Battalion;
-import com.model.entities.Company;
 import com.model.repos.BattalionRepo;
 import com.model.repos.CompanyRepo;
 import com.utils.RepoUtil;
@@ -21,29 +20,15 @@ public class DeleteBattalionAction implements Action {
 	public void launch() {
 		Battalion b = RepoUtil.getValidBattalion(view, battalionRepo);
 
-		removeCommanderFromBattalion(b);
-		removeCompaniesFromBattalion(b);
+		RepoUtil.removeCommanderFromBattalion(b, battalionRepo);
+		RepoUtil.removeCompaniesFromBattalion(b, companyRepo, battalionRepo);
 
 		battalionRepo.deleteBattalion(b);
 	}
 
-	private void removeCommanderFromBattalion(Battalion b) {
-		if(b.getCommander()!=null) {
-			b.setCommander(null);
-			battalionRepo.updateBattalion(b);
-		}
-	}
+
 	
-	private void removeCompaniesFromBattalion(Battalion b) {
-		if(b.getCompanies().size()>0) {
-			for(int i=0; i<b.getCompanies().size();i++) {
-				Company c=b.getCompanies().get(i);
-				c.setBattalion(null);
-				companyRepo.updateCompany(c);
-			}
-			battalionRepo.updateBattalion(b);
-		}
-	}
+	
 	
 	@Override
 	public String getName() {

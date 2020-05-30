@@ -22,6 +22,7 @@ public class FindBattalionByIdAction implements Action {
 		Battalion b = RepoUtil.getValidBattalion(view,repo);
 		ViewHelper.printResults(Arrays.asList(b), view);
 		ViewHelper.printResults("Companies:", b.getCompanies(), view);
+		view.printDelimeter();
 	}
 
 	@Override

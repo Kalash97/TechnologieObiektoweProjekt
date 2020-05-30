@@ -46,7 +46,7 @@ public class RepoUtil {
 	public static BloodType getValidBloodType(View view) {
 		while(true) {
 			try {
-				view.print("Podaj stopieñ");
+				view.print("Podaj grupê krwi");
 				return BloodType.valueOf(view.read());
 			} catch (Exception e) {
 				
@@ -225,5 +225,82 @@ public class RepoUtil {
 			}
 		}
 		return false;
+	}
+	
+	public static void removeCompaniesFromBattalion(Battalion b, CompanyRepo companyRepo, BattalionRepo battalionRepo) {
+		if(b.getCompanies().size()>0) {
+			for(int i=0; i<b.getCompanies().size();i++) {
+				Company c=b.getCompanies().get(i);
+				c.setBattalion(null);
+				companyRepo.updateCompany(c);
+			}
+			battalionRepo.updateBattalion(b);
+		}
+	}
+	
+	public static void removeCommanderFromBattalion(Battalion b, BattalionRepo battalionRepo) {
+		if(b.getCommander()!=null) {
+			b.setCommander(null);
+			battalionRepo.updateBattalion(b);
+		}
+	}
+	
+	public static void removeComanderFromCompany(Company c, CompanyRepo companyRepo) {
+		if(c.getCommander()!=null) {
+			c.setCommander(null);
+			companyRepo.updateCompany(c);
+		}
+	}
+	
+	public static void removePlatoonsFromCompany(Company c, PlatoonRepo platoonRepo, CompanyRepo companyRepo) {
+		Platoon p;
+		if(c.getPlattons().size()>0) {
+			for(int i=0; i<c.getPlattons().size();i++) {
+				p=c.getPlattons().get(i);
+				p.setCompany(null);
+				platoonRepo.updatePlatoon(p);
+			}
+			companyRepo.updateCompany(c);
+		}
+	}
+	
+	public static void removeTeamsFromPlatoon(Platoon p, TeamRepo teamRepo, PlatoonRepo platoonRepo) {
+		Team t;
+		if(p.getTeams().size()>0) {
+			for(int i=0; i<p.getTeams().size();i++) {
+				t=p.getTeams().get(i);
+				t.setPlatoon(null);
+				teamRepo.updateTeam(t);
+			}
+			platoonRepo.updatePlatoon(p);
+		}
+	}
+	
+	public static void removeCommanderFromPlatoon(Platoon p, PlatoonRepo platoonRepo) {
+		if(p.getCommander()!=null) {
+			p.setCommander(null);
+			platoonRepo.updatePlatoon(p);
+		}
+	}
+	
+	public static void removeSoldiersFromTeam(Team t, SoldierRepo soldierRepo, TeamRepo teamRepo) {
+		Soldier s;
+		if(t.getSoldiers().size()>0) {
+			for(int i=0; i<t.getSoldiers().size();i++) {
+				s=t.getSoldiers().get(i);
+				s.setTeam(null);
+				soldierRepo.updateSoldier(s);
+			}
+			teamRepo.updateTeam(t);
+		}
+	}
+
+	public static void removeCommanderFromTeam(Team t, SoldierRepo soldierRepo) {
+		Soldier s;
+		if(t.getCommander()!=null) {
+			s = t.getCommander();
+			t.setCommander(null);
+			soldierRepo.updateSoldier(s);
+		}
 	}
 }

@@ -18,8 +18,7 @@ public class RemoveCommanderFromPlatoonAction implements Action{
 	public void launch() {
 		Platoon p = RepoUtil.getValidPlatoon(view, repo);
 		
-		p.setCommander(null);
-		repo.updatePlatoon(p);
+		RepoUtil.removeCommanderFromPlatoon(p, repo);
 	}
 
 	@Override

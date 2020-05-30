@@ -5,6 +5,7 @@ import java.util.Arrays;
 import com.controller.actions.Action;
 import com.model.entities.Team;
 import com.model.repos.TeamRepo;
+import com.utils.RepoUtil;
 import com.utils.ViewHelper;
 import com.view.View;
 
@@ -18,26 +19,15 @@ public class FindTeamByIdAction implements Action {
 
 	@Override
 	public void launch() {
-		Team t;
-		t = findValidTeam();
+		Team t = RepoUtil.getValidTeam(view, repo);
 
 		ViewHelper.printResults(Arrays.asList(t), view);
 		view.printDelimeter();
 		
-		ViewHelper.printResults("-----¯o³nierze:",t.getSoldiers(), view);	
-		view.printDelimeter();
-	}
-
-	private Team findValidTeam() {
-
-		while (true) {
-			long id = view.getValidNumberCancellable("Podaj ID dru¿yny");
-			Team t = repo.findById(id);
-			if(t!=null) {
-				return t;
-			}
-		}
-	}
+		view.print("-----¯o³nierze:");
+		ViewHelper.printResults(t.getSoldiers(), view);	
+		view.print("");
+	}	
 
 	@Override
 	public String getName() {

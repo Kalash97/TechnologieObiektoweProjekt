@@ -19,7 +19,6 @@ public class FindTeamsWithoutSoldiersAction implements Action{
 	@Override
 	public void launch() {
 		List<Team> teams = teamRepo.findTeamsWithoutSoldiers();
-		//showTeams(teams);
 		ViewHelper.printResults(teams, view);
 	}
 	

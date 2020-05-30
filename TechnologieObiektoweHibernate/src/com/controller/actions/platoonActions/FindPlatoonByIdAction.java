@@ -19,7 +19,7 @@ public class FindPlatoonByIdAction implements Action{
 	
 	@Override
 	public void launch() {
-		Platoon p = RepoUtil.getValidPlatoon(view,repo);
+		Platoon p = RepoUtil.getValidPlatoon(view, repo);
 		
 		ViewHelper.printResults(Arrays.asList(p), view);
 		view.printDelimeter();
