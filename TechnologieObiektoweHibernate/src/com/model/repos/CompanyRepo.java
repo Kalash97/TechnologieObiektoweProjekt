@@ -53,12 +53,12 @@ public class CompanyRepo {
 	}
 	
 	public List<Company> findCompanyOfCommander(Soldier soldier){
-		String query = "SELECT C FROM Company C, Soldier S WHERE C.commander.id = " + soldier.getId();
+		String query = "SELECT C FROM Company C, Soldier S WHERE C.commander.id = " + soldier.getId() + " AND S.id = " + soldier.getId();
 		return findCompanyByQuery(query);
 	}
 	
 	public List<Company> findAllCompanies(){
-		String query = "SELECT C FORM Company C";
+		String query = "SELECT C FROM Company C";
 		return findCompanyByQuery(query);
 	}
 }

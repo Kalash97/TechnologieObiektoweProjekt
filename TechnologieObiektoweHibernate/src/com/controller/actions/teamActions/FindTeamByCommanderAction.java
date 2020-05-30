@@ -1,8 +1,6 @@
 package com.controller.actions.teamActions;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.controller.actions.Action;
 import com.model.entities.Soldier;
@@ -24,21 +22,15 @@ public class FindTeamByCommanderAction implements Action{
 	@Override
 	public void launch() {
 		
-		view.print("Podaj imiê");
-		String name = view.read();
+		String name = view.readProperty("Podaj imiê");
 		
-		view.print("Podaj nazwisko");
-		String lastName = view.read();
+		String lastName = view.readProperty("Podaj nazwisko");
 		
 		List<Soldier> soldiers = soldierRepo.findSoldiersByName(name, lastName);
 		
 		for(Soldier s : soldiers) {
 			List<Team> teams = teamRepo.findTeamsOfCommander(s);
-			Set<Team> teamsSet = new HashSet<Team>();
-			for(Team t : teams) {
-				teamsSet.add(t);
-			}
-			ViewHelper.printResults(teamsSet, view);
+			ViewHelper.printResults(s.getFullName(), teams, view);
 		}
 	}
 

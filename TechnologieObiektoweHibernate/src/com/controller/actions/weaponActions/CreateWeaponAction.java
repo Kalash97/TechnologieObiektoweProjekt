@@ -19,11 +19,9 @@ public class CreateWeaponAction implements Action {
 	public void launch() {
 		Weapon w = new Weapon();
 
-		view.print("Podaj nazwê");
-		w.setName(view.read());
+		w.setName(view.readProperty("Podaj nazwê"));
 
-		view.print("Podaj nr. seryjny");
-		w.setSerialNumber(view.read());
+		w.setSerialNumber(view.readProperty("Podaj ne. seryjny"));
 
 		view.print("Dostêpne typy broni");
 		view.print(WeaponType.values());

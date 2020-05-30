@@ -58,7 +58,7 @@ public class TeamRepo {
 	}
 	
 	public List<Team> findTeamsOfCommander(Soldier soldier){
-		String query = "SELECT T FROM Team T, Soldier S WHERE T.commander.id= " + soldier.getId();
+		String query = "SELECT T FROM Team T, Soldier S WHERE T.commander.id= " + soldier.getId() + " AND S.id = " + soldier.getId();
 		return findTeamsByQuery(query);
 	}
 	

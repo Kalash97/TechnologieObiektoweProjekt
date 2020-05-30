@@ -20,11 +20,9 @@ public class CreateSoldierAction implements Action{
 	public void launch() {
 		Soldier s = new Soldier();
 		
-		view.print("Podaj imiê");
-		s.setName(view.read());
+		s.setName(view.readProperty("Podaj imiê"));
 		
-		view.print("Podaj nazwisko");
-		s.setLastName(view.read());		
+		s.setLastName(view.readProperty("Podaj nazwisko"));		
 		
 		view.print("Dostêpne grupy krwi");
 		view.print(BloodType.values());

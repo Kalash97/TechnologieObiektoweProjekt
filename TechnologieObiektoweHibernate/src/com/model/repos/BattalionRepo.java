@@ -42,7 +42,7 @@ public class BattalionRepo {
 	}
 	
 	public List<Battalion> findBattalionOfCommander(Soldier soldier){
-		String query = "SELECT B FROM Battalion B, Soldier S WHERE B.commander.id = " + soldier.getId();
+		String query = "SELECT B FROM Battalion B, Soldier S WHERE B.commander.id = " + soldier.getId() + " AND S.id = " + soldier.getId();
 		return findBattalionsByQuery(query);
 
 	}
