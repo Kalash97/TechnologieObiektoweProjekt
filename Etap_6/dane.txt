@@ -1,0 +1,42 @@
+Praca wykonana w obecnym etapie:
+
+Kamil Pazera:
+Dokumentacja techniczna
+-akcje Soldier
+-akcje Team
+-akcje Weapon
+
+Nowacki Piotr:
+Dokumentacja techniczna
+-akcje ogólne
+-akcje batalion
+-akcje company
+-akcje pluton
+Refaktoryzacja kodu
+
+Praca zaplanowana na przyszły etap:
+
+Kamil Pazera:
+Dokumentacja techniczna
+Wydzielenie metod do zewnętrznych klas
+Refaktoryzacja kodu
+
+Nowacki Piotr:
+Dokumentacja techniczna
+Uporządkowanie listy akcji
+Parametryzacja i generalizacja repozytoriów
+
+Statystyki:
+
+Część teorytyczna:
+Liczba plików sprawozdania: 1 plik odt.
+Rozmiar pliku: 228 KB
+Liczba stron sprawozdania: 45
+Liczba słów: 4371
+Liczba znaków: 38282
+Liczba zdjęć: 19
+
+Część praktyczna:
+Liczba plików: 90
+Liczba pakietów: 15
+Liczba linijek kodu: 3715
