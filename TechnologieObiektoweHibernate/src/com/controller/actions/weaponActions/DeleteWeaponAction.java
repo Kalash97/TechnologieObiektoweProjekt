@@ -9,7 +9,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class DeleteWeaponAction implements Action {
+public class DeleteWeaponAction extends Action {
 
 	private View view;
 	private WeaponRepo repo;
@@ -19,9 +19,8 @@ public class DeleteWeaponAction implements Action {
 
 		Weapon w = RepoUtil.getValidWeapon(view, repo);
 
-		repo.deleteWeapon(w);
+		repo.delete(w);
 	}
-
 	
 	@Override
 	public String getName() {

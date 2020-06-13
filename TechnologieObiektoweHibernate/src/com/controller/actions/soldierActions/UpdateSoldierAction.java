@@ -11,7 +11,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class UpdateSoldierAction implements Action {
+public class UpdateSoldierAction extends Action {
 
 	private View view;
 	private SoldierRepo repo;
@@ -47,7 +47,7 @@ public class UpdateSoldierAction implements Action {
 			s.setRank(Rank.valueOf(line.toUpperCase()));
 		}
 
-		repo.updateSoldier(s);
+		repo.update(s);
 	}
 
 	private String getRank() {

@@ -13,6 +13,11 @@ public class ConsoleView implements View {
 		System.out.println(msg);
 	}
 	
+	@Override
+	public void printSubMessage(String msg) {
+		print("\t"+msg);
+	}
+	
 	public void printDelimeter(){
 		print("");
 	}
@@ -79,4 +84,5 @@ public class ConsoleView implements View {
 			}
 		}
 	}
+
 }

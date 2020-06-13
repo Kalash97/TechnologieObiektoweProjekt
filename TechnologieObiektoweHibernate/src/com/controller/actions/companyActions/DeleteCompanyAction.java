@@ -10,7 +10,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class DeleteCompanyAction implements Action {
+public class DeleteCompanyAction extends Action {
 
 	private View view;
 	private CompanyRepo companyRepo;
@@ -23,7 +23,7 @@ public class DeleteCompanyAction implements Action {
 		RepoUtil.removeComanderFromCompany(c, companyRepo);
 		RepoUtil.removePlatoonsFromCompany(c, platoonRepo, companyRepo);
 
-		companyRepo.deleteCompany(c);
+		companyRepo.delete(c);
 	}
 
 	

@@ -11,7 +11,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class FindTeamsWithoutPlatoonAction implements Action{
+public class FindTeamsWithoutPlatoonAction extends Action{
 
 	private View view;
 	private TeamRepo teamRepo;

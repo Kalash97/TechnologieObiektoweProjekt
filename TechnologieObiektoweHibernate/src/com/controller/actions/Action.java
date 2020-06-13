@@ -1,8 +1,15 @@
 package com.controller.actions;
 
-public interface Action {
+import lombok.Getter;
+
+public abstract class Action {
 	
-	public void launch();
-	public String getName();
+	private static int actionsCounter = 1;
 	
+	@Getter
+	private int id = actionsCounter++;
+	
+	public abstract void launch();
+	public abstract String getName();
+		
 }

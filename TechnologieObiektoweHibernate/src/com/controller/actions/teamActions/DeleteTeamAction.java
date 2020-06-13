@@ -10,7 +10,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class DeleteTeamAction implements Action {
+public class DeleteTeamAction extends Action {
 
 	private View view;
 	private TeamRepo teamRepo;
@@ -24,10 +24,8 @@ public class DeleteTeamAction implements Action {
 		RepoUtil.removeCommanderFromTeam(t, soldierRepo);
 		RepoUtil.removeSoldiersFromTeam(t, soldierRepo, teamRepo);
 		
-		teamRepo.deleteTeam(t);
+		teamRepo.delete(t);
 	}
-
-	
 
 	@Override
 	public String getName() {

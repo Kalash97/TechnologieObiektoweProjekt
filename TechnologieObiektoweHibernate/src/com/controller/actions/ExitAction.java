@@ -1,6 +1,6 @@
 package com.controller.actions;
 
-public class ExitAction implements Action{
+public class ExitAction extends Action{
 
 	@Override
 	public void launch() {

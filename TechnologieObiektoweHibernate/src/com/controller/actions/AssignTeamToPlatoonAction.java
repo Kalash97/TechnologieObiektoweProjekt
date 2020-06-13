@@ -10,7 +10,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class AssignTeamToPlatoonAction implements Action {
+public class AssignTeamToPlatoonAction extends Action {
 
 	private View view;
 	private PlatoonRepo platoonRepo;
@@ -29,8 +29,8 @@ public class AssignTeamToPlatoonAction implements Action {
 		if (!RepoUtil.platoonContainsTeam(p, t)) {
 			t.setPlatoon(p);
 			p.getTeams().add(t);
-			platoonRepo.updatePlatoon(p);
-			teamRepo.updateTeam(t);
+			platoonRepo.update(p);
+			teamRepo.update(t);
 		}else {
 			view.print("Dru¿yna o podanym numerze ju¿ istnieje w plutonie!");
 		}

@@ -9,7 +9,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class RemoveCommanderFromBattalionAction implements Action{
+public class RemoveCommanderFromBattalionAction extends Action{
 
 	private View view;
 	private BattalionRepo repo;

@@ -10,24 +10,14 @@ import com.utils.ParseUtil;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-public class PlatoonRepo {
-	HibernatePersistanceManager hpm;
-	
-	public Platoon createPlatoon(Platoon platoon) {
-		return (Platoon) hpm.create(platoon);
-	}
-	
-	public void deletePlatoon(Platoon platoon) {
-		hpm.delete(platoon);
+public class PlatoonRepo extends EntityRepo<Platoon>{
+
+	public PlatoonRepo(HibernatePersistanceManager persistence) {
+		super(persistence);
 	}
 	
 	public Platoon findById(long id) {
-		return (Platoon) hpm.findById(id, Platoon.class);
-	}
-	
-	public void updatePlatoon(Platoon p) {
-		hpm.update(p);
+		return (Platoon) persistence.findById(id, Platoon.class);
 	}
 	
 	public List<Platoon> findPlatoonsWithoutTeams(){
@@ -46,7 +36,7 @@ public class PlatoonRepo {
 	}
 	
 	private List<Platoon> findPlatoonsByQuery(String query) {
-		List<Persistable> results = hpm.findByQuery(query, Platoon.class);
+		List<Persistable> results = persistence.findByQuery(query, Platoon.class);
 		List<Platoon> platoons = ParseUtil.parsePlatoonList(results);
 		return platoons;
 	}

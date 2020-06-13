@@ -11,7 +11,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class FindAllTeamsAction implements Action{
+public class FindAllTeamsAction extends Action{
 
 	private TeamRepo repo;
 	private View view;

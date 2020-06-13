@@ -9,30 +9,19 @@ import com.utils.ParseUtil;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-public class SoldierRepo {
+public class SoldierRepo extends EntityRepo<Soldier>{
 
-	private HibernatePersistanceManager hpm;
-
-	public Soldier createSoldier(Soldier soldier) {
-		return (Soldier) hpm.create(soldier);
-	}
-
-	public void deleteSoldier(Soldier soldier) {
-		hpm.delete(soldier);
+	public SoldierRepo(HibernatePersistanceManager persistence) {
+		super(persistence);
 	}
 
 	public Soldier findById(long id) {
-		return (Soldier) hpm.findById(id, Soldier.class);
+		return (Soldier) persistence.findById(id, Soldier.class);
 	}
 
 	public List<Soldier> findSoldiersByName(String name, String lastName){
 		String query = "SELECT S FROM Soldier S WHERE S.name = " + "'" +name + "'" + " AND S.lastName = " + "'" + lastName + "'";
 		return findSoldiersByQuery(query);
-	}
-	
-	public void updateSoldier(Soldier soldier) {
-		hpm.update(soldier);
 	}
 	
 	public List<Soldier> findSoldiersWithoutTeam(){
@@ -46,7 +35,7 @@ public class SoldierRepo {
 	}
 
 	private List<Soldier> findSoldiersByQuery(String query) {
-		List<Persistable> results = hpm.findByQuery(query, Soldier.class);
+		List<Persistable> results = persistence.findByQuery(query, Soldier.class);
 		List<Soldier> soldiers = ParseUtil.parseSoldierList(results);
 		return soldiers;
 	}
@@ -55,5 +44,4 @@ public class SoldierRepo {
 		String query = "SELECT S FROM Soldier S";
 		return findSoldiersByQuery(query);
 	}
-	
 }

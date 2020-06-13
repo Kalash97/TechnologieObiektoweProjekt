@@ -140,7 +140,7 @@ public class RepoUtil {
 		if (battalions.size() > 0) {
 			for (Battalion battalion : battalions) {
 				battalion.setCommander(null);
-				battalionRepo.updateBattalion(battalion);
+				battalionRepo.update(battalion);
 			}
 		}
 	}
@@ -150,7 +150,7 @@ public class RepoUtil {
 		if (companies.size() > 0) {
 			for (Company company : companies) {
 				company.setCommander(null);
-				companyRepo.updateCompany(company);
+				companyRepo.update(company);
 			}
 		}
 	}
@@ -160,7 +160,7 @@ public class RepoUtil {
 		if (platoons.size() > 0) {
 			for (Platoon platoon : platoons) {
 				platoon.setCommander(null);
-				platoonRepo.updatePlatoon(platoon);
+				platoonRepo.update(platoon);
 			}
 		}
 	}
@@ -171,8 +171,8 @@ public class RepoUtil {
 			for (Team team : teams) {
 				team.getSoldiers().remove(s);
 				s.setTeam(null);
-				teamRepo.updateTeam(team);
-				soldierRepo.updateSoldier(s);
+				teamRepo.update(team);
+				soldierRepo.update(s);
 			}
 		}
 	}
@@ -182,7 +182,7 @@ public class RepoUtil {
 		if (teams.size() > 0) {
 			for (Team team : teams) {
 				team.setCommander(null);
-				teamRepo.updateTeam(team);
+				teamRepo.update(team);
 			}
 		}
 	}
@@ -193,10 +193,10 @@ public class RepoUtil {
 			for (int i = 0; i < s.getWeapons().size(); i++) {
 				w = s.getWeapons().get(i);
 				w.setSoldier(null);
-				weaponRepo.updateWeapon(w);
+				weaponRepo.update(w);
 			}
 			s.getWeapons().clear();
-			soldierRepo.updateSoldier(s);
+			soldierRepo.update(s);
 		}
 	}
 	
@@ -232,23 +232,23 @@ public class RepoUtil {
 			for(int i=0; i<b.getCompanies().size();i++) {
 				Company c=b.getCompanies().get(i);
 				c.setBattalion(null);
-				companyRepo.updateCompany(c);
+				companyRepo.update(c);
 			}
-			battalionRepo.updateBattalion(b);
+			battalionRepo.update(b);
 		}
 	}
 	
 	public static void removeCommanderFromBattalion(Battalion b, BattalionRepo battalionRepo) {
 		if(b.getCommander()!=null) {
 			b.setCommander(null);
-			battalionRepo.updateBattalion(b);
+			battalionRepo.update(b);
 		}
 	}
 	
 	public static void removeComanderFromCompany(Company c, CompanyRepo companyRepo) {
 		if(c.getCommander()!=null) {
 			c.setCommander(null);
-			companyRepo.updateCompany(c);
+			companyRepo.update(c);
 		}
 	}
 	
@@ -258,9 +258,9 @@ public class RepoUtil {
 			for(int i=0; i<c.getPlattons().size();i++) {
 				p=c.getPlattons().get(i);
 				p.setCompany(null);
-				platoonRepo.updatePlatoon(p);
+				platoonRepo.update(p);
 			}
-			companyRepo.updateCompany(c);
+			companyRepo.update(c);
 		}
 	}
 	
@@ -270,16 +270,16 @@ public class RepoUtil {
 			for(int i=0; i<p.getTeams().size();i++) {
 				t=p.getTeams().get(i);
 				t.setPlatoon(null);
-				teamRepo.updateTeam(t);
+				teamRepo.update(t);
 			}
-			platoonRepo.updatePlatoon(p);
+			platoonRepo.update(p);
 		}
 	}
 	
 	public static void removeCommanderFromPlatoon(Platoon p, PlatoonRepo platoonRepo) {
 		if(p.getCommander()!=null) {
 			p.setCommander(null);
-			platoonRepo.updatePlatoon(p);
+			platoonRepo.update(p);
 		}
 	}
 	
@@ -289,9 +289,9 @@ public class RepoUtil {
 			for(int i=0; i<t.getSoldiers().size();i++) {
 				s=t.getSoldiers().get(i);
 				s.setTeam(null);
-				soldierRepo.updateSoldier(s);
+				soldierRepo.update(s);
 			}
-			teamRepo.updateTeam(t);
+			teamRepo.update(t);
 		}
 	}
 
@@ -300,7 +300,7 @@ public class RepoUtil {
 		if(t.getCommander()!=null) {
 			s = t.getCommander();
 			t.setCommander(null);
-			soldierRepo.updateSoldier(s);
+			soldierRepo.update(s);
 		}
 	}
 }

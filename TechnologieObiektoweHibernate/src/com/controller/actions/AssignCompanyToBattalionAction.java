@@ -10,7 +10,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class AssignCompanyToBattalionAction implements Action {
+public class AssignCompanyToBattalionAction extends Action {
 
 	private View view;
 	private BattalionRepo battalionRepo;
@@ -28,8 +28,8 @@ public class AssignCompanyToBattalionAction implements Action {
 		if (!RepoUtil.battalionContainsCompany(b, c)) {
 			c.setBattalion(b);
 			b.getCompanies().add(c);
-			battalionRepo.updateBattalion(b);
-			companyRepo.updateCompany(c);
+			battalionRepo.update(b);
+			companyRepo.update(c);
 		}else {
 			view.print("Kompania o podanym numerze ju¿ istnieje w batalionie!");
 		}

@@ -14,7 +14,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class AssignCommanderToTeamAction implements Action {
+public class AssignCommanderToTeamAction extends Action {
 
 	private View view;
 	private TeamRepo teamRepo;
@@ -44,8 +44,8 @@ public class AssignCommanderToTeamAction implements Action {
 			t.getSoldiers().add(s);
 		}
 		t.setCommander(s);
-		teamRepo.updateTeam(t);
-		soldierRepo.updateSoldier(s);
+		teamRepo.update(t);
+		soldierRepo.update(s);
 	}
 
 	@Override

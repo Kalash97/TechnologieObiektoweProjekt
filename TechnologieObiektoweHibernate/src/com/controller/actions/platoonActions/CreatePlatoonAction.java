@@ -8,7 +8,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class CreatePlatoonAction implements Action{
+public class CreatePlatoonAction extends Action{
 
 	private View view;
 	private PlatoonRepo repo;
@@ -18,7 +18,7 @@ public class CreatePlatoonAction implements Action{
 		Platoon p = new Platoon();		
 		p.setNumber(view.getValidNumber("podaj Id"));
 		
-		repo.createPlatoon(p);
+		repo.create(p);
 	}
 
 	@Override

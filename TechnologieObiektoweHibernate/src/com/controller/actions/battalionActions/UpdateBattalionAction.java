@@ -9,7 +9,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class UpdateBattalionAction implements Action{
+public class UpdateBattalionAction extends Action{
 
 	private View view;
 	private BattalionRepo repo;
@@ -19,7 +19,7 @@ public class UpdateBattalionAction implements Action{
 		Battalion b = RepoUtil.getValidBattalion(view, repo);	
 		b.setNumber(view.getValidNumber("Podaj Id"));
 		
-		repo.updateBattalion(b);
+		repo.update(b);
 	}
 	
 	@Override

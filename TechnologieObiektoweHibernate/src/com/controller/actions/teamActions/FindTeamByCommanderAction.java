@@ -13,7 +13,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class FindTeamByCommanderAction implements Action{
+public class FindTeamByCommanderAction extends Action{
 
 	private View view;
 	private SoldierRepo soldierRepo;

@@ -9,7 +9,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class UpdateTeamAction implements Action{
+public class UpdateTeamAction extends Action{
 
 	private View view;
 	private TeamRepo repo;
@@ -19,8 +19,7 @@ public class UpdateTeamAction implements Action{
 		Team t = RepoUtil.getValidTeam(view, repo);		
 		t.setNumber(view.getValidNumber("Podaj Id"));
 		
-		
-		repo.updateTeam(t);
+		repo.update(t);
 	}
 
 	@Override

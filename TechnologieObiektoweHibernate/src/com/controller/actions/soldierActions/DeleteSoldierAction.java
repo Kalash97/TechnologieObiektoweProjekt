@@ -14,7 +14,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class DeleteSoldierAction implements Action {
+public class DeleteSoldierAction extends Action {
 
 	private View view;
 	private SoldierRepo soldierRepo;
@@ -35,7 +35,7 @@ public class DeleteSoldierAction implements Action {
 		RepoUtil.detachCommanderFromCompanies(s, companyRepo);
 		RepoUtil.detachCommanderFromBattalions(s, battalionRepo);
 		
-		soldierRepo.deleteSoldier(s);
+		soldierRepo.delete(s);
 	}
 
 

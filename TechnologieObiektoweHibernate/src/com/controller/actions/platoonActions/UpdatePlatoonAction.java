@@ -9,7 +9,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class UpdatePlatoonAction implements Action{
+public class UpdatePlatoonAction extends Action{
 
 	private View view;
 	private PlatoonRepo repo;
@@ -19,7 +19,7 @@ public class UpdatePlatoonAction implements Action{
 		Platoon p = RepoUtil.getValidPlatoon(view, repo);
 		p.setNumber(view.getValidNumber("Podaj Id"));
 		
-		repo.updatePlatoon(p);
+		repo.update(p);
 	}
 	
 	@Override

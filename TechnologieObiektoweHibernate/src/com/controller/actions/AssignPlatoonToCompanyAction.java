@@ -10,7 +10,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class AssignPlatoonToCompanyAction implements Action {
+public class AssignPlatoonToCompanyAction extends Action {
 
 	private View view;
 	private CompanyRepo companyRepo;
@@ -28,8 +28,8 @@ public class AssignPlatoonToCompanyAction implements Action {
 		if (!RepoUtil.companyContainsPlatoon(c, p)) {
 			p.setCompany(c);
 			c.getPlattons().add(p);
-			companyRepo.updateCompany(c);
-			platoonRepo.updatePlatoon(p);
+			companyRepo.update(c);
+			platoonRepo.update(p);
 		}else {
 			view.print("Pluton o podanym numerze ju¿ istnieje w kompanii!");
 		}

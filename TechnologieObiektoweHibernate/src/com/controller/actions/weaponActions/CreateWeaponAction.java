@@ -10,7 +10,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class CreateWeaponAction implements Action {
+public class CreateWeaponAction extends Action {
 
 	private View view;
 	private WeaponRepo repo;
@@ -27,7 +27,7 @@ public class CreateWeaponAction implements Action {
 		view.print(WeaponType.values());
 		w.setWeaponType(RepoUtil.getValidWeaponType(view));
 		
-		repo.createWeapon(w);
+		repo.create(w);
 	}
 
 	@Override

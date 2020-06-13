@@ -10,7 +10,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class AssignWeaponToSoldierAction implements Action{
+public class AssignWeaponToSoldierAction extends Action{
 
 	private View view;
 	private WeaponRepo weaponRepo;
@@ -24,8 +24,8 @@ public class AssignWeaponToSoldierAction implements Action{
 		
 		w.setSoldier(s);
 		s.getWeapons().add(w);
-		soldierRepo.updateSoldier(s);
-		weaponRepo.updateWeapon(w);
+		soldierRepo.update(s);
+		weaponRepo.update(w);
 	}
 	
 	@Override

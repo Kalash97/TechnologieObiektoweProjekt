@@ -12,7 +12,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class FindTeamByIdAction implements Action {
+public class FindTeamByIdAction extends Action {
 
 	private View view;
 	private TeamRepo repo;

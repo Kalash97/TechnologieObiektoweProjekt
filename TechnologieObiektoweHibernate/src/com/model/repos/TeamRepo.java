@@ -10,27 +10,16 @@ import com.utils.ParseUtil;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-public class TeamRepo {
+public class TeamRepo extends EntityRepo<Team> {
+	
+	public TeamRepo(HibernatePersistanceManager persistence) {
+		super(persistence);
+	}
 
-	HibernatePersistanceManager hpm;
-	
-	public Team createTeam(Team team) {
-		return (Team) hpm.create(team);
-	}
-	
-	public void deleteTeam(Team team) {
-		hpm.delete(team);
-	}
-	
 	public Team findById(long id) {
-		return (Team) hpm.findById(id, Team.class);
+		return (Team) persistence.findById(id, Team.class);
 	}
-	
-	public void updateTeam(Team team) {
-		hpm.update(team);
-	}
-	
+		
 	public List<Team> findTeamsWithoutSoldiers(){
 		String query = "SELECT T FROM Team T WHERE size(T.soldiers)=0";
 		return findTeamsByQuery(query);
@@ -47,7 +36,7 @@ public class TeamRepo {
 	}
 
 	private List<Team> findTeamsByQuery(String query) {
-		List<Persistable> results = hpm.findByQuery(query, Team.class);
+		List<Persistable> results = persistence.findByQuery(query, Team.class);
 		List<Team> teams = ParseUtil.parseTeamList(results);
 		return teams;
 	}

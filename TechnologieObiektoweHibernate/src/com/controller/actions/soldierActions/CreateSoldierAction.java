@@ -11,7 +11,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class CreateSoldierAction implements Action{
+public class CreateSoldierAction extends Action{
 
 	private View view;
 	private SoldierRepo repo;
@@ -33,7 +33,7 @@ public class CreateSoldierAction implements Action{
 		view.print(Rank.values());
 		s.setRank(RepoUtil.getValidRank(view));
 	
-		repo.createSoldier(s);
+		repo.create(s);
 	}
 
 	@Override

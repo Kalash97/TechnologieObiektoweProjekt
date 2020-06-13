@@ -15,6 +15,5 @@ public class ValidUtil {
 	
 	public static boolean isRankLowerOrEqual(Soldier soldier, Rank rank) {
 		return soldier.getRank().compareTo(rank)<=0;
-		
 	}
 }

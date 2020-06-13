@@ -13,21 +13,22 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class FindBattalionByCommanderAction implements Action{
+public class FindBattalionByCommanderAction extends Action {
 
 	private View view;
 	private SoldierRepo soldierRepo;
 	private BattalionRepo battalionRepo;
-	
+
 	@Override
 	public void launch() {
-		String name = view.readProperty("Podaj imiê");	
+		String name = view.readProperty("Podaj imiê");
 		String lastName = view.readProperty("Podaj nazwisko");
-		
+
 		List<Soldier> soldiers = soldierRepo.findSoldiersByName(name, lastName);
-		
-		for(Soldier s : soldiers) {
-			List<Battalion> battalions = battalionRepo.findBattalionOfCommander(s);
+
+		for (Soldier s : soldiers) {
+			List<Battalion> battalions = battalionRepo
+					.findBattalionOfCommander(s);
 			ViewHelper.printResults(s.getFullName(), battalions, view);
 		}
 	}

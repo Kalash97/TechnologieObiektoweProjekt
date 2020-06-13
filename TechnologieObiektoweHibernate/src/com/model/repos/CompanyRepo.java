@@ -10,25 +10,14 @@ import com.utils.ParseUtil;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-public class CompanyRepo {
+public class CompanyRepo extends EntityRepo<Company> {
 
-	HibernatePersistanceManager hpm;
-	
-	public Company createCompany(Company company) {
-		return (Company) hpm.create(company);
+	public CompanyRepo(HibernatePersistanceManager persistence) {
+		super(persistence);
 	}
-	
-	public void deleteCompany(Company company) {
-		hpm.delete(company);
-	}
-	
+
 	public Company findById(long id) {
-		return (Company) hpm.findById(id, Company.class);
-	}
-	
-	public void updateCompany(Company c) {
-		hpm.update(c);
+		return (Company) persistence.findById(id, Company.class);
 	}
 	
 	public List<Company> findCompaniesWithoutPlatoons(){
@@ -47,7 +36,7 @@ public class CompanyRepo {
 	}
 	
 	private List<Company> findCompanyByQuery(String query) {
-		List<Persistable> results = hpm.findByQuery(query, Company.class);
+		List<Persistable> results = persistence.findByQuery(query, Company.class);
 		List<Company> companies = ParseUtil.parseCompanyList(results);
 		return companies;
 	}

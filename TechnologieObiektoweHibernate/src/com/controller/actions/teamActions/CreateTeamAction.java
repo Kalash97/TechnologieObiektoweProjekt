@@ -8,7 +8,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class CreateTeamAction implements Action {
+public class CreateTeamAction extends Action {
 
 	private View view;
 	private TeamRepo repo;
@@ -18,7 +18,7 @@ public class CreateTeamAction implements Action {
 		Team t = new Team();
 		t.setNumber(view.getValidNumber("Podaj Id"));
 		
-		repo.createTeam(t);
+		repo.create(t);
 	}
 
 	@Override

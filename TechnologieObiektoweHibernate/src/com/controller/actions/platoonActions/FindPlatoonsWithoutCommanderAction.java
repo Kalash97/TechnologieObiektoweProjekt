@@ -11,7 +11,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class FindPlatoonsWithoutCommanderAction implements Action{
+public class FindPlatoonsWithoutCommanderAction extends Action{
 
 	private View view;
 	private PlatoonRepo platoonRepo;

@@ -9,7 +9,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class RemoveCommanderFromTeamAction implements Action{
+public class RemoveCommanderFromTeamAction extends Action{
 
 	private View view;
 	private TeamRepo repo;
@@ -19,7 +19,7 @@ public class RemoveCommanderFromTeamAction implements Action{
 		Team t = RepoUtil.getValidTeam(view, repo);
 		
 		t.setCommander(null);
-		repo.updateTeam(t);
+		repo.update(t);
 	}
 
 	@Override

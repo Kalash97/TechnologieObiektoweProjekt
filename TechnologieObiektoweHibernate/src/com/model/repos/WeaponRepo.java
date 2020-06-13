@@ -9,25 +9,14 @@ import com.utils.ParseUtil;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-public class WeaponRepo {
+public class WeaponRepo extends EntityRepo<Weapon> {
 	
-	private HibernatePersistanceManager hpm;
-	
-	public Weapon createWeapon(Weapon weapon) {
-		return (Weapon) hpm.create(weapon);
+	public WeaponRepo(HibernatePersistanceManager persistence) {
+		super(persistence);
 	}
-	
-	public void deleteWeapon(Weapon weapon) {
-		hpm.delete(weapon);
-	}
-	
+
 	public Weapon findById(long id) {
-		return (Weapon) hpm.findById(id, Weapon.class);
-	}
-	
-	public void updateWeapon(Weapon weapon) {
-		hpm.update(weapon);
+		return (Weapon) persistence.findById(id, Weapon.class);
 	}
 	
 	public List<Weapon> findUnassignedWeapons(){
@@ -36,7 +25,7 @@ public class WeaponRepo {
 	}
 
 	private List<Weapon> findWeaponsByQuery(String query) {
-		List<Persistable> results = hpm.findByQuery(query, Weapon.class);
+		List<Persistable> results = persistence.findByQuery(query, Weapon.class);
 		List<Weapon> weapons = ParseUtil.parseWeaponList(results);
 		return weapons;
 	}

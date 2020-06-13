@@ -13,7 +13,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class FindPlatoonByCommanderAction implements Action{
+public class FindPlatoonByCommanderAction extends Action{
 
 	private View view;
 	private SoldierRepo soldierRepo;

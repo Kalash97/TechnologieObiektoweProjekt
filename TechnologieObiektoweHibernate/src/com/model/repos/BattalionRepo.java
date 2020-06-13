@@ -10,25 +10,14 @@ import com.utils.ParseUtil;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-public class BattalionRepo {
+public class BattalionRepo extends EntityRepo<Battalion> {
+	
+	public BattalionRepo(HibernatePersistanceManager persistence) {
+		super(persistence);
+	}
 
-	HibernatePersistanceManager hpm;
-	
-	public Battalion createBattalion(Battalion battalion) {
-		return (Battalion) hpm.create(battalion);
-	}
-	
-	public void deleteBattalion(Battalion battalion) {
-		hpm.delete(battalion);
-	}
-	
 	public Battalion findById(long id) {
-		return (Battalion) hpm.findById(id, Battalion.class);
-	}
-	
-	public void updateBattalion(Battalion battalion) {
-		hpm.update(battalion);
+		return (Battalion) persistence.findById(id, Battalion.class);
 	}
 	
 	public List<Battalion> findBattalionsWithoutCompanies(){
@@ -44,7 +33,6 @@ public class BattalionRepo {
 	public List<Battalion> findBattalionOfCommander(Soldier soldier){
 		String query = "SELECT B FROM Battalion B, Soldier S WHERE B.commander.id = " + soldier.getId() + " AND S.id = " + soldier.getId();
 		return findBattalionsByQuery(query);
-
 	}
 	
 	public List<Battalion> findAllBattalions() {
@@ -53,9 +41,8 @@ public class BattalionRepo {
 	}
 	
 	private List<Battalion> findBattalionsByQuery(String query){
-		List<Persistable> results = hpm.findByQuery(query, Battalion.class);
+		List<Persistable> results = persistence.findByQuery(query, Battalion.class);
 		List<Battalion> battalions = ParseUtil.parseBattalionList(results);
 		return battalions;
 	}
-
 }

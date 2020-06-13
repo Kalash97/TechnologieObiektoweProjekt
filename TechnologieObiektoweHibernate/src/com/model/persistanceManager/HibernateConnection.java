@@ -11,5 +11,4 @@ public class HibernateConnection {
 		EntityManager em = emf.createEntityManager();
 		return em;
 	}
-	
 }

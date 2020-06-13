@@ -11,7 +11,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class AssignSoldierToTeamAction implements Action {
+public class AssignSoldierToTeamAction extends Action {
 
 	private View view;
 	private SoldierRepo soldierRepo;
@@ -24,8 +24,8 @@ public class AssignSoldierToTeamAction implements Action {
 
 		s.setTeam(t);
 		t.getSoldiers().add(s);
-		teamRepo.updateTeam(t);
-		soldierRepo.updateSoldier(s);
+		teamRepo.update(t);
+		soldierRepo.update(s);
 	}
 	
 	@Override

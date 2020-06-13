@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.controller.actions.Action;
+import com.controller.actions.ActionsGroup;
 import com.controller.actions.AssignCommanderToBattalionAction;
 import com.controller.actions.AssignCommanderToCompanyAction;
 import com.controller.actions.AssignCommanderToPlatoonAction;
@@ -85,7 +86,7 @@ public class Main {
 	private static CompanyRepo companyRepo;
 	private static BattalionRepo battalionRepo;
 	private static ConsoleView consoleView;
-	private static List<Action> actionsList;
+	private static List<ActionsGroup> actionsList;
 
 	public static void main(String[] args) {
 
@@ -101,19 +102,36 @@ public class Main {
 	}
 
 	private static void showActions() {
-		for (Action a : actionsList) {
-			consoleView.print(" " + a.getName());
-		}
+		actionsList.stream().forEach(group -> {
+			consoleView.print(group.getGroupName());
+
+			group.getActions().stream().forEach(action -> {
+				consoleView.printSubMessage("[" + action.getId() + "] " + action.getName());
+			});
+
+			consoleView.printDelimeter();
+		});
 	}
 
 	private static void runAction(String name) {
-		for (Action a : actionsList) {
-			if (name.equals(a.getName())) {
-				launchActionOrShowError(a);
-				return;
+		for (ActionsGroup ag : actionsList) {
+			for (Action a : ag.getActions()) {
+				if (isStringMatchingAction(name, a)) {
+					launchActionOrShowError(a);
+					return;
+				}
 			}
 		}
 		consoleView.print("Nie ma takiej akcji: " + name);
+	}
+
+	private static boolean isStringMatchingAction(String name, Action a) {
+		try {
+			Integer id = Integer.valueOf(name);
+			return name.equalsIgnoreCase(a.getName()) || id.equals(a.getId());
+		} catch (NumberFormatException e) {
+			return name.equalsIgnoreCase(a.getName());
+		}
 	}
 
 	private static void launchActionOrShowError(Action a) {
@@ -133,82 +151,85 @@ public class Main {
 		companyRepo = new CompanyRepo(hpm);
 		battalionRepo = new BattalionRepo(hpm);
 		consoleView = new ConsoleView();
-		actionsList = new ArrayList<Action>();
+		actionsList = new ArrayList<ActionsGroup>();
 
-		actionsList.add(new CreateWeaponAction(consoleView, weaponRepo));
-		actionsList.add(new DeleteWeaponAction(consoleView, weaponRepo));
-		actionsList.add(new FindWeaponByIdAction(consoleView, weaponRepo));
-		actionsList.add(new UpdateWeaponAction(consoleView, weaponRepo));
-		actionsList.add(new FindAllWeaponsAction(weaponRepo, consoleView));
+		actionsList.add(ActionsGroup.createGroup("Weapon actions:", 
+				new CreateWeaponAction(consoleView, weaponRepo),
+				new DeleteWeaponAction(consoleView, weaponRepo),
+				new FindWeaponByIdAction(consoleView, weaponRepo),
+				new UpdateWeaponAction(consoleView, weaponRepo),
+				new FindAllWeaponsAction(weaponRepo, consoleView)));
 
-		actionsList.add(new CreateSoldierAction(consoleView, soldierRepo));
-		actionsList.add(new DeleteSoldierAction(consoleView, soldierRepo, weaponRepo, teamRepo, platoonRepo, companyRepo, battalionRepo));
-		actionsList.add(new FindSoldierByIdAction(consoleView, soldierRepo));
-		actionsList.add(new UpdateSoldierAction(consoleView, soldierRepo));
-		actionsList.add(new FindAllSoldiersAction(soldierRepo, consoleView));
+		actionsList.add(ActionsGroup.createGroup("Soldiers actions:",
+				new CreateSoldierAction(consoleView, soldierRepo),
+				new DeleteSoldierAction(consoleView, soldierRepo,weaponRepo, teamRepo, platoonRepo, companyRepo, battalionRepo),
+				new FindSoldierByIdAction(consoleView, soldierRepo),
+				new UpdateSoldierAction(consoleView, soldierRepo),
+				new FindAllSoldiersAction(soldierRepo, consoleView)));
 
-		actionsList.add(new CreateTeamAction(consoleView, teamRepo));
-		actionsList.add(new DeleteTeamAction(consoleView, teamRepo, soldierRepo));
-		actionsList.add(new FindTeamByIdAction(consoleView, teamRepo));
-		actionsList.add(new UpdateTeamAction(consoleView, teamRepo));
-		actionsList.add(new RemoveCommanderFromTeamAction(consoleView, teamRepo));
-		actionsList.add(new FindTeamByCommanderAction(consoleView, soldierRepo, teamRepo));
-		actionsList.add(new FindAllTeamsAction(teamRepo, consoleView));
+		actionsList.add(ActionsGroup.createGroup("Team actions:",
+				new CreateTeamAction(consoleView, teamRepo),
+				new DeleteTeamAction(consoleView, teamRepo, soldierRepo),
+				new FindTeamByIdAction(consoleView, teamRepo),
+				new UpdateTeamAction(consoleView, teamRepo),
+				new RemoveCommanderFromTeamAction(consoleView, teamRepo),
+				new FindTeamByCommanderAction(consoleView, soldierRepo,teamRepo),
+				new FindAllTeamsAction(teamRepo, consoleView)));
 
-		actionsList.add(new CreatePlatoonAction(consoleView, platoonRepo));
-		actionsList.add(new DeletePlatoonAction(consoleView, platoonRepo, teamRepo));
-		actionsList.add(new FindPlatoonByIdAction(consoleView, platoonRepo));
-		actionsList.add(new UpdatePlatoonAction(consoleView, platoonRepo));
-		actionsList.add(new RemoveCommanderFromPlatoonAction(consoleView, platoonRepo));
-		actionsList.add(new FindPlatoonByCommanderAction(consoleView, soldierRepo, platoonRepo));
-		actionsList.add(new FindAllPlatoonsAction(platoonRepo, consoleView));
+		actionsList.add(ActionsGroup.createGroup("Platoon actions:",
+				new CreatePlatoonAction(consoleView, platoonRepo),
+				new DeletePlatoonAction(consoleView, platoonRepo,teamRepo),
+				new FindPlatoonByIdAction(consoleView, platoonRepo),
+				new UpdatePlatoonAction(consoleView, platoonRepo),
+				new RemoveCommanderFromPlatoonAction(consoleView,platoonRepo),
+				new FindPlatoonByCommanderAction(consoleView,soldierRepo, platoonRepo),
+				new FindAllPlatoonsAction(platoonRepo, consoleView)));
 
-		actionsList.add(new CreateCompanyAction(consoleView, companyRepo));
-		actionsList.add(new DeleteCompanyAction(consoleView, companyRepo, platoonRepo));
-		actionsList.add(new FindCompanyByIdAction(consoleView, companyRepo));
-		actionsList.add(new UpdateCompanyAction(consoleView, companyRepo));
-		actionsList.add(new RemoveCommanderFromCompanyAction(consoleView, companyRepo));
-		actionsList.add(new FindCompanyByCommanderAction(consoleView, soldierRepo, companyRepo));
-		actionsList.add(new FindAllCompaniesAction(companyRepo, consoleView));
+		actionsList.add(ActionsGroup.createGroup("Company actions:",
+				new CreateCompanyAction(consoleView, companyRepo),
+				new DeleteCompanyAction(consoleView, companyRepo,platoonRepo),
+				new FindCompanyByIdAction(consoleView, companyRepo),
+				new UpdateCompanyAction(consoleView, companyRepo),
+				new RemoveCommanderFromCompanyAction(consoleView,companyRepo),
+				new FindCompanyByCommanderAction(consoleView,soldierRepo, companyRepo),
+				new FindAllCompaniesAction(companyRepo, consoleView)));
 
-		actionsList.add(new CreateBattalionAction(consoleView, battalionRepo));
-		actionsList.add(new DeleteBattalionAction(consoleView, battalionRepo, companyRepo));
-		actionsList.add(new FindBattalionByIdAction(consoleView, battalionRepo));
-		actionsList.add(new UpdateBattalionAction(consoleView, battalionRepo));
-		actionsList.add(new FindBattalionByCommanderAction(consoleView, soldierRepo, battalionRepo));
-		actionsList.add(new FindAllBattalionsAction(battalionRepo, consoleView));
+		actionsList.add(ActionsGroup.createGroup("Battalion actions:",
+				new CreateBattalionAction(consoleView, battalionRepo),
+				new DeleteBattalionAction(consoleView, battalionRepo,companyRepo),
+				new FindBattalionByIdAction(consoleView, battalionRepo),
+				new UpdateBattalionAction(consoleView, battalionRepo),
+				new FindBattalionByCommanderAction(consoleView,soldierRepo, battalionRepo),
+				new FindAllBattalionsAction(battalionRepo, consoleView)));
+		
+		actionsList.add(ActionsGroup.createGroup("Assigning actions:",
+				new AssignWeaponToSoldierAction(consoleView,weaponRepo, soldierRepo),
+				new AssignSoldierToTeamAction(consoleView, soldierRepo,teamRepo),
+				new AssignCommanderToTeamAction(consoleView, teamRepo,platoonRepo, companyRepo, battalionRepo, soldierRepo),
+				new AssignTeamToPlatoonAction(consoleView, platoonRepo,teamRepo),
+				new AssignCommanderToPlatoonAction(consoleView,soldierRepo, battalionRepo, companyRepo, platoonRepo,teamRepo),
+				new AssignPlatoonToCompanyAction(consoleView,companyRepo, platoonRepo),
+				new AssignCommanderToCompanyAction(consoleView,soldierRepo, battalionRepo, companyRepo, platoonRepo,teamRepo),
+				new AssignCompanyToBattalionAction(consoleView,battalionRepo, companyRepo),
+				new AssignCommanderToBattalionAction(consoleView,soldierRepo, battalionRepo, teamRepo, platoonRepo,companyRepo)));
 
-		actionsList.add(new AssignWeaponToSoldierAction(consoleView, weaponRepo, soldierRepo));
-		actionsList.add(new AssignSoldierToTeamAction(consoleView, soldierRepo, teamRepo));
-		actionsList.add(new AssignCommanderToTeamAction(consoleView, teamRepo, platoonRepo, companyRepo, battalionRepo, soldierRepo));
-		actionsList.add(new AssignTeamToPlatoonAction(consoleView, platoonRepo, teamRepo));
-		actionsList.add(new AssignCommanderToPlatoonAction(consoleView, soldierRepo, battalionRepo, companyRepo, platoonRepo, teamRepo));
-		actionsList.add(new AssignPlatoonToCompanyAction(consoleView, companyRepo, platoonRepo));
-		actionsList.add(new AssignCommanderToCompanyAction(consoleView, soldierRepo, battalionRepo, companyRepo, platoonRepo, teamRepo));
-		actionsList.add(new AssignCompanyToBattalionAction(consoleView, battalionRepo, companyRepo));
-		actionsList.add(new AssignCommanderToBattalionAction(consoleView, soldierRepo, battalionRepo, teamRepo, platoonRepo, companyRepo));
-		
-		actionsList.add(new FindWeaponsWithoutSoldierAction(consoleView, weaponRepo));
-		
-		actionsList.add(new FindSoldiersWithoutTeamAction(consoleView, soldierRepo));
-		actionsList.add(new FindSoldiersWithoutWeaponAction(consoleView, soldierRepo));
-		
-		actionsList.add(new FindTeamsWithoutSoldiersAction(consoleView, teamRepo));
-		actionsList.add(new FindTeamsWithoutPlatoonAction(consoleView, teamRepo));
-		actionsList.add(new FindTeamsWithoutCommanderAction(consoleView, teamRepo));
-		
-		actionsList.add(new FindPlatoonsWithoutTeamsAction(consoleView, platoonRepo));
-		actionsList.add(new FindPlatoonsWithoutCompanyAction(consoleView, platoonRepo));
-		actionsList.add(new FindPlatoonsWithoutCommanderAction(consoleView, platoonRepo));
-		
-		actionsList.add(new FindCompaniesWithoutPlatoonsAction(consoleView, companyRepo));
-		actionsList.add(new FindCompaniesWithoutBattalionAction(consoleView, companyRepo));
-		actionsList.add(new FindCompaniesWithoutCommanderAction(consoleView, companyRepo));
-		
-		actionsList.add(new FindBattalionsWithoutCompaniesAction(consoleView, battalionRepo));
-		actionsList.add(new FindBattalionsWithoutCommanderAction(consoleView, battalionRepo));
-		
-		actionsList.add(new ExitAction());
+		actionsList.add(ActionsGroup.createGroup("Advanced finding actions:",
+				new FindWeaponsWithoutSoldierAction(consoleView,weaponRepo),
+				new FindSoldiersWithoutTeamAction(consoleView,soldierRepo),
+				new FindSoldiersWithoutWeaponAction(consoleView,soldierRepo),
+				new FindTeamsWithoutSoldiersAction(consoleView,teamRepo),
+				new FindTeamsWithoutPlatoonAction(consoleView, teamRepo),
+				new FindTeamsWithoutCommanderAction(consoleView,teamRepo),
+				new FindPlatoonsWithoutTeamsAction(consoleView,platoonRepo),
+				new FindPlatoonsWithoutCompanyAction(consoleView,platoonRepo),
+				new FindPlatoonsWithoutCommanderAction(consoleView,platoonRepo),
+				new FindCompaniesWithoutPlatoonsAction(consoleView,companyRepo),
+				new FindCompaniesWithoutBattalionAction(consoleView,companyRepo),
+				new FindCompaniesWithoutCommanderAction(consoleView,companyRepo),
+				new FindBattalionsWithoutCompaniesAction(consoleView,battalionRepo),
+				new FindBattalionsWithoutCommanderAction(consoleView,battalionRepo)));
+
+		actionsList.add(ActionsGroup.createGroup("System actions:", new ExitAction()));
 	}
 
 }

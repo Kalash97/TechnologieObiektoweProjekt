@@ -10,7 +10,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class DeletePlatoonAction implements Action {
+public class DeletePlatoonAction extends Action {
 
 	private View view;
 	private PlatoonRepo platoonRepo;
@@ -24,7 +24,7 @@ public class DeletePlatoonAction implements Action {
 		RepoUtil.removeCommanderFromPlatoon(p, platoonRepo);
 		RepoUtil.removeTeamsFromPlatoon(p, teamRepo, platoonRepo);
 		
-		platoonRepo.deletePlatoon(p);
+		platoonRepo.delete(p);
 	}
 
 	

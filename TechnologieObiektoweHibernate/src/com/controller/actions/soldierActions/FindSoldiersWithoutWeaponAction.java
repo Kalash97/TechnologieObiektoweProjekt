@@ -11,7 +11,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class FindSoldiersWithoutWeaponAction implements Action{
+public class FindSoldiersWithoutWeaponAction extends Action{
 
 	private View view;
 	private SoldierRepo soldierRepo;

@@ -10,7 +10,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class UpdateWeaponAction implements Action {
+public class UpdateWeaponAction extends Action {
 
 	private View view;
 	private WeaponRepo repo;
@@ -40,7 +40,7 @@ public class UpdateWeaponAction implements Action {
 			w.setWeaponType(WeaponType.valueOf(line.toUpperCase()));
 		}
 
-		repo.updateWeapon(w);
+		repo.update(w);
 	}
 
 	private String getWeaponType() {
@@ -53,12 +53,10 @@ public class UpdateWeaponAction implements Action {
 
 			}
 		}
-
 	}
 
 	@Override
 	public String getName() {
 		return "UpdateWeapon";
 	}
-
 }

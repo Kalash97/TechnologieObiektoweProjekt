@@ -8,7 +8,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class CreateBattalionAction implements Action{
+public class CreateBattalionAction extends Action{
 	
 	private View view;
 	private BattalionRepo repo;
@@ -18,7 +18,7 @@ public class CreateBattalionAction implements Action{
 		Battalion b = new Battalion();
 		b.setNumber(view.getValidNumber("podaj Id"));
 		
-		repo.createBattalion(b);
+		repo.create(b);
 	}
 
 	@Override

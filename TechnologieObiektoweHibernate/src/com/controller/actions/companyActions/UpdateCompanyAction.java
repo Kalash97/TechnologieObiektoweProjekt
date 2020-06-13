@@ -9,7 +9,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class UpdateCompanyAction implements Action{
+public class UpdateCompanyAction extends Action{
 
 	private View view;
 	private CompanyRepo repo;
@@ -19,7 +19,7 @@ public class UpdateCompanyAction implements Action{
 		Company c = RepoUtil.getValidCompany(view, repo);
 		c.setNumber(view.getValidNumber("Podaj Id"));
 		
-		repo.updateCompany(c);
+		repo.update(c);
 	}
 
 	@Override

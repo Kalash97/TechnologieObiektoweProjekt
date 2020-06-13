@@ -14,7 +14,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class AssignCommanderToPlatoonAction implements Action {
+public class AssignCommanderToPlatoonAction extends Action {
 
 	private View view;
 	private SoldierRepo soldierRepo;
@@ -35,7 +35,7 @@ public class AssignCommanderToPlatoonAction implements Action {
 		RepoUtil.detachCommanderFromBattalions(s, battalionRepo);
 
 		p.setCommander(s);
-		platoonRepo.updatePlatoon(p);
+		platoonRepo.update(p);
 	}
 
 	@Override

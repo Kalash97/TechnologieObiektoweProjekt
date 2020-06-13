@@ -6,6 +6,8 @@ public interface View {
 
 	public void print(String msg);
 	
+	public void printSubMessage(String msg);
+	
 	public void printDelimeter();
 	
 	public void printWithEndingDelimeter(String msg);

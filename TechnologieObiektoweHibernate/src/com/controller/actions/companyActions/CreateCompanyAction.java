@@ -8,7 +8,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class CreateCompanyAction implements Action{
+public class CreateCompanyAction extends Action{
 
 	private View view;
 	private CompanyRepo repo;
@@ -18,7 +18,7 @@ public class CreateCompanyAction implements Action{
 		Company c = new Company();
 		c.setNumber(view.getValidNumber("Podaj Id"));
 		
-		repo.createCompany(c);
+		repo.create(c);
 	}
 
 

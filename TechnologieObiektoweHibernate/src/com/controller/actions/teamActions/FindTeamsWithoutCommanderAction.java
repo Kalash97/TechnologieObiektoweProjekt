@@ -10,7 +10,7 @@ import com.view.View;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class FindTeamsWithoutCommanderAction implements Action{
+public class FindTeamsWithoutCommanderAction extends Action{
 
 	private View view;
 	private TeamRepo teamRepo;
