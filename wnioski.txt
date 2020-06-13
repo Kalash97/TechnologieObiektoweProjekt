@@ -1,0 +1,12 @@
+W ramach projektu stworzyliœmy aplikacjê do przegl¹dania i zarz¹dzania baz¹ danych o tematyce militarnej.
+Wykonany program pozwala posiada tekstowy interfejs u¿ytkownika oraz bogat¹ funkcjonalnoœæ zwi¹zan¹ z tematyk¹ projektu.
+Realizacja warstwy persystencji zosta³a wykonana przy wykorzystaniu frameworka Hibernate który pozwala na prze³o¿enie klasy Encji na tabelê a instancje tej klasy na kolejne rekordy.
+Dziêki temu operuj¹c obiektami ró¿nych klas mo¿emy wprowadzaæ zmiany w bazie danych, skupiaj¹c siê bardziej na logice biznesowej.
+
+Aplikacja zosta³a stworzona wykorzystuj¹c wzorzec MVC oraz inne dobre praktyki w projektach informatycznych. 
+Cechuje siê ona wysok¹ generycznoœci¹ i reu¿ywalnoœci¹ komponentów a tak¿e wykorzystaniem zaawansowanych wzorców architektury.
+Logika aplikacji skupiona jest w Akcjach. S¹ to klasy odpowiedzialne za pojedyncz¹ operacjê jak¹ mo¿e wykonaæ u¿ytkownik. 
+Akcje te wyœwietlane s¹ na liœcie do wyboru, a wywo³anie którejœ z nich powoduje uruchomienie logiki zwi¹zanej z t¹ operacj¹.
+Aby zapewniæ Akcjom mo¿liwoœæ dostêpu do danych, maj¹ one referencje potrzebnych repozytoriów. 
+
+Repozytoria stanowi¹ interfejs dostêpu do bazy danych dla pojedynczej encji, dziêki któremu wykonuje siê operacje CRUD.
