@@ -8,8 +8,6 @@ import com.model.entities.Soldier;
 import com.model.persistanceManager.HibernatePersistanceManager;
 import com.utils.ParseUtil;
 
-import lombok.AllArgsConstructor;
-
 public class BattalionRepo extends EntityRepo<Battalion> {
 	
 	public BattalionRepo(HibernatePersistanceManager persistence) {

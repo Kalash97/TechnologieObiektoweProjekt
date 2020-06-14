@@ -93,7 +93,7 @@ public class RepoUtil {
 	public static Soldier getValidSoldier(View view, SoldierRepo soldierRepo) {
 		Soldier s = null;
 		while(s==null) {
-			long id = view.getValidNumberCancellable("Podaj id dowódcy.(s³owo <<cancel>> zawraca)");
+			long id = view.getValidNumberCancellable("Podaj id ¿o³nierza.(s³owo <<cancel>> zawraca)");
 			s = soldierRepo.findById(id);
 		}
 		return s;
@@ -102,7 +102,7 @@ public class RepoUtil {
 	 public static Weapon getValidWeapon(View view, WeaponRepo weaponRepo) {
 			Weapon w = null;
 			while(w==null) {
-				long id = view.getValidNumberCancellable("ID");
+				long id = view.getValidNumberCancellable("ID broni");
 				w = weaponRepo.findById(id);
 			}
 			return w;

@@ -7,8 +7,6 @@ import com.model.entities.Weapon;
 import com.model.persistanceManager.HibernatePersistanceManager;
 import com.utils.ParseUtil;
 
-import lombok.AllArgsConstructor;
-
 public class WeaponRepo extends EntityRepo<Weapon> {
 	
 	public WeaponRepo(HibernatePersistanceManager persistence) {

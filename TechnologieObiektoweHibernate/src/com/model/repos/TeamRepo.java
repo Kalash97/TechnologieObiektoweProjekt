@@ -8,8 +8,6 @@ import com.model.entities.Team;
 import com.model.persistanceManager.HibernatePersistanceManager;
 import com.utils.ParseUtil;
 
-import lombok.AllArgsConstructor;
-
 public class TeamRepo extends EntityRepo<Team> {
 	
 	public TeamRepo(HibernatePersistanceManager persistence) {

@@ -20,6 +20,6 @@ public abstract class EntityRepo <T extends Persistable> {
 	}
 	
 	public final void delete(Persistable entity){
-		persistence.create(entity);
+		persistence.delete(entity);
 	}
 }

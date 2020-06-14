@@ -1,0 +1,29 @@
+Praca wykonana w obecnym etapie:
+
+Kamil Pazera:
+Dokumentacja techniczna
+Reszta zaplanowanych na obeny etap zadań (wydzielenie metod do zewnętrznych klas,
+refaktoryzacja kodu), została wykonana w poprzednim etapie.
+
+Nowacki Piotr:
+Dokumentacja techniczna
+Uporządkowanie listy akcji
+Parametryzacja i generalizacja repozytoriów
+
+Projekt został ukończony
+
+Statystyki:
+
+Część teorytyczna:
+Liczba plików sprawozdania: 1 plik odt, 1 plik PDF.
+Rozmiar pliku ODT: 801 KB
+Rozmiar pliku PDF: 856 KB
+Liczba stron sprawozdania: 52
+Liczba słów: 4701
+Liczba znaków: 40790
+Liczba zdjęć: 35
+
+Część praktyczna:
+Liczba plików: 93
+Liczba pakietów: 15
+Liczba linijek kodu: 3674
